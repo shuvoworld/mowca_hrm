@@ -7,7 +7,7 @@
 
 <div class="login-page">
     <div class="text-center">
-      <img src="layouts/images/bangladesh-govt.png" width="100" /> <h3>মহিলা ও শিশু বিষয়ক মন্ত্রণালয় </h3> <h4>কার্যক্রম সংক্রান্ত তথ্য ব্যাঙ্ক </h4>
+      <img src="layouts/images/bangladesh-govt.png" width="100" /> <h3>মহিলা ও শিশু বিষয়ক মন্ত্রণালয় </h3> <h4>মানব সম্পদ ডাটাবেজ </h4>
      </div>
      <?php echo display_msg($msg); ?>
       <form method="post" action="auth.php" class="clearfix">
