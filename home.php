@@ -13,7 +13,7 @@
  <div class="col-md-12">
     <div class="panel">
       <div class="jumbotron text-center">
-         <h2>মাসিক তথ্য হালনাগাদ করার জন্য আপনাকে স্বাগতম <?php echo $agency['name_BN'] ?></h2>
+         <h2>মাসিক তথ্য হালনাগাদ করার জন্য আপনাকে স্বাগতম <?php if (isset($agency['name_BN'])) echo $agency['name_BN'] ?></h2>
          <p>বাম পাশের মেনু থেকে রিপোর্ট দাখিল করা শুরু করুন।</p>
       </div>
     </div>

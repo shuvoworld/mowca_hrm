@@ -15,6 +15,14 @@
       <li><a href="users.php">ব্যবহারকারী</a> </li>
    </ul>
   </li>
+
+  <li>
+    <a href="employees.php">
+      <i class="glyphicon glyphicon-home"></i>
+      <span>কর্মচারী ডাটাব্যাঙ্ক</span>
+    </a>
+  </li>
+  <li>
   
   <li>
     <a href="project.php">

@@ -15,16 +15,10 @@ class MySqli_DB {
 /*--------------------------------------------------------------*/
 public function db_connect()
 {
-  $this->con = mysqli_connect(DB_HOST,DB_USER,DB_PASS);
+  $this->con = mysqli_connect(DB_HOST,DB_USER,DB_PASS,DB_NAME);
   if(!$this->con)
          {
            die(" Database connection failed:". mysqli_connect_error());
-         } else {
-           $select_db = $this->con->select_db(DB_NAME);
-             if(!$select_db)
-             {
-               die("Failed to Select Database". mysqli_connect_error());
-             }
          }
 }
 /*--------------------------------------------------------------*/

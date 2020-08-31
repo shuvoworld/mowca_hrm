@@ -5,7 +5,7 @@ require_once('../includes/load.php');
 // storing  request (ie, get/post) global array to a variable  
 
 
-$sql = "SELECT * FROM organizations WHERE 1";
+$sql = "SELECT * FROM employees WHERE 1";
 
 if(isset( $_SESSION['user_id'])){
   $user  = find_by_id('users', $_SESSION['user_id']);
@@ -26,7 +26,6 @@ while($row = $result->fetch_array(MYSQLI_ASSOC)){
 
 }
 
-
 $results = ["sEcho" => 1,
 
         	"iTotalRecords" => count($data),
@@ -34,5 +33,7 @@ $results = ["sEcho" => 1,
         	"iTotalDisplayRecords" => count($data),
 
         	"aaData" => $data ];
+
+
 echo json_encode($results);
 ?>
