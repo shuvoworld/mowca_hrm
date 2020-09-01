@@ -56,10 +56,10 @@ if (isset($_POST['add_employee'])) {
         $query .= ")";
         if ($db->query($query)) {
             $session->msg('s', "তথ্য যোগ করা হয়েছে ");
-            redirect('projectreports.php', false);
+            redirect('employees.php', false);
         } else {
             $session->msg('d', ' Sorry failed to added!');
-            redirect('add_project_report.php', false);
+            redirect('add_employee.php', false);
         }
 
     } else {
@@ -221,7 +221,7 @@ echo $errmsg;
               </div>
 
               <div class="col-md-4">
-                  <label for="permanent_division_id">নিজ উপজেলা</label>
+                  <label for="permanent_upazila_id">নিজ উপজেলা</label>
                   <select class="form-control" name="permanent_upazila_id" id="permanent_upazila_id">
                   <option value="">নির্বাচন করুন</option>
                     <?php foreach ($permanent_upazilas as $permanent_upazila): ?>
@@ -235,39 +235,23 @@ echo $errmsg;
             <div class="form-group">
                <div class="row">
                <div class="col-md-4">
-               <label for="permanent_division_id"> রক্তের গ্রুপ </label>
-                  <select class="form-control" name="permanent_upazila_id" id="permanent_upazila_id">
+               <label for="bloodgroup_id"> রক্তের গ্রুপ </label>
+                  <select class="form-control" name="bloodgroup_id" id="bloodgroup_id">
                   <option value="">নির্বাচন করুন</option>
-                    <?php foreach ($permanent_upazilas as $permanent_upazila): ?>
-                      <option value="<?php echo $permanent_upazila['id']; ?>"><?php echo $permanent_upazila['name_BN']; ?></option>
+                    <?php foreach ($bloodgroups as $bloodgroup): ?>
+                      <option value="<?php echo $bloodgroup['id']; ?>"><?php echo $bloodgroup['name']; ?></option>
                   <?php endforeach;?>
                   </select>
             </div>
           </div>
           </div>
-          <div class="form-group">
-               <div class="row">
-               <div class="col-md-4">
-                <label for="beneficiaries">উপকারভোগীর সংখ্যা *</label>
-                <input type="number" class="form-control"  name="beneficiaries">
-            </div>
-          </div>
-          </div>
 
-           <div class="form-group">
-               <div class="row">
-               <div class="col-md-4">
-                <label for="implementing_body">উদ্যোগী সংস্থা/এজেন্সী (যদি থেকে থাকে)</label>
-                <input type="text" class="form-control"  name="implementing_body">
-            </div>
-          </div>
-          </div>
 
           <div class="form-group">
                <div class="row">
                <div class="col-md-12">
-                <label for="note">মন্তব্য</label>
-                <textarea name="note" class="form-control"></textarea>
+                <label for="details">মন্তব্য</label>
+                <textarea name="details" class="form-control"></textarea>
             </div>
           </div>
           </div>
@@ -282,8 +266,8 @@ echo $errmsg;
 
 <?php include_once 'layouts/footer.php';?>
   <script type="text/javascript">
-			CKEDITOR.replace( 'note' );
+			CKEDITOR.replace( 'details');
       $(document).ready(function() {
-          $('#agency_id,#sex_id,#quota_id,#religion_id,#permanent_division_id,#permanent_district_id,#permanent_upazila_id').select2();
+          $('#agency_id,#sex_id,#quota_id,#religion_id,#permanent_division_id,#permanent_district_id,#permanent_upazila_id,#bloodgroup_id').select2();
 });
   </script>
