@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="libs/css/main.css" />
     <link rel="stylesheet" type="text/css" media="print" href="libs/css/print.css" />
     <link href="bootgrid/jquery.bootgrid.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.ckeditor.com/4.8.0/standard/ckeditor.js"></script>
   </head>

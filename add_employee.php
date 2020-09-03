@@ -9,16 +9,22 @@ $agencies = find_all('agencies');
 $sex = find_all('sex');
 $religions = find_all('religions');
 $quotas = find_all('quotas');
+$marital_statuses = find_all('marital_statuses');
 $bloodgroup = find_all('bloodgroups');
 $educational_qualifications = find_all('educational_qualifications');
 $permanent_divisions = find_all('divisions');
 $permanent_districts = find_all('districts');
 $permanent_upazilas = find_all('upazilas');
-$present_divisions = find_all('divisions');
-$present_districts = find_all('districts');
-$present_upazilas = find_all('upazilas');
+$posted_divisions = find_all('divisions');
+$posted_districts = find_all('districts');
+$posted_upazilas = find_all('upazilas');
 $organizations = find_all('organizations');
 $designations = find_all('designations');
+$additional_divisions = find_all('divisions');
+$additional_districts = find_all('districts');
+$additional_upazilas = find_all('upazilas');
+$additional_organizations = find_all('organizations');
+$additional_designations = find_all('designations');
 $error = false;
 $errors = array();
 $errmsg = '';
@@ -93,7 +99,7 @@ echo $errmsg;
         <div class="panel-heading">
           <strong>
             <span class="glyphicon glyphicon-th"></span>
-            <span>প্রকল্প/কর্মসুচি/কার্যক্রম</span>
+            <span>মাঠ পর্যায়ের কর্মচারী'র তথ্য</span>
          </strong>
         </div>
         <div class="panel-body">
@@ -198,6 +204,35 @@ echo $errmsg;
                 </div>
               </div>
               </div>
+              <div class="form-group">
+               <div class="row">
+               <div class="col-md-4">
+               <label for="bloodgroup_id"> রক্তের গ্রুপ </label>
+                  <select class="form-control datepicker" name="bloodgroup_id" id="bloodgroup_id">
+                  <option value="">নির্বাচন করুন</option>
+                    <?php foreach ($bloodgroups as $bloodgroup): ?>
+                      <option value="<?php echo $bloodgroup['id']; ?>"><?php echo $bloodgroup['name']; ?></option>
+                  <?php endforeach;?>
+                  </select>
+            </div>
+            <div class="col-md-4">
+            <label for="dob">জন্ম তারিখ*</label>
+            <input class="form-control" id="dob" name="dob" placeholder="YYYY/MM/DD" type="text"/>
+            </div>
+
+            <div class="col-md-4">
+                  <label for="additional_division_id">বৈবাহিক অবস্থা</label>
+                  <select class="form-control" name="marital_status_id" id="marital_status_id">
+                  <option value="">নির্বাচন করুন</option>
+                    <?php foreach ($marital_statuses as $marital_status): ?>
+                      <option value="<?php echo $marital_status['id']; ?>"><?php echo $marital_status['name']; ?></option>
+                  <?php endforeach;?>
+                  </select>
+              </div>
+          </div>
+          </div>
+          <fieldset class="scheduler-border">
+            <legend class="scheduler-border">স্থায়ী ঠিকানা</legend>
                <div class="form-group">
                <div class="row">
                <div class="col-md-4">
@@ -231,20 +266,141 @@ echo $errmsg;
               </div>
               </div>
               </div>
-
-            <div class="form-group">
+             
+              <div class="form-group">
                <div class="row">
-               <div class="col-md-4">
-               <label for="bloodgroup_id"> রক্তের গ্রুপ </label>
-                  <select class="form-control" name="bloodgroup_id" id="bloodgroup_id">
-                  <option value="">নির্বাচন করুন</option>
-                    <?php foreach ($bloodgroups as $bloodgroup): ?>
-                      <option value="<?php echo $bloodgroup['id']; ?>"><?php echo $bloodgroup['name']; ?></option>
-                  <?php endforeach;?>
-                  </select>
+               <div class="col-md-12">
+                <label for="permanent_address">ঠিকানা</label>
+                <textarea name="permanent_address" class="form-control"></textarea>
             </div>
           </div>
           </div>
+          </fieldset>
+
+
+          <fieldset class="scheduler-border">
+            <legend class="scheduler-border">বর্তমান নিয়মিত পদায়নের তথ্য</legend>
+               <div class="form-group">
+               <div class="row">
+               <div class="col-md-4">
+                  <label for="posted_division_id">পদায়নকৃত বিভাগ</label>
+                  <select class="form-control" name="posted_division_id" id="posted_division_id">
+                  <option value="">নির্বাচন করুন</option>
+                    <?php foreach ($permanent_divisions as $permanent_division): ?>
+                      <option value="<?php echo $permanent_division['id']; ?>"><?php echo $permanent_division['name_BN']; ?></option>
+                  <?php endforeach;?>
+                  </select>
+              </div>
+
+              <div class="col-md-4">
+                  <label for="posted_district_id">পদায়নকৃত জেলা</label>
+                  <select class="form-control" name="posted_district_id" id="posted_district_id">
+                  <option value="">নির্বাচন করুন</option>
+                    <?php foreach ($permanent_districts as $permanent_district): ?>
+                      <option value="<?php echo $permanent_district['id']; ?>"><?php echo $permanent_district['name_BN']; ?></option>
+                  <?php endforeach;?>
+                  </select>
+              </div>
+
+              <div class="col-md-4">
+                  <label for="posted_upazila_id">পদায়নকৃত উপজেলা</label>
+                  <select class="form-control" name="posted_upazila_id" id="posted_upazila_id">
+                  <option value="">নির্বাচন করুন</option>
+                    <?php foreach ($permanent_upazilas as $permanent_upazila): ?>
+                      <option value="<?php echo $permanent_upazila['id']; ?>"><?php echo $permanent_upazila['name_BN']; ?></option>
+                  <?php endforeach;?>
+                  </select>
+              </div>
+              </div>
+              </div>
+             
+              <div class="form-group">
+               <div class="row">
+               <div class="col-md-4">
+               <label for="organization_id"> পদায়নকৃত কার্যালয় </label>
+                  <select class="form-control" name="organization_id" id="organization_id">
+                  <option value="">নির্বাচন করুন</option>
+                    <?php foreach ($organizations as $organization): ?>
+                      <option value="<?php echo $organization['id']; ?>"><?php echo $organization['name']; ?></option>
+                  <?php endforeach;?>
+                  </select>
+            </div>
+
+            <div class="col-md-4">
+               <label for="designation_id"> পদবী </label>
+                  <select class="form-control" name="designation_id" id="designation_id">
+                  <option value="">নির্বাচন করুন</option>
+                    <?php foreach ($designations as $designation): ?>
+                      <option value="<?php echo $designation['id']; ?>"><?php echo $designation['name']; ?></option>
+                  <?php endforeach;?>
+                  </select>
+            </div>
+            </div>
+            </div>
+              
+          </fieldset>
+
+          <fieldset class="scheduler-border">
+            <legend class="scheduler-border">অতিরিক্ত দায়িত্ব/সংযুক্ত পদায়নের তথ্য (যদি থেকে থাকে)</legend>
+               <div class="form-group">
+               <div class="row">
+               <div class="col-md-4">
+                  <label for="additional_division_id">বিভাগ</label>
+                  <select class="form-control" name="additional_division_id" id="additional_division_id">
+                  <option value="">নির্বাচন করুন</option>
+                    <?php foreach ($additional_divisions as $additional_division): ?>
+                      <option value="<?php echo $additional_division['id']; ?>"><?php echo $additional_division['name_BN']; ?></option>
+                  <?php endforeach;?>
+                  </select>
+              </div>
+
+              <div class="col-md-4">
+                  <label for="additional_district_id">জেলা</label>
+                  <select class="form-control" name="additional_district_id" id="additional_district_id">
+                  <option value="">নির্বাচন করুন</option>
+                    <?php foreach ($additional_districts as $additional_district): ?>
+                      <option value="<?php echo $additional_district['id']; ?>"><?php echo $additional_district['name_BN']; ?></option>
+                  <?php endforeach;?>
+                  </select>
+              </div>
+
+              <div class="col-md-4">
+                  <label for="posted_upazila_id">উপজেলা</label>
+                  <select class="form-control" name="additional_upazila_id" id="additional_upazila_id">
+                  <option value="">নির্বাচন করুন</option>
+                    <?php foreach ($additional_upazilas as $additional_upazila): ?>
+                      <option value="<?php echo $additional_upazila['id']; ?>"><?php echo $additional_upazila['name_BN']; ?></option>
+                  <?php endforeach;?>
+                  </select>
+              </div>
+              </div>
+              </div>
+             
+              <div class="form-group">
+               <div class="row">
+               <div class="col-md-4">
+               <label for="organization_id"> সংযুক্ত কার্যালয় </label>
+                  <select class="form-control" name="additional_organization_id" id="additional_organization_id">
+                  <option value="">নির্বাচন করুন</option>
+                    <?php foreach ($additional_organizations as $additional_organization): ?>
+                      <option value="<?php echo $additional_organization['id']; ?>"><?php echo $additional_organization['name']; ?></option>
+                  <?php endforeach;?>
+                  </select>
+            </div>
+
+            <div class="col-md-4">
+               <label for="designation_id">পদবী</label>
+                  <select class="form-control" name="additional_designation_id" id="additional_designation_id">
+                  <option value="">নির্বাচন করুন</option>
+                    <?php foreach ($additional_designations as $additional_designation): ?>
+                      <option value="<?php echo $additional_designation['id']; ?>"><?php echo $additional_designation['name']; ?></option>
+                  <?php endforeach;?>
+                  </select>
+            </div>
+            </div>
+            </div>
+              
+          </fieldset>
 
 
           <div class="form-group">
@@ -268,6 +424,21 @@ echo $errmsg;
   <script type="text/javascript">
 			CKEDITOR.replace( 'details');
       $(document).ready(function() {
-          $('#agency_id,#sex_id,#quota_id,#religion_id,#permanent_division_id,#permanent_district_id,#permanent_upazila_id,#bloodgroup_id').select2();
+          $('#agency_id,#marital_status_id,#organization_id,#designation_id,#additional_division_id,#additional_district_id,#additional_upazila_id,#additional_organization_id,#additional_designation_id, #sex_id,#quota_id,#religion_id,#permanent_division_id,#permanent_district_id,#permanent_upazila_id,#bloodgroup_id,#posted_division_id,#posted_district_id,#posted_upazila_id').select2();
 });
-  </script>
+  </script>         
+
+
+<script>
+    $(document).ready(function(){
+      var date_input=$('input[name="dob"]'); //our date input has the name "date"
+      var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+      var options={
+        format: 'yyyy/mm/dd',
+        container: container,
+        todayHighlight: true,
+        autoclose: true,
+      };
+      date_input.datepicker(options);
+    })
+</script>
