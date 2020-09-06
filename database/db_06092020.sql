@@ -11,7 +11,7 @@
  Target Server Version : 100411
  File Encoding         : 65001
 
- Date: 31/08/2020 16:31:30
+ Date: 06/09/2020 16:23:03
 */
 
 SET NAMES utf8mb4;
@@ -44,10 +44,15 @@ INSERT INTO `agencies` VALUES (4, 'MOWCA', 'মহিলা ও শিশু ব
 -- ----------------------------
 DROP TABLE IF EXISTS `bloodgroups`;
 CREATE TABLE `bloodgroups`  (
-  `id` int(10) NOT NULL,
+  `id` int(10) NOT NULL AUTO_INCREMENT,
   `name` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of bloodgroups
+-- ----------------------------
+INSERT INTO `bloodgroups` VALUES (1, 'O+');
 
 -- ----------------------------
 -- Table structure for department
@@ -73,7 +78,14 @@ CREATE TABLE `designations`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of designations
+-- ----------------------------
+INSERT INTO `designations` VALUES (1, 'উপপরিচালক');
+INSERT INTO `designations` VALUES (2, 'উপজেলা মহিলা বিষয়ক কর্মকর্তা');
+INSERT INTO `designations` VALUES (3, 'জেলা শিশু বিষয়ক কর্মকর্তা');
 
 -- ----------------------------
 -- Table structure for districts
@@ -207,10 +219,16 @@ INSERT INTO `divisions` VALUES (8, 'e8e724fc-3f68-46a0-8aa1-56912d255698', 'Myme
 -- ----------------------------
 DROP TABLE IF EXISTS `educational_qualifications`;
 CREATE TABLE `educational_qualifications`  (
-  `id` int(10) NOT NULL,
+  `id` int(10) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of educational_qualifications
+-- ----------------------------
+INSERT INTO `educational_qualifications` VALUES (1, 'অনার্স');
+INSERT INTO `educational_qualifications` VALUES (2, 'মাস্টার্স');
 
 -- ----------------------------
 -- Table structure for employees
@@ -267,8 +285,27 @@ CREATE TABLE `employees`  (
   `updated_at` datetime(0) NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP(0),
   `updated_by` int(10) NULL DEFAULT NULL,
   `is_active` tinyint(4) NULL DEFAULT NULL,
+  `additional_division_id` int(10) NULL DEFAULT NULL,
+  `additional_division_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
+  `additional_district_id` int(10) NULL DEFAULT NULL,
+  `additional_district_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
+  `additional_upazila_id` int(10) NULL DEFAULT NULL,
+  `additional_upazila_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
+  `additional_organization_id` int(10) NULL DEFAULT NULL,
+  `additional_organization_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL,
+  `additional_designation_id` int(10) NULL DEFAULT NULL,
+  `additional_designation_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
+  `agency_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
+  `agency_id` int(10) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of employees
+-- ----------------------------
+INSERT INTO `employees` VALUES (1, NULL, 'dfd', 'fdfd', 'dfdf', 'dfd', 'dfdf', 'df', 'sdffsd@ssd.com', 1, 'মুক্তিযোদ্ধা', 1, 'পুরুষ', 1, 'ইসলাম', 1, 'O+', '2020-09-06', '2020-09-06', 1, 'ঢাকা', 3, 'গাজীপুর', 2, 'বামনা', 'dfdfdfdfd', 1, 'অনার্স', '2020-09-06', '2020-09-13', '2020-09-06', 1, 'উপপরিচালক', '0000-00-00', 'dfdfdf\r\n', 1, 'উপপরিচালক', 2, 'wew', 2, 'চট্টগ্রাম', 3, 'গাজীপুর', 3, 'বরগুনা সদর', '2020-09-06 12:35:07', 1, '2020-09-06 12:35:07', 1, 1, 1, 'ঢাকা', 2, 'ফরিদপুর', 2, 'বামনা', 2, 'wew', 1, 'উপপরিচালক', 'DWA', 2);
+INSERT INTO `employees` VALUES (2, NULL, '', '', '', '', '', '', '', 0, '', 0, '', 0, '', 0, '', '0000-00-00', '0000-00-00', 0, '', 0, '', 0, '', '', 0, '', '0000-00-00', '0000-00-00', '0000-00-00', 0, '', '0000-00-00', '', 0, '', 0, '', 0, '', 0, '', 0, '', '2020-09-06 12:36:27', 1, '2020-09-06 12:36:27', 1, 1, 0, '', 0, '', 0, '', 0, '', 0, '', '', 0);
+INSERT INTO `employees` VALUES (3, NULL, 'Test employee', 'sdsds', '', '', '', '0175656565', 'admin@admin.com', 0, '', 0, '', 0, '', 0, '', '0000-00-00', '0000-00-00', 0, '', 0, '', 0, '', '', 0, '', '0000-00-00', '0000-00-00', '0000-00-00', 0, '', '0000-00-00', '', 0, '', 2, 'wew', 2, 'চট্টগ্রাম', 1, 'ঢাকা', 2, 'বামনা', '2020-09-06 12:37:19', 1, '2020-09-06 12:37:19', 1, 1, 0, '', 0, '', 0, '', 0, '', 0, '', 'DWA', 2);
 
 -- ----------------------------
 -- Table structure for marital_statuses
@@ -278,7 +315,13 @@ CREATE TABLE `marital_statuses`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of marital_statuses
+-- ----------------------------
+INSERT INTO `marital_statuses` VALUES (1, 'বিবাহিত');
+INSERT INTO `marital_statuses` VALUES (2, 'অবিবাহিত');
 
 -- ----------------------------
 -- Table structure for media
@@ -354,7 +397,7 @@ CREATE TABLE `organization_types`  (
   `name_BN` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
   `is_active` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of organization_types
@@ -363,6 +406,8 @@ INSERT INTO `organization_types` VALUES (1, 'আবাসিক প্রশি�
 INSERT INTO `organization_types` VALUES (2, 'অনাবাসিক প্রশিক্ষণ কেন্দ্র', 'অনাবাসিক প্রশিক্ষণ কেন্দ্র', '1');
 INSERT INTO `organization_types` VALUES (3, 'কর্মজীবী মহিলা হোস্টেল', 'কর্মজীবী মহিলা হোস্টেল', '1');
 INSERT INTO `organization_types` VALUES (4, 'শিশু দিবাযত্ন কেন্দ্র', 'শিশু দিবাযত্ন কেন্দ্র', '1');
+INSERT INTO `organization_types` VALUES (5, 'উপপরিচালকের কার্যালয়', 'উপপরিচালকের কার্যালয়', '1');
+INSERT INTO `organization_types` VALUES (6, 'উপজেলা মহিলা বিষয়ক কর্মকর্তা\'র কার্যালয়', 'উপজেলা মহিলা বিষয়ক কর্মকর্তা\'র কার্যালয়', '1');
 
 -- ----------------------------
 -- Table structure for organizations
@@ -400,12 +445,13 @@ CREATE TABLE `organizations`  (
   `created_at` datetime(0) NULL DEFAULT NULL,
   `is_active` tinyint(1) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Compact;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of organizations
 -- ----------------------------
 INSERT INTO `organizations` VALUES (2, 'wewe', 'wew', 1, 'জাতীয় মহিলা সংস্থা', 1, 'আবাসিক প্রশিক্ষণ কেন্দ্র', 1, 'জাতীয়', '', '', '', '', '', 3, 'রাজশাহী', 1, 'ঢাকা', 0, '', '', '', '', '', '', '', '', '', '2020-08-31 12:55:55', 1);
+INSERT INTO `organizations` VALUES (3, 'উপজেলা মহিলা বিষয়ক কার্যালয়', 'উপজেলা মহিলা বিষয়ক কার্যালয়', 0, '', 0, '', 0, '', '', '', '', '', '', 0, '', 0, '', 0, '', '', '', '', '', '', '', '', '', '2020-09-06 15:14:40', 1);
 
 -- ----------------------------
 -- Table structure for partners
@@ -566,6 +612,22 @@ INSERT INTO `projects` VALUES (21, 'নারী ও শিশু পাচা�
 INSERT INTO `projects` VALUES (22, 'দর্জি বিজ্ঞান ও এমব্রয়ডারি', 'দর্জি বিজ্ঞান ও এমব্রয়ডারি', '3', 'রাজস্ব বাজেটের আওতায় অন্যান্য কার্যক্রম', 0, '', 1, 'জাতীয় মহিলা সংস্থা', 3, 'জাতীয় মহিলা সংস্থা', '', '', '', '', 0, '', 0, '', 0, '', 0, '', 1);
 
 -- ----------------------------
+-- Table structure for quotas
+-- ----------------------------
+DROP TABLE IF EXISTS `quotas`;
+CREATE TABLE `quotas`  (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of quotas
+-- ----------------------------
+INSERT INTO `quotas` VALUES (1, 'মুক্তিযোদ্ধা');
+INSERT INTO `quotas` VALUES (2, 'প্রতিবন্ধী');
+
+-- ----------------------------
 -- Table structure for religions
 -- ----------------------------
 DROP TABLE IF EXISTS `religions`;
@@ -590,7 +652,12 @@ CREATE TABLE `sex`  (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of sex
+-- ----------------------------
+INSERT INTO `sex` VALUES (1, 'পুরুষ');
 
 -- ----------------------------
 -- Table structure for training_reports
@@ -1248,7 +1315,7 @@ CREATE TABLE `users`  (
 -- ----------------------------
 -- Records of users
 -- ----------------------------
-INSERT INTO `users` VALUES (1, 'Ministry Admin', 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', 1, 'w19i5my51.png', NULL, 1, '2020-08-31 08:23:56');
+INSERT INTO `users` VALUES (1, 'Ministry Admin', 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', 1, 'w19i5my51.png', NULL, 1, '2020-09-06 06:05:56');
 INSERT INTO `users` VALUES (2, 'বাংলাদেশ শিশু একডেমী', 'bsa', '942078ca2d04f25545a316c123a392c4d5d339fd', 2, 'no_image.jpg', 1, 1, '2018-02-02 11:53:54');
 INSERT INTO `users` VALUES (3, 'মহিলা ও শিশু বিষয়ক মন্ত্রণালয়', 'mowca', '12dea96fec20593566ab75692c9949596833adc9', 2, 'no_image.jpg', 4, 1, '2018-01-25 16:42:21');
 INSERT INTO `users` VALUES (4, 'জাতীয় মহিলা সংস্থা', 'Jms', '8cb2237d0679ca88db6464eac60da96345513964', 2, 'fn44z3oj4.jpg', 1, 1, '2020-08-31 07:10:18');

@@ -10,7 +10,7 @@ $sex = find_all('sex');
 $religions = find_all('religions');
 $quotas = find_all('quotas');
 $marital_statuses = find_all('marital_statuses');
-$bloodgroup = find_all('bloodgroups');
+$bloodgroups = find_all('bloodgroups');
 $educational_qualifications = find_all('educational_qualifications');
 $permanent_divisions = find_all('divisions');
 $permanent_districts = find_all('districts');
@@ -29,11 +29,7 @@ $error = false;
 $errors = array();
 $errmsg = '';
 if (isset($_POST['add_employee'])) {
-    // if (empty($_POST['project_id']) && empty($_POST['other_name'])) {
-    //     $error = true;
-    //     $errors['project_id'] = "প্রকল্প সিলেক্ট করুন";
-    // }
-
+    
     if ($error == false) {
 
         if (isset($_SESSION['user_id'])) {
@@ -41,25 +37,218 @@ if (isset($_POST['add_employee'])) {
         }
 
         if (isset($user['agency_id'])) {
-            $agency_id = $user['agency_id'];
-        } else {
-            $agency_id = (int) $db->escape($_POST['agency_id']);
-        }
+           $agency_id = $user['agency_id'];
+               } else {
+                 $agency_id = (int) $db->escape($_POST['agency_id']);
+               }
 
         $agency = find_by_id('agencies', $agency_id);
-        $project_id = remove_junk($db->escape($_POST['project_id']));
-        $project = find_by_id('projects', $project_id);
-        $other_name = remove_junk($db->escape($_POST['other_name']));
-        $beneficiaries = (int) $db->escape($_POST['beneficiaries']);
-        $is_training = (int) $db->escape($_POST['is_training']);
-        $implementing_body = remove_junk($db->escape($_POST['implementing_body']));
-        $note = $db->escape($_POST['note']);
+        
+        $name_BN = remove_junk($db->escape($_POST['name_BN']));
+        $name_EN = remove_junk($db->escape($_POST['name_EN']));
+        $father_name = remove_junk($db->escape($_POST['father_name']));
+        $mother_name = remove_junk($db->escape($_POST['mother_name']));
+        $national_id = remove_junk($db->escape($_POST['national_id']));
+        $mobile_no = remove_junk($db->escape($_POST['mobile_no']));
+        $email = remove_junk($db->escape($_POST['email']));
+        $dob = remove_junk($db->escape($_POST['dob']));
+        $prl_date = remove_junk($db->escape($_POST['prl_date']));
+        
+        $quota_id = remove_junk($db->escape($_POST['quota_id']));
+        $quota = find_by_id('quotas', $quota_id);
 
-        $query = "INSERT INTO project_reports (";
-        $query .= " agency_id,agency_name,month_id,month_name,year_id,year_name, project_id, project_name,other_name,is_training,implementing_body, beneficiaries, note, is_active, created_at";
+        $sex_id = remove_junk($db->escape($_POST['sex_id']));
+        $sex = find_by_id('sex', $sex_id);
+
+        $religion_id = remove_junk($db->escape($_POST['religion_id']));
+        $religion = find_by_id('religions', $religion_id);
+
+        $bloodgroup_id = remove_junk($db->escape($_POST['bloodgroup_id']));
+        $bloodgroup = find_by_id('bloodgroups', $bloodgroup_id);
+
+        $permanent_division_id = remove_junk($db->escape($_POST['permanent_division_id']));
+        $permanent_division = find_by_id('divisions', $permanent_division_id);
+        $permanent_district_id = remove_junk($db->escape($_POST['permanent_district_id']));
+        $permanent_district = find_by_id('districts', $permanent_district_id);
+        $permanent_upazila_id = remove_junk($db->escape($_POST['permanent_upazila_id']));
+        $permanent_upazila = find_by_id('upazilas', $permanent_upazila_id);
+        
+        $permanent_address = remove_junk($db->escape($_POST['permanent_address']));
+
+        $posted_division_id = remove_junk($db->escape($_POST['posted_division_id']));
+        $posted_division = find_by_id('divisions', $posted_division_id);
+        $posted_district_id = remove_junk($db->escape($_POST['posted_district_id']));
+        $posted_district = find_by_id('districts', $posted_district_id);
+        $posted_upazila_id = remove_junk($db->escape($_POST['posted_upazila_id']));
+        $posted_upazila = find_by_id('upazilas', $posted_upazila_id);
+
+        $additional_division_id = remove_junk($db->escape($_POST['additional_division_id']));
+        $additional_division = find_by_id('divisions', $additional_division_id);
+        $additional_district_id = remove_junk($db->escape($_POST['additional_district_id']));
+        $additional_district = find_by_id('districts', $additional_district_id);
+        $additional_upazila_id = remove_junk($db->escape($_POST['additional_upazila_id']));
+        $additional_upazila = find_by_id('upazilas', $additional_upazila_id);
+
+        $educational_qualification_id = remove_junk($db->escape($_POST['educational_qualification_id']));
+        $educational_qualification = find_by_id('educational_qualifications', $educational_qualification_id);
+
+        $joining_govt_service_date = remove_junk($db->escape($_POST['joining_govt_service_date']));
+        $present_place_joing_date = remove_junk($db->escape($_POST['present_place_joing_date']));
+        $present_post_joining_date = remove_junk($db->escape($_POST['present_post_joining_date']));
+
+        $last_promoted_post_id = remove_junk($db->escape($_POST['last_promoted_post_id']));
+        $last_promoted_post = find_by_id('designations', $last_promoted_post_id);
+
+        $last_promotion_date = remove_junk($db->escape($_POST['last_promotion_date']));
+        
+        $designation_id = remove_junk($db->escape($_POST['designation_id']));
+        $designation = find_by_id('designations', $designation_id);
+        
+        $additional_designation_id = remove_junk($db->escape($_POST['additional_designation_id']));
+        $additional_designation = find_by_id('designations', $additional_designation_id);
+
+        $organization_id = remove_junk($db->escape($_POST['organization_id']));
+        $organization = find_by_id('organizations', $organization_id);
+
+        $additional_organization_id = remove_junk($db->escape($_POST['additional_organization_id']));
+        $additional_organization = find_by_id('organizations', $additional_organization_id);
+
+        $details = remove_junk($db->escape($_POST['details']));
+
+        $created_at = date('Y-m-d H:i:s');
+        $updated_at = date('Y-m-d H:i:s');
+        $created_by = $user['id'];
+        $updated_by = $user['id'];
+        $is_active = 1;
+        
+        $query = "INSERT INTO employees (";
+        $query .= " name_BN,
+        name_EN,
+        father_name,
+        mother_name,
+        national_id,
+        mobile_no,
+        email,
+        quota_id,
+        quota_name,
+        sex_id,
+        sex_name,
+        religion_id,
+        religion_name,
+        bloodgroup_id,
+        bloodgroup_name,
+        dob,
+        prl_date,
+        permanent_division_id,
+        permanent_division_name,
+        permanent_district_id,
+        permanent_district_name,
+        permanent_upazila_id,
+        permanent_upazila_name,
+        permanent_address,
+        educational_qualification_id,
+        educational_qualification_name,
+        joining_govt_service_date,
+        present_place_joing_date,
+        present_post_joining_date,
+        last_promoted_post_id,
+        last_promoted_post_name,
+        last_promotion_date,
+        details,
+        designation_id,
+        designation_name,
+        organization_id,
+        organization_name,
+        posted_division_id,
+        posted_division_name,
+        posted_district_id,
+        posted_district_name,
+        posted_upazila_id,
+        posted_upazila_name,
+        additional_division_id,
+        additional_division_name,
+        additional_district_id,
+        additional_district_name,
+        additional_upazila_id,
+        additional_upazila_name,
+        additional_organization_id,
+        additional_organization_name,
+        additional_designation_id,
+        additional_designation_name,
+        created_at,
+        created_by,
+        updated_at,
+        updated_by,
+        is_active,
+        agency_id,
+        agency_name";
+        
         $query .= ") VALUES (";
-        $query .= " '{$agency_id}', '{$agency['name_BN']}','{$month_id}','{$month['name_BN']}','{$year_id}', '{$year['name_BN']}','{$project_id}','{$project['name']}','{$other_name}', '{$is_training}','{$implementing_body}', '{$beneficiaries}', '{$note}', 1, now()";
+        $query .= " 
+        '{$name_BN}', 
+        '{$name_EN}', 
+        '{$father_name}',
+        '{$mother_name}',
+        '{$national_id}', 
+        '{$mobile_no}',
+        '{$email}',
+        '{$quota_id}',
+        '{$quota['name']}', 
+        '{$sex_id}',
+        '{$sex['name']}',
+        '{$religion_id}',
+        '{$religion['name']}', 
+        '{$bloodgroup_id}',
+        '{$bloodgroup['name']}',
+        '{$dob}',
+        '{$prl_date}',
+        '{$permanent_division_id}',
+        '{$permanent_division['name_BN']}',
+        '{$permanent_district_id}',
+        '{$permanent_district['name_BN']}',
+        '{$permanent_upazila_id}',
+        '{$permanent_upazila['name_BN']}',
+        '{$permanent_address}',
+        '{$educational_qualification_id}',
+        '{$educational_qualification['name']}',
+        '{$joining_govt_service_date}',
+        '{$present_place_joing_date}',
+        '{$present_post_joining_date}',
+        '{$last_promoted_post_id}',
+        '{$last_promoted_post['name']}',
+        '{$last_promotion_date}',
+        '{$details}',
+        '{$designation_id}',
+        '{$designation['name']}',
+        '{$organization_id}',
+        '{$organization['name_BN']}',
+        '{$posted_division_id}',
+        '{$posted_division['name_BN']}',
+        '{$posted_district_id}',
+        '{$posted_district['name_BN']}',
+        '{$posted_upazila_id}',
+        '{$posted_upazila['name_BN']}',
+        '{$additional_division_id}',
+        '{$additional_division['name_BN']}',
+        '{$additional_district_id}',
+        '{$additional_district['name_BN']}',
+        '{$additional_upazila_id}',
+        '{$additional_upazila['name_BN']}',
+        '{$additional_organization_id}',
+        '{$additional_organization['name_BN']}',
+        '{$additional_designation_id}',
+        '{$additional_designation['name']}',
+        '{$created_at}',
+        '{$created_by}',
+        '{$updated_at}',
+        '{$updated_by}',
+        '{$is_active}',
+        '{$agency_id}',
+        '{$agency['name']}'
+        ";
         $query .= ")";
+        
+        
         if ($db->query($query)) {
             $session->msg('s', "তথ্য যোগ করা হয়েছে ");
             redirect('employees.php', false);
@@ -99,17 +288,17 @@ echo $errmsg;
         <div class="panel-heading">
           <strong>
             <span class="glyphicon glyphicon-th"></span>
-            <span>মাঠ পর্যায়ের কর্মচারী'র তথ্য</span>
+            <span>কর্মচারী'র তথ্য</span>
          </strong>
         </div>
         <div class="panel-body">
          <div class="col-md-12">
-          <form method="POST" action="add_project_report.php" class="clearfix">
+          <form method="POST" action="add_employee.php" class="clearfix">
           <?php if ($user['agency_id'] == null) {?>
             <div class="form-group">
                <div class="row">
                 <div class="col-md-4">
-                <label for="agency_id">প্রতিবেদনাধিন সংস্থা</label>
+                <label for="agency_id">সংস্থা</label>
                 <select class="form-control" name="agency_id" id="agency_id">
                 <option value="">নির্বাচন করুন</option>
                   <?php foreach ($agencies as $agency): ?>
@@ -153,7 +342,8 @@ echo $errmsg;
                 </div>                 
                </div>
 
-
+            <fieldset class="scheduler-border">
+            <legend class="scheduler-border">যোগাযোগের তথ্য</legend>
                <div class="form-group">
               <div class="row">
                   <div class="col-md-4">
@@ -168,16 +358,32 @@ echo $errmsg;
                 </div>                 
                </div>
 
-
-
+            </fieldset>
+           
+           
+            <fieldset class="scheduler-border">
+            <legend class="scheduler-border">ব্যক্তিগত তথ্য</legend>
 
             <div class="form-group">
+
+            <div class="row">
+                  <div class="col-md-4">
+                  <label for="father_name">পিতার নাম</label>
+                    <input type="text" class="form-control" name="father_name">
+                  </div>
+
+                  <div class="col-md-4">
+                  <label for="mother_name">মাতার নাম</label>
+                    <input type="text" class="form-control" name="mother_name">
+                  </div>
+            </div>
+
                <div class="row">
                   <div class="col-md-4">
                 <label for="month_id">লিংগ *</label>
                 <select class="form-control" name="sex_id" id="sex_id">
                 <option value="">নির্বাচন করুন</option>
-                  <?php foreach ($sex_d as $sex): ?>
+                  <?php foreach ($sex as $sex_d): ?>
                    <option value="<?php echo $sex_d['id']; ?>"><?php echo $sex_d['name']; ?></option>
                 <?php endforeach;?>
                 </select>
@@ -231,6 +437,27 @@ echo $errmsg;
               </div>
           </div>
           </div>
+
+          <div class="form-group">
+               <div class="row">
+                  <div class="col-md-4">
+                <label for="month_id">সর্বশেষ শিক্ষাগত যোগ্যতা</label>
+                <select class="form-control" name="educational_qualification_id" id="educational_qualification_id">
+                <option value="">নির্বাচন করুন</option>
+                  <?php foreach ($educational_qualifications as $educational_qualification): ?>
+                   <option value="<?php echo $educational_qualification['id']; ?>"><?php echo $educational_qualification['name']; ?></option>
+                <?php endforeach;?>
+                </select>
+                </div>
+
+            <div class="col-md-4">
+            <label for="prl_date">পিআরএল এ গমনের তারিখ</label>
+            <input class="form-control" id="prl_date" name="prl_date" placeholder="YYYY/MM/DD" type="text"/>
+            </div>
+          </div>
+          </div>
+
+          </fieldset>
           <fieldset class="scheduler-border">
             <legend class="scheduler-border">স্থায়ী ঠিকানা</legend>
                <div class="form-group">
@@ -277,6 +504,49 @@ echo $errmsg;
           </div>
           </fieldset>
 
+          <fieldset class="scheduler-border">
+            <legend class="scheduler-border">চাকুরী সংক্রান্ত তথ্য</legend>
+            <div class="form-group">
+            <div class="row">
+            
+                <div class="col-md-4">
+                <label for="prl_date">সরকারি চাকুরীতে প্রথম যোগদানের তারিখ</label>
+                <input class="form-control" id="joining_govt_service_date" name="joining_govt_service_date" placeholder="YYYY/MM/DD" type="text"/>
+                </div>
+
+                <div class="col-md-4">
+                <label for="prl_date">বর্তমান কর্মস্থলে যোগদানের তারিখ</label>
+                <input class="form-control" id="present_place_joing_date" name="present_place_joing_date" placeholder="YYYY/MM/DD" type="text"/>
+                </div>
+
+                <div class="col-md-4">
+                <label for="prl_date">বর্তমান পদে যোগদানের তারিখ</label>
+                <input class="form-control" id="present_post_joining_date" name="present_post_joining_date" placeholder="YYYY/MM/DD" type="text"/>
+                </div>
+
+
+                <div class="col-md-4">
+                <label for="prl_date">সর্বশেষ পদোন্নতির তারিখ</label>
+                <input class="form-control" id="last_promotion_date" name="last_promotion_date" placeholder="YYYY/MM/DD" type="text"/>
+                </div>
+            
+            </div>
+            </div>
+
+            <div class="form-group">
+            <div class="row">
+            <div class="col-md-4">
+            <label for="posted_division_id">সর্বশেষ পদোন্নতি প্রাপ্ত পদ</label>
+                  <select class="form-control" name="last_promoted_post_id" id="last_promoted_post_id">
+                  <option value="">নির্বাচন করুন</option>
+                    <?php foreach ($designations as $designation): ?>
+                      <option value="<?php echo $designation['id']; ?>"><?php echo $designation['name']; ?></option>
+                  <?php endforeach;?>
+                  </select>
+                  </div>
+            </div>
+            </div>
+          </fieldset>
 
           <fieldset class="scheduler-border">
             <legend class="scheduler-border">বর্তমান নিয়মিত পদায়নের তথ্য</legend>
@@ -412,7 +682,7 @@ echo $errmsg;
           </div>
           </div>
 
-              <button type="submit" name="add_project_report" class="btn btn-success">সাবমিট করুন</button>
+              <button type="submit" name="add_employee" class="btn btn-success">সাবমিট করুন</button>
           </form>
          </div>
         </div>
@@ -424,17 +694,17 @@ echo $errmsg;
   <script type="text/javascript">
 			CKEDITOR.replace( 'details');
       $(document).ready(function() {
-          $('#agency_id,#marital_status_id,#organization_id,#designation_id,#additional_division_id,#additional_district_id,#additional_upazila_id,#additional_organization_id,#additional_designation_id, #sex_id,#quota_id,#religion_id,#permanent_division_id,#permanent_district_id,#permanent_upazila_id,#bloodgroup_id,#posted_division_id,#posted_district_id,#posted_upazila_id').select2();
+          $('#last_promoted_post_id,#educational_qualification_id,#agency_id,#marital_status_id,#organization_id,#designation_id,#additional_division_id,#additional_district_id,#additional_upazila_id,#additional_organization_id,#additional_designation_id, #sex_id,#quota_id,#religion_id,#permanent_division_id,#permanent_district_id,#permanent_upazila_id,#bloodgroup_id,#posted_division_id,#posted_district_id,#posted_upazila_id').select2();
 });
   </script>         
 
 
 <script>
     $(document).ready(function(){
-      var date_input=$('input[name="dob"]'); //our date input has the name "date"
+      var date_input=$('input[name="dob"],input[name="prl_date"],input[name="last_promotion_date"],input[name="present_post_joining_date"],input[name="present_place_joing_date"],input[name="joining_govt_service_date"]'); //our date input has the name "date"
       var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
       var options={
-        format: 'yyyy/mm/dd',
+        format: 'yyyy-mm-dd',
         container: container,
         todayHighlight: true,
         autoclose: true,

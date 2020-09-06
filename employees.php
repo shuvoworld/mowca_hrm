@@ -17,7 +17,7 @@
          </div>
         </div>
         <div class="panel-body">
-          <table class="table table-bordered" id="projectreport">
+          <table class="table table-bordered" id="employee">
             <thead>
               <tr>
                 <th class="text-center">#</th>
@@ -40,7 +40,7 @@
   <?php include_once('layouts/footer.php'); ?>
   <script type="text/javascript">
     $(document).ready(function() {
-      $('#projectreport').dataTable({
+      $('#employee').dataTable({
         "bProcessing": true,
         "sAjaxSource": "ajax/employees.php",
         "deferRender": true,
@@ -58,13 +58,13 @@
           "aoColumns": [
               { mData: 'id' } ,
               { mData: 'agency_name' } ,
-              { mData: 'name' } ,
+              { mData: 'name_BN' } ,
               { mData: 'designation_name' } ,
               { mData: 'mobile_no' } ,
               { mData: 'email' },
               { mData: 'organization_name' },
-              { mData: 'district_name' },
-              { mData: 'upazila_name' }
+              { mData: 'posted_district_name' },
+              { mData: 'posted_upazila_name' }
             ]
           });  
     });
