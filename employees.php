@@ -27,8 +27,6 @@
                 <th class="text-center">মোবাইল</th>
                 <th class="text-center">ইমেইল</th>
                 <th class="text-center">পদায়নকৃত কার্যালয়</th>
-                <th class="text-center">জেলা</th>
-                <th class="text-center">উপজেলা</th>
                 <th class="text-center">পরিবর্তন</th>
               </tr>
             </thead>
@@ -47,9 +45,9 @@
 
     "columnDefs": [ 
         {
-            "targets": 9,
+            "targets": 7,
             "render": function ( data, type, row, meta ) {
-                return '<a href="edit_projectreport.php?id='+ row.id + '"><span class="glyphicon glyphicon-pencil"></span></a> | <a style="color:red" href="delete_projectreport.php?id='+ row.id + '"><span class="glyphicon glyphicon-remove"></span></a>';
+                return '<a href="edit_employee.php?id='+ row.id + '"><span class="glyphicon glyphicon-pencil"></span></a> | <a style="color:red" href="delete_projectreport.php?id='+ row.id + '"><span class="glyphicon glyphicon-remove"></span></a>';
             }
         },
         { targets: 1, searchable: true },
@@ -62,9 +60,7 @@
               { mData: 'designation_name' } ,
               { mData: 'mobile_no' } ,
               { mData: 'email' },
-              { mData: 'organization_name' },
-              { mData: 'posted_district_name' },
-              { mData: 'posted_upazila_name' }
+              { mData: 'organization_name' }
             ]
           });  
     });

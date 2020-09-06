@@ -6,8 +6,8 @@
    include_once('layouts/header.php');
 ?>
 <?php
-  $all_projects = mysqli_num_rows($db->query("select * FROM projects where type_id = 2"));
-  $all_programs = mysqli_num_rows($db->query("select * FROM projects where type_id = 1"));
+  $all_employees = mysqli_num_rows($db->query("select * FROM employees where is_active = 1"));
+  $all_organizations = mysqli_num_rows($db->query("select * FROM organizations"));
 ?>
 <div class="row">
    <div class="col-md-6">
@@ -18,20 +18,20 @@
   <div class="col-md-3">
        <div class="panel panel-box clearfix">
          <div class="panel-icon pull-left bg-green">
-        <span style="font-size: 36px;"> <?php echo convertEnglishDigitToBengali($all_projects); ?> টি</span>
+        <span style="font-size: 36px;"> <?php echo convertEnglishDigitToBengali($all_organizations); ?> টি &nbsp;<br/></span>
         </div>
         <div class="panel-value pull-right">
-          <h2 class="margin-top"> উন্নয়ন প্রকল্প </h2>
+          <h2 class="margin-top"> প্রতিষ্ঠান </h2>
         </div>
        </div>
     </div>
     <div class="col-md-3">
        <div class="panel panel-box clearfix">
          <div class="panel-icon pull-left bg-red">
-        <span style="font-size: 36px;"> <?php echo convertEnglishDigitToBengali($all_programs); ?> টি</span>
+        <span style="font-size: 35px;"> <?php echo convertEnglishDigitToBengali($all_employees); ?> জন</span>
         </div>
         <div class="panel-value pull-right">
-          <h2 class="margin-top"> রাজস্ব বাজেটের কর্মসূচী </h2>
+          <h2 class="margin-top"> কর্মচারী </h2>
         </div>
        </div>
     </div>

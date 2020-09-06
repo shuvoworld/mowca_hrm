@@ -18,7 +18,7 @@ if (isset($_POST['add_organization'])) {
         $errors['name'] = "প্রতিষ্ঠানের নাম লিখুন";
     }
     
-    if (empty($_POST['name'])) {
+    if (empty($_POST['name_BN'])) {
         $error = true;
         $errors['name_BN'] = "প্রতিষ্ঠানের বাংলা নাম লিখুন";
     }
@@ -42,10 +42,6 @@ if (isset($_POST['add_organization'])) {
         $organization_type = find_by_id('organization_types', $organization_type_id);
         $organization_level_id = (int)($db->escape($_POST['organization_level_id']));
         $organization_level = find_by_id('organization_levels', $organization_level_id);
-        $organization_head_name = remove_junk($db->escape($_POST['organization_head_name']));
-        $organization_head_designation = remove_junk($db->escape($_POST['organization_head_designation']));
-        $organization_head_phone = remove_junk($db->escape($_POST['organization_head_phone']));
-        $organization_head_email = remove_junk($db->escape($_POST['organization_head_email']));
         $address = remove_junk($db->escape($_POST['address']));
         $division_id = (int)($db->escape($_POST['division_id']));
         $division = find_by_id('divisions', $division_id);
@@ -54,19 +50,16 @@ if (isset($_POST['add_organization'])) {
         $upazila_id = (int)($db->escape($_POST['upazila_id']));
         $upazila = find_by_id('upazilas', $upazila_id);
         $contact_no = remove_junk($db->escape($_POST['contact_no']));
-        $web_url = remove_junk($db->escape($_POST['web_url']));
         $facebook_url = remove_junk($db->escape($_POST['facebook_url']));
         $contact_email = remove_junk($db->escape($_POST['contact_email']));
 
         $query = "INSERT INTO organizations (";
-        $query .= " name, name_BN, agency_id, agency_name, organization_type_id, organization_type_name, organization_level_id, organization_level_name, organization_head_name, organization_head_designation, organization_head_phone,
-        organization_head_email, address, division_id, division_name, district_id, district_name, upazila_id, upazila_name, contact_no, web_url, facebook_url, contact_email,latitude,longitude,online_id,online_id_type, is_active, created_at";
+        $query .= " name, name_BN, agency_id, agency_name, organization_type_id, organization_type_name, organization_level_id, organization_level_name, address, division_id, division_name, district_id, district_name, upazila_id, upazila_name, contact_no, facebook_url, contact_email,latitude,longitude,online_id,online_id_type, is_active, created_at";
         $query .= ") VALUES (";
-        $query .= " '{$name}', '{$name_BN}', '{$agency_id}', '{$agency['name_BN']}','{$organization_type_id}', '{$organization_type['name_BN']}', '{$organization_level_id}', '{$organization_level['name_BN']}', '{$organization_head_name}','{$organization_head_designation}', '{$organization_head_phone}',
-        '{$organization_head_email}', '{$address}', '{$division_id}', '{$division['name_BN']}', '{$district_id}', '{$district['name_BN']}', '{$upazila_id}', '{$upazila['name_BN']}', '{$contact_no}', '{$web_url}', '{$facebook_url}', '{$contact_email}', '{$latitude}', '{$longitude}', '{$online_id}', '{$online_id_type}', 1, now()";
+        $query .= " '{$name}', '{$name_BN}', '{$agency_id}', '{$agency['name_BN']}','{$organization_type_id}', '{$organization_type['name_BN']}', '{$organization_level_id}', '{$organization_level['name_BN']}', '{$address}', '{$division_id}', '{$division['name_BN']}', '{$district_id}', '{$district['name_BN']}', '{$upazila_id}', '{$upazila['name_BN']}', '{$contact_no}', '{$facebook_url}', '{$contact_email}', '{$latitude}', '{$longitude}', '{$online_id}', '{$online_id_type}', 1, now()";
         $query .= ")";
         if ($db->query($query)) {
-            $session->msg('s', "প্রকল্পের তথ্য যোগ করা হয়েছে ");
+            $session->msg('s', "তথ্য যোগ করা হয়েছে ");
             redirect('organizations.php', false);
         } else {
             $session->msg('d', ' Sorry failed to added!');
@@ -226,10 +219,6 @@ echo $errmsg;
                  <label for="online_id_type">আইডি'র সংশ্লিষ্ট প্ল্যাটফর্মঃ skype/imo/viber</label>    
                      <input type="text" class="form-control" name="online_id_type" value="<?php if(isset($_POST['online_id_type'])) echo $_POST['online_id_type']; ?>">                  
                  </div>
-                 <div class="col-md-2">  
-                 <label for="organization_head_name">ওয়েবসাইট</label>    
-                     <input type="text" class="form-control" name="web_url" value="<?php if(isset($_POST['organization_head_name'])) echo $_POST['organization_head_name']; ?>">                  
-                 </div>
                  <div class="col-md-4"> 
                  <label for="facebook_url">ফেসবুক পেজ</label>     
                      <input type="text" class="form-control" name="facebook_url"  value="<?php if(isset($_POST['facebook_url'])) echo $_POST['facebook_url']; ?>">                  
@@ -249,32 +238,7 @@ echo $errmsg;
                  </div>
                 </div>
             </div>
-            </fieldset>
-
-
-              <fieldset>
-                <legend>প্রতিষ্ঠান প্রধানের তথ্য</legend>
-              <div class="form-group">
-               <div class="row">
-                 <div class="col-md-4">
-                 <label for="organization_head_name">নাম</label>      
-                     <input type="text" class="form-control" name="organization_head_name" value="<?php if(isset($_POST['organization_head_name'])) echo $_POST['organization_head_name']; ?>">                  
-                 </div>
-                 <div class="col-md-2">
-                 <label for="organization_head_designation">পদবী</label>
-                     <input type="text" class="form-control" name="organization_head_designation" value="<?php if(isset($_POST['organization_head_designation'])) echo $_POST['organization_head_designation']; ?>">                  
-                 </div>
-                  <div class="col-md-2">
-                  <label for="organization_head_phone">মোবাইল</label>
-                      <input type="text" class="form-control" name="organization_head_phone">                
-                  </div>                            
-                  <div class="col-md-2">
-                  <label for="organization_head_email">ইমেইল</label>
-              <input type="text" class="form-control" name="organization_head_email" value="<?php if(isset($_POST['organization_head_designation'])) echo $_POST['organization_head_designation']; ?>">  
-              </div>
-               </div>
-              </div>             
-        </fieldset>  
+                  </fieldset>
         
         
         <div class="form-group">

@@ -15,7 +15,12 @@
       <li><a href="users.php">ব্যবহারকারী</a> </li>
    </ul>
   </li>
-
+  <li>
+    <a href="organizations.php">
+      <i class="glyphicon glyphicon-home"></i>
+      <span>প্রতিষ্ঠান</span>
+    </a>
+  </li>
   <li>
     <a href="employees.php">
       <i class="glyphicon glyphicon-home"></i>
@@ -23,21 +28,7 @@
     </a>
   </li>
   <li>
-  
-  <li>
-    <a href="project.php">
-      <i class="glyphicon glyphicon-home"></i>
-      <span>প্রকল্প/কর্মসুচি/কার্জক্রম</span>
-    </a>
-  </li>
-  <li>
-  <li>
-    <a href="partner.php">
-      <i class="glyphicon glyphicon-home"></i>
-      <span>বাস্তবায়নকারী সংস্থা</span>
-    </a>
-  </li>
-  <li>
+
 
   <li>
     <a href="#" class="submenu-toggle">
@@ -49,12 +40,7 @@
       <li><a href="trainingreports.php">প্রশিক্ষণার্থী</a></li>
    </ul>
   </li>
-  <li>
-    <a href="organizations.php">
-      <i class="glyphicon glyphicon-home"></i>
-      <span>প্রতিষ্ঠান</span>
-    </a>
-  </li>
+
     <li>
     <a href="report.php">
       <i class="glyphicon glyphicon-home"></i>

@@ -46,10 +46,6 @@ $errmsg  = '';
   $organization_type = find_by_id('organization_types', $organization_type_id);
   $organization_level_id = (int)($db->escape($_POST['organization_level_id']));
   $organization_level = find_by_id('organization_levels', $organization_level_id);
-  $organization_head_name = remove_junk($db->escape($_POST['organization_head_name']));
-  $organization_head_designation = remove_junk($db->escape($_POST['organization_head_designation']));
-  $organization_head_phone = remove_junk($db->escape($_POST['organization_head_phone']));
-  $organization_head_email = remove_junk($db->escape($_POST['organization_head_email']));
   $address = remove_junk($db->escape($_POST['address']));
   $division_id = (int)($db->escape($_POST['division_id']));
   $division = find_by_id('divisions', $division_id);
@@ -58,7 +54,6 @@ $errmsg  = '';
   $upazila_id = (int)($db->escape($_POST['upazila_id']));
   $upazila = find_by_id('upazilas', $upazila_id);
   $contact_no = remove_junk($db->escape($_POST['contact_no']));
-  $web_url = remove_junk($db->escape($_POST['web_url']));
   $facebook_url = remove_junk($db->escape($_POST['facebook_url']));
   $contact_email = remove_junk($db->escape($_POST['contact_email']));
   $address = remove_junk($db->escape($_POST['address']));
@@ -72,11 +67,7 @@ $errmsg  = '';
                    organization_type_id ='{$organization_type_id}',
                    organization_type_name ='{$organization_type['name_BN']}',
                    organization_level_id ='{$organization_level_id}',
-                   organization_level_name ='{$organization_level['name_BN']}',
-                   organization_head_name ='{$organization_head_name}',
-                   organization_head_designation ='{$organization_head_designation}',
-                   organization_head_phone ='{$organization_head_phone}',
-                   organization_head_email ='{$organization_head_email}',                   
+                   organization_level_name ='{$organization_level['name_BN']}',                 
                    division_id ='{$division_id}',
                    division_name ='{$division['name_BN']}',
                    district_id ='{$district_id}',
@@ -85,7 +76,6 @@ $errmsg  = '';
                    upazila_name ='{$upazila['name_BN']}',
                    contact_no ='{$contact_no}',
                    contact_email ='{$contact_email}',
-                   web_url ='{$web_url}',
                    facebook_url ='{$facebook_url}',
                    contact_email ='{$contact_email}',
                    address ='{$address}'
@@ -255,10 +245,6 @@ echo $errmsg;
                  <label for="online_id_type">আইডি'র সংশ্লিষ্ট প্ল্যাটফর্মঃ skype/imo/viber</label>    
                      <input type="text" class="form-control" name="online_id_type" value="<?php echo remove_junk($organization['online_id_type']);?>">                  
                  </div>
-                 <div class="col-md-2">  
-                 <label for="organization_head_name">ওয়েবসাইট</label>    
-                     <input type="text" class="form-control" name="web_url" value="<?php echo remove_junk($organization['web_url']);?>">                  
-                 </div>
                  <div class="col-md-4"> 
                  <label for="facebook_url">ফেসবুক পেজ</label>     
                      <input type="text" class="form-control" name="facebook_url"  value="<?php echo remove_junk($organization['facebook_url']);?>">                  
@@ -279,31 +265,6 @@ echo $errmsg;
                 </div>
             </div>
             </fieldset>
-
-
-              <fieldset>
-                <legend>প্রতিষ্ঠান প্রধানের তথ্য</legend>
-              <div class="form-group">
-               <div class="row">
-                 <div class="col-md-4">
-                 <label for="organization_head_name">নাম</label>      
-                     <input type="text" class="form-control" name="organization_head_name" value="<?php echo remove_junk($organization['organization_head_name']);?>">                  
-                 </div>
-                 <div class="col-md-2">
-                 <label for="organization_head_designation">পদবী</label>
-                     <input type="text" class="form-control" name="organization_head_designation" value="<?php echo remove_junk($organization['organization_head_designation']);?>">                  
-                 </div>
-                  <div class="col-md-2">
-                  <label for="organization_head_phone">মোবাইল</label>
-                      <input type="text" class="form-control" name="organization_head_phone" value="<?php echo remove_junk($organization['organization_head_phone']);?>">                
-                  </div>                            
-                  <div class="col-md-2">
-                  <label for="organization_head_email">ইমেইল</label>
-              <input type="text" class="form-control" name="organization_head_email" value="<?php echo remove_junk($organization['organization_head_email']);?>">  
-              </div>
-               </div>
-              </div>             
-        </fieldset>  
         
         
         <div class="form-group">
