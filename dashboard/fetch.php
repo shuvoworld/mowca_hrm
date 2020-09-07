@@ -25,7 +25,7 @@ FROM employees LEFT JOIN organizations ON employees.organization_id = organizati
 if(isset($_POST['filter_district']) && $_POST['filter_district'] != '')
 {
  $query .= '
- WHERE organization_id = "'.$_POST['filter_district'].'"';
+ WHERE organizations.district_id = "'.$_POST['filter_district'].'"';
 }
 
 if(isset($_POST['order']))
@@ -45,32 +45,25 @@ if($_POST["length"] != -1)
 }
 
 $statement = $connect->prepare($query);
-
 $statement->execute();
-
 $number_filter_row = $statement->rowCount();
-
 $statement = $connect->prepare($query . $query1);
-
 $statement->execute();
-
 $result = $statement->fetchAll();
-
-
 
 $data = array();
 
-foreach($result as $row)
-{
- $sub_array = array();
- $sub_array[] = $row['district_name'];
- $sub_array[] = $row['organization_name'];
- $sub_array[] = $row['employee_name'];
- $sub_array[] = $row['mobile_no'];
- $sub_array[] = $row['employee_email'];
- $sub_array[] = $row['designation'];
- $data[] = $sub_array;
-}
+    foreach($result as $row)
+    {
+    $sub_array = array();
+    $sub_array[] = $row['district_name'];
+    $sub_array[] = $row['organization_name'];
+    $sub_array[] = $row['employee_name'];
+    $sub_array[] = $row['mobile_no'];
+    $sub_array[] = $row['employee_email'];
+    $sub_array[] = $row['designation'];
+    $data[] = $sub_array;
+    }
 
 function count_all_data($connect)
 {

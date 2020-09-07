@@ -42,7 +42,7 @@ foreach($result as $row)
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">জেলা পর্যায়ে কর্মরত উপ পরিচালকগণের তথ্য</h4>
+                                <h4 class="card-title">জেলা পর্যায়ে কর্মরত উপপরিচালকগণের তথ্য</h4>
                                 <div class="row">
                                 <div class="col-md-4"></div>
                                 <div class="col-md-4">
