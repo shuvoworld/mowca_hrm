@@ -2,16 +2,30 @@
 
 $connect = new PDO("mysql:host=localhost;dbname=mowca_hrm;charset=utf8", "root", "");
 
-$column = array('agency_name', 'organization_name', 'name_BN', 'mobile', 'email', 'designation_name');
+$column = array(
+    'organizations.district_name', 
+    'employees.organization_name', 
+    'employees.name_BN', 
+    'employees.mobile', 
+    'employees.email', 
+    'employees.designation_name'
+);
 
 $query = "
-SELECT * FROM employees 
+SELECT 
+organizations.district_name as district_name,
+employees.organization_name as organization_name,
+employees.name_BN as employee_name,
+employees.mobile_no as mobile_no,
+employees.email as employee_email,
+employees.designation_name as designation
+FROM employees LEFT JOIN organizations ON employees.organization_id = organizations.id
 ";
 
-if(isset($_POST['filter_org']) && $_POST['filter_org'] != '')
+if(isset($_POST['filter_district']) && $_POST['filter_district'] != '')
 {
  $query .= '
- WHERE organization_id = "'.$_POST['filter_org'].'"';
+ WHERE organization_id = "'.$_POST['filter_district'].'"';
 }
 
 if(isset($_POST['order']))
@@ -20,7 +34,7 @@ if(isset($_POST['order']))
 }
 else
 {
- $query .= 'ORDER BY id DESC ';
+ $query .= 'ORDER BY employees.id DESC ';
 }
 
 $query1 = '';
@@ -49,12 +63,12 @@ $data = array();
 foreach($result as $row)
 {
  $sub_array = array();
- $sub_array[] = $row['agency_name'];
+ $sub_array[] = $row['district_name'];
  $sub_array[] = $row['organization_name'];
- $sub_array[] = $row['name_BN'];
+ $sub_array[] = $row['employee_name'];
  $sub_array[] = $row['mobile_no'];
- $sub_array[] = $row['email'];
- $sub_array[] = $row['designation_name'];
+ $sub_array[] = $row['employee_email'];
+ $sub_array[] = $row['designation'];
  $data[] = $sub_array;
 }
 

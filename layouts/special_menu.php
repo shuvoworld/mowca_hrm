@@ -6,22 +6,18 @@
     </a>
   </li>
 
-<li>
-    <a href="#" class="submenu-toggle">
-      <i class="glyphicon glyphicon-user"></i>
-      <span>রিপোর্ট দাখিল করুন</span>
-    </a>
-    <ul class="nav submenu">
-      <li><a href="projectreports.php">প্রকল্প/কর্মসুচি/কার্জক্রম</a></li>
-      <li><a href="trainingreports.php">প্রশিক্ষণার্থী</a></li>
-   </ul>
-  </li>
-
-   <li>
+  <li>
     <a href="organizations.php">
       <i class="glyphicon glyphicon-home"></i>
       <span>প্রতিষ্ঠান</span>
     </a>
   </li>
+  <li>
+    <a href="employees.php">
+      <i class="glyphicon glyphicon-home"></i>
+      <span>কর্মচারী ডাটাব্যাঙ্ক</span>
+    </a>
+  </li>
+  <li>
 
 </ul>

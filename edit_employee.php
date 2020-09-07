@@ -225,7 +225,7 @@ echo $errmsg;
         <div class="panel-heading">
           <strong>
             <span class="glyphicon glyphicon-th"></span>
-            <span>প্রতিষ্ঠানের তথ্য</span>
+            <span>কর্মচারী'র তথ্য</span>
          </strong>
         </div>
         <div class="panel-body">
@@ -552,7 +552,7 @@ echo $errmsg;
           </div>
           </div>
 
-              <button type="submit" name="add_employee" class="btn btn-success">সাবমিট করুন</button>
+              <button type="submit" name="update_employee" class="btn btn-success">সাবমিট করুন</button>
           </form>
          </div>
         </div>
