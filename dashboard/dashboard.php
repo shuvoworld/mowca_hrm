@@ -1,5 +1,28 @@
 <?php
 include('header.php');
+
+$organization_type = '';
+$agency = '';
+$query = "SELECT * FROM organization_types";
+
+$statement = $connect->prepare($query);
+$statement->execute();
+$result = $statement->fetchAll();
+foreach($result as $row)
+{
+ $organization_type .= '<option value="'.$row['id'].'">'.$row['name_BN'].'</option>';
+}
+
+$query = "SELECT * FROM agencies";
+
+$statement = $connect->prepare($query);
+$statement->execute();
+$result = $statement->fetchAll();
+foreach($result as $row)
+{
+ $agency .= '<option value="'.$row['id'].'">'.$row['name_BN'].'</option>';
+}
+
 ?>
 
 <body class="fix-header fix-sidebar">
@@ -21,7 +44,7 @@ include('header.php');
             <!-- Bread crumb -->
             <div class="row page-titles">
                 <div class="col-md-5 align-self-center">
-                    <h3 class="text-primary">Dashboard</h3> </div>
+                    <h3 class="text-primary">Dashboard - Ministry of Women and Children Affairs</h3> </div>
             </div>
             <!-- End Bread crumb -->
             <!-- Container fluid  -->
@@ -36,7 +59,7 @@ include('header.php');
                                 </div>
                                 <div class="media-body media-text-right">
                                     <h2 class="color-white">৬৪</h2>
-                                    <p class="m-b-0">উপপরিচালক</p>
+                                    <p class="m-b-0 "><a href="dwa_dd.php" class="color-white">উপপরিচালক</a></p>
                                 </div>
                             </div>
                         </div>
@@ -82,19 +105,49 @@ include('header.php');
                     </div>
                 </div>
 
+
                 <div class="row">
-                <div class="col-md-3">
-                        <div class="card p-30">
-                            <div class="media">
-                                <div class="media-left meida media-middle">
-                                    <span><i class="fa fa-shopping-cart f-s-40 color-success"></i></span>
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">প্রতিষ্ঠানের তথ্য</h4>
+                                <div class="row">
+                                <div class="col-md-4">
+                                <div class="form-group"><select name="filter_organization_type" id="filter_organization_type" class="form-control" required>
+                                <option value="">প্রতিষ্ঠানের ধরণ নির্বাচন করুন</option>
+                                <?php echo $organization_type; ?>
+                                </select>
                                 </div>
-                                <div class="media-body media-text-right">
-                                    <h2>1178</h2>
-                                    <p class="m-b-0">Sales</p>
+                                </div>
+                                <div class="col-md-4">
+                                <div class="form-group"><select name="filter_agencies" id="filter_agencies" class="form-control" required>
+                                <option value="">দপ্তর/সংস্থা নির্বাচন করুন</option>
+                                <?php echo $agency; ?>
+                                </select>
+                                </div>
+                                <div class="form-group" align="center">
+                                <button type="button" name="filter" id="filter" class="btn btn-info">Filter</button>
+                                </div>
+                                </div>
+                            </div>
+                                <div class="table-responsive m-t-40">
+                                    <table id="org_data" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                                    <thead>
+                                    <tr>
+                                    <th>প্রতিষ্ঠানের নাম</th>
+                                    <th>ধরণ</th>
+                                    <th>দপ্তর/সংস্থা</th>
+                                    <th>বিভাগ</th>
+                                    <th>জেলা</th>
+                                    <th>উপজেলা</th>
+                                    <th>ঠিকানা</th>
+                                    </tr>
+                                    </thead>
+                                    </table>
                                 </div>
                             </div>
                         </div>
+                       
                     </div>
                 </div>
                 </div>
@@ -139,18 +192,19 @@ include('header.php');
   
   fill_datatable();
   
-  function fill_datatable(filter_district = '')
+  function fill_datatable(filter_organization_type = '', filter_agencies = '')
   {
-   var dataTable = $('#customer_data').DataTable({
+   var dataTable = $('#org_data').DataTable({
     "processing" : true,
     "serverSide" : true,
     "order" : [],
     "searching" : false,
     "ajax" : {
-     url:"fetch.php",
+     url:"fetch_org.php",
      type:"POST",
      data:{
-      filter_district:filter_district
+        filter_organization_type:filter_organization_type,
+        filter_agencies:filter_agencies
      }
     },
     dom: 'Bfrtip',
@@ -164,16 +218,17 @@ include('header.php');
   }
   
   $('#filter').click(function(){
-   var filter_district = $('#filter_district').val();
-   if(filter_district != '')
+   var filter_organization_type = $('#filter_organization_type').val();
+   var filter_agencies = $('#filter_agencies').val();
+   if(filter_organization_type != '' && filter_agencies != '')
    {
-    $('#customer_data').DataTable().destroy();
-    fill_datatable(filter_district);
+    $('#org_data').DataTable().destroy();
+    fill_datatable(filter_organization_type, filter_agencies);
    }
    else
    {
     alert('Select filter option');
-    $('#customer_data').DataTable().destroy();
+    $('#org_data').DataTable().destroy();
     fill_datatable();
    }
   });
@@ -186,8 +241,10 @@ include('header.php');
 
 <script type="text/javascript">
 $(document).ready(function() {
-        $('[name="filter_district"]').select2();
+        $('[name="filter_organization_type"]').select2();
+        $('[name="filter_agencies"]').select2();
 });
 
 </script>
+
 </body>

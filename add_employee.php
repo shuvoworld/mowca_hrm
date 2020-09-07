@@ -204,8 +204,8 @@ if (empty($_POST['national_id'])) {
         '{$religion['name']}', 
         '{$bloodgroup_id}',
         '{$bloodgroup['name']}',
-        '{$dob}',
-        '{$prl_date}',
+         '{$dob}',
+         '{$prl_date}',
         '{$permanent_division_id}',
         '{$permanent_division['name_BN']}',
         '{$permanent_district_id}',
@@ -215,12 +215,12 @@ if (empty($_POST['national_id'])) {
         '{$permanent_address}',
         '{$educational_qualification_id}',
         '{$educational_qualification['name']}',
-        '{$joining_govt_service_date}',
-        '{$present_place_joing_date}',
-        '{$present_post_joining_date}',
+         '{$joining_govt_service_date}',
+         '{$present_place_joing_date}',
+         '{$present_post_joining_date}',
         '{$last_promoted_post_id}',
         '{$last_promoted_post['name']}',
-        '{$last_promotion_date}',
+         '{$last_promotion_date}',
         '{$details}',
         '{$designation_id}',
         '{$designation['name']}',
@@ -230,9 +230,9 @@ if (empty($_POST['national_id'])) {
         '{$additional_organization['name_BN']}',
         '{$additional_designation_id}',
         '{$additional_designation['name']}',
-        '{$created_at}',
+         '{$created_at}',
         '{$created_by}',
-        '{$updated_at}',
+         '{$updated_at}',
         '{$updated_by}',
         '{$is_active}',
         '{$agency_id}',
@@ -417,7 +417,7 @@ echo $errmsg;
             </div>
             <div class="col-md-4">
             <label for="dob">জন্ম তারিখ*</label>
-            <input class="form-control" id="dob" name="dob" placeholder="YYYY/MM/DD" type="text"/>
+            <input class="form-control" id="dob" name="dob" placeholder="yyyy/mm/dd" type="date"/>
             </div>
 
             <div class="col-md-4">
@@ -446,7 +446,7 @@ echo $errmsg;
 
             <div class="col-md-4">
             <label for="prl_date">পিআরএল এ গমনের তারিখ</label>
-            <input class="form-control" id="prl_date" name="prl_date" placeholder="YYYY/MM/DD" type="text"/>
+            <input class="form-control" id="prl_date" name="prl_date" placeholder="yyyy/mm/dd" type="date"/>
             </div>
           </div>
           </div>
@@ -505,23 +505,23 @@ echo $errmsg;
             
                 <div class="col-md-4">
                 <label for="prl_date">সরকারি চাকুরীতে প্রথম যোগদানের তারিখ</label>
-                <input class="form-control" id="joining_govt_service_date" name="joining_govt_service_date" placeholder="YYYY/MM/DD" type="text"/>
+                <input class="form-control" id="joining_govt_service_date" name="joining_govt_service_date" placeholder="yyyy/mm/dd" type="date"/>
                 </div>
 
                 <div class="col-md-4">
                 <label for="prl_date">বর্তমান কর্মস্থলে যোগদানের তারিখ</label>
-                <input class="form-control" id="present_place_joing_date" name="present_place_joing_date" placeholder="YYYY/MM/DD" type="text"/>
+                <input class="form-control" id="present_place_joing_date" name="present_place_joing_date" placeholder="yyyy/mm/dd" type="date"/>
                 </div>
 
                 <div class="col-md-4">
                 <label for="prl_date">বর্তমান পদে যোগদানের তারিখ</label>
-                <input class="form-control" id="present_post_joining_date" name="present_post_joining_date" placeholder="YYYY/MM/DD" type="text"/>
+                <input class="form-control" id="present_post_joining_date" name="present_post_joining_date" placeholder="yyyy/mm/dd" type="date"/>
                 </div>
 
 
                 <div class="col-md-4">
                 <label for="prl_date">সর্বশেষ পদোন্নতির তারিখ</label>
-                <input class="form-control" id="last_promotion_date" name="last_promotion_date" placeholder="YYYY/MM/DD" type="text"/>
+                <input class="form-control" id="last_promotion_date" name="last_promotion_date" placeholder="yyyy/mm/dd" type="date"/>
                 </div>
             
             </div>

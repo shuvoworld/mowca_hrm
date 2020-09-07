@@ -13,7 +13,7 @@ $connect = new PDO("mysql:host=localhost;dbname=mowca_hrm;charset=utf8", "root",
     <meta name="author" content="">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
-    <title>Ela - Bootstrap Admin Dashboard Template</title>
+    <title>পিডিএস ডাটাব্যাঙ্ক</title>
     <!-- Bootstrap Core CSS -->
     <link href="css/lib/bootstrap/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS -->

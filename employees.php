@@ -47,7 +47,7 @@
         {
             "targets": 7,
             "render": function ( data, type, row, meta ) {
-                return '<a href="edit_employee.php?id='+ row.id + '"><span class="glyphicon glyphicon-pencil"></span></a> | <a style="color:red" href="delete_projectreport.php?id='+ row.id + '"><span class="glyphicon glyphicon-remove"></span></a>';
+                return '<a href="edit_employee.php?id='+ row.id + '"><span class="glyphicon glyphicon-pencil"></span></a> | <a style="color:red" href="delete_employee.php?id='+ row.id + '"><span class="glyphicon glyphicon-remove"></span></a>';
             }
         },
         { targets: 1, searchable: true },

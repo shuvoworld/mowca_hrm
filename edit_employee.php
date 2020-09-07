@@ -27,14 +27,6 @@ $errors  = array();
 $errmsg  = '';
 
  if(isset($_POST['update_employee'])){
-   if(empty($_POST['name_EN'])){
-      $error = true;
-      $errors['name'] = "Name_EN is missing";
-    }
-    if(empty($_POST['name_BN'])){
-      $error = true;
-      $errors['name_BN'] = "name_BN is missing";
-    }
 
    if(empty($errors)){
     if (isset($_SESSION['user_id'])) {
@@ -174,14 +166,13 @@ $errmsg  = '';
                    organization_name ='{$organization['name_BN']}',
 
                    additional_organization_id ='{$additional_organization_id}',
-                   additional_organization_name ='{$additional_organization_['name']}',
+                   additional_organization_name ='{$additional_organization['name']}',
 
                    additional_designation_id ='{$additional_designation_id}',
                    additional_designation_name ='{$additional_designation['name_BN']}',
 
                    marital_status_id ='{$marital_status_id}',
-                   marital_status_name ='{$marital_status['name']}',
-
+                   marital_status_name ='{$marital_status['name']}'
                    ";
 
        $query  .=" WHERE id = ". (int)$_GET['id'];
@@ -230,7 +221,7 @@ echo $errmsg;
         </div>
         <div class="panel-body">
          <div class="col-md-12">
-         <form method="post" action="edit_oemployee.php?id=<?php echo (int)$employee['id'] ?>">
+         <form method="post" action="edit_employee.php?id=<?php echo (int)$employee['id'] ?>">
           <?php if ($user['agency_id'] == null) {?>
             <div class="form-group">
                <div class="row">
@@ -252,7 +243,7 @@ echo $errmsg;
                   <span class="input-group-addon">
                    <i class="glyphicon glyphicon-th-large"></i>
                   </span>
-                  <input type="text" class="form-control" name="name" value="<?php echo remove_junk($employee['name_BN']);?>">
+                  <input type="text" class="form-control" name="name_BN" value="<?php echo remove_junk($employee['name_BN']);?>">
                 </div>
                </div>
                <div class="form-group">
@@ -260,7 +251,7 @@ echo $errmsg;
                   <span class="input-group-addon">
                    <i class="glyphicon glyphicon-th-large"></i>
                   </span>
-                  <input type="text" class="form-control"  name="name_BN" value="<?php echo remove_junk($employee['name_EN']);?>">
+                  <input type="text" class="form-control"  name="name_EN" value="<?php echo remove_junk($employee['name_EN']);?>">
                </div>
               </div>
 
@@ -359,7 +350,7 @@ echo $errmsg;
             </div>
             <div class="col-md-4">
             <label for="dob">জন্ম তারিখ*</label>
-            <input class="form-control" id="dob" name="dob" placeholder="YYYY/MM/DD" type="text"  value="<?php echo remove_junk($employee['dob']);?>"/>
+            <input class="form-control" id="dob" name="dob" placeholder="YYYY/MM/DD" type="date"  value="<?php echo remove_junk($employee['dob']);?>"/>
             </div>
 
             <div class="col-md-4">
@@ -388,7 +379,7 @@ echo $errmsg;
 
             <div class="col-md-4">
             <label for="prl_date">পিআরএল এ গমনের তারিখ</label>
-            <input class="form-control" id="prl_date" name="prl_date" placeholder="YYYY/MM/DD" type="text" value="<?php echo remove_junk($employee['prl_date']);?>"/>
+            <input class="form-control" id="prl_date" name="prl_date" placeholder="YYYY/MM/DD" type="date" value="<?php echo remove_junk($employee['prl_date']);?>" />
             </div>
           </div>
           </div>
@@ -447,23 +438,23 @@ echo $errmsg;
             
                 <div class="col-md-4">
                 <label for="prl_date">সরকারি চাকুরীতে প্রথম যোগদানের তারিখ</label>
-                <input class="form-control" id="joining_govt_service_date" name="joining_govt_service_date" placeholder="YYYY/MM/DD" type="text" value="<?php echo remove_junk($employee['joining_govt_service_date']);?>"/>
+                <input class="form-control" id="joining_govt_service_date" name="joining_govt_service_date" placeholder="YYYY/MM/DD" type="date" value="<?php echo remove_junk($employee['joining_govt_service_date']);?>"/>
                 </div>
 
                 <div class="col-md-4">
                 <label for="prl_date">বর্তমান কর্মস্থলে যোগদানের তারিখ</label>
-                <input class="form-control" id="present_place_joing_date" name="present_place_joing_date" placeholder="YYYY/MM/DD" type="text" value="<?php echo remove_junk($employee['present_place_joing_date']);?>"/>
+                <input class="form-control" id="present_place_joing_date" name="present_place_joing_date" placeholder="YYYY/MM/DD" type="date" value="<?php echo remove_junk($employee['present_place_joing_date']);?>"/>
                 </div>
 
                 <div class="col-md-4">
                 <label for="prl_date">বর্তমান পদে যোগদানের তারিখ</label>
-                <input class="form-control" id="present_post_joining_date" name="present_post_joining_date" placeholder="YYYY/MM/DD" type="text" value="<?php echo remove_junk($employee['present_post_joining_date']);?>"/>
+                <input class="form-control" id="present_post_joining_date" name="present_post_joining_date" placeholder="YYYY/MM/DD" type="date" value="<?php echo remove_junk($employee['present_post_joining_date']);?>"/>
                 </div>
 
 
                 <div class="col-md-4">
                 <label for="prl_date">সর্বশেষ পদোন্নতির তারিখ</label>
-                <input class="form-control" id="last_promotion_date" name="last_promotion_date" placeholder="YYYY/MM/DD" type="text" value="<?php echo remove_junk($employee['last_promotion_date']);?>"/>
+                <input class="form-control" id="last_promotion_date" name="last_promotion_date" placeholder="YYYY/MM/DD" type="date" value="<?php echo remove_junk($employee['last_promotion_date']);?>"/>
                 </div>
             
             </div>
@@ -570,15 +561,15 @@ echo $errmsg;
 
 
 <script>
-    $(document).ready(function(){
-      var date_input=$('input[name="dob"],input[name="prl_date"],input[name="last_promotion_date"],input[name="present_post_joining_date"],input[name="present_place_joing_date"],input[name="joining_govt_service_date"]'); //our date input has the name "date"
-      var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
-      var options={
-        format: 'yyyy-mm-dd',
-        container: container,
-        todayHighlight: true,
-        autoclose: true,
-      };
-      date_input.datepicker(options);
-    })
+    // $(document).ready(function(){
+    //   var date_input=$('input[name="prl_date"],input[name="last_promotion_date"],input[name="present_post_joining_date"],input[name="present_place_joing_date"],input[name="joining_govt_service_date"]'); //our date input has the name "date"
+    //   var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+    //   var options={
+    //     format: 'yyyy-mm-dd',
+    //     container: container,
+    //     todayHighlight: true,
+    //     autoclose: true,
+    //   };
+    //   date_input.datepicker(options);
+    // })
 </script>

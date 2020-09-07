@@ -166,6 +166,5 @@ foreach($result as $row)
 $(document).ready(function() {
         $('[name="filter_district"]').select2();
 });
-
 </script>
 </body>

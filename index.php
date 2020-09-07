@@ -31,15 +31,6 @@
     <div style="font-size:12px; text-decoration: none; text-align: center">ইমেইল করুনঃ programmer@mowca.gov.bd</div>
     
 <?php include_once('layouts/footer.php'); ?>
-  <table style="border: 1px solid white; margin: 10px">
-    <tr>
-    <td><a href="dashboard/index.php" >মহিলা বিষয়ক অধিদপ্তরের উপপরিচালকগণের তথ্য দেখুন</a></td>
-    <td><a href="dashboard/index.php" >মহিলা বিষয়ক অধিদপ্তরের উপজেলা কর্মকর্তা'র তথ্য দেখুন</a></td>
-    </tr>
-    <tr>
-    <td><a href="dashboard/index.php" >জাতীয় মহিলা সংস্থা'র জেলা কর্মকর্তা'র তথ্য দেখুন</a></td>
-    <td><a href="dashboard/index.php" >জাতীয় মহিলা সংস্থা'র উপজেলা কর্মকর্তা'র তথ্য দেখুন</a></td>
-    </tr>
-  </table>
+
 </div>
 </div>
