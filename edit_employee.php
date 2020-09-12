@@ -86,15 +86,6 @@ $errmsg  = '';
   $last_promoted_post = find_by_id('designations', $last_promoted_post_id);
 
   $last_promotion_date = remove_junk($db->escape($_POST['last_promotion_date']));
-  
-  $designation_id = remove_junk($db->escape($_POST['designation_id']));
-  $designation = find_by_id('designations', $designation_id);
-  
-  $additional_designation_id = remove_junk($db->escape($_POST['additional_designation_id']));
-  $additional_designation = find_by_id('designations', $additional_designation_id);
-
-  $organization_id = remove_junk($db->escape($_POST['organization_id']));
-  $organization = find_by_id('organizations', $organization_id);
 
   $additional_organization_id = remove_junk($db->escape($_POST['additional_organization_id']));
   $additional_organization = find_by_id('organizations', $additional_organization_id);
@@ -139,10 +130,7 @@ $errmsg  = '';
                    permanent_district_id ='{$permanent_district_id}',
                    permanent_district_name ='{$permanent_district['name_BN']}',  
                    permanent_upazila_id ='{$permanent_upazila_id}',
-                   permanent_upazila_name ='{$permanent_upazila['name_BN']}',  
-
-                   agency_id ='{$agency_id}',
-                   agency_name ='{$agency['name_BN']}',  
+                   permanent_upazila_name ='{$permanent_upazila['name_BN']}',    
                    
                    permanent_address ='{$permanent_address}',
                    educational_qualification_id ='{$educational_qualification_id}',
@@ -158,18 +146,6 @@ $errmsg  = '';
 
                    last_promotion_date ='{$last_promotion_date}',
                    details ='{$details}',
-                   
-                   designation_id ='{$designation_id}',
-                   designation_name ='{$designation['name']}',
-
-                   organization_id ='{$organization_id}',
-                   organization_name ='{$organization['name_BN']}',
-
-                   additional_organization_id ='{$additional_organization_id}',
-                   additional_organization_name ='{$additional_organization['name']}',
-
-                   additional_designation_id ='{$additional_designation_id}',
-                   additional_designation_name ='{$additional_designation['name_BN']}',
 
                    marital_status_id ='{$marital_status_id}',
                    marital_status_name ='{$marital_status['name']}'
@@ -181,7 +157,7 @@ $errmsg  = '';
                  $session->msg('s',"employee information updated ");
                  redirect('employees.php', false);
                } else {
-                 $session->msg('d',' Sorry failed to update!');
+                 $session->msg('d',$query);
                  redirect('edit_employee.php?id='.$employee['id'], false);
                }
 
@@ -475,65 +451,7 @@ echo $errmsg;
             </div>
           </fieldset>
 
-          <fieldset class="scheduler-border">
-            <legend class="scheduler-border">বর্তমান নিয়মিত পদায়নের তথ্য</legend>
-             
-              <div class="form-group">
-               <div class="row">
-               <div class="col-md-4">
-               <label for="organization_id"> পদায়নকৃত কার্যালয় </label>
-                  <select class="form-control" name="organization_id" id="organization_id">
-                  <option value="">নির্বাচন করুন</option>
-                    <?php foreach ($organizations as $organization): ?>
-                      <option value="<?php echo $organization['id']; ?>" <?php if($employee['organization_id'] === $designation['id']): echo "selected"; endif; ?>> <?php echo remove_junk($organization['name_BN']); ?></option>
-                  <?php endforeach;?>
-                  </select>
-            </div>
-
-            <div class="col-md-4">
-               <label for="designation_id"> পদবী </label>
-                  <select class="form-control" name="designation_id" id="designation_id">
-                  <option value="">নির্বাচন করুন</option>
-                    <?php foreach ($designations as $designation): ?>
-                      <option value="<?php echo $designation['id']; ?>" <?php if($employee['designation_id'] === $designation['id']): echo "selected"; endif; ?>> <?php echo remove_junk($designation['name']); ?></option>
-                  <?php endforeach;?>
-                  </select>
-            </div>
-            </div>
-            </div>
-              
-          </fieldset>
-
-          <fieldset class="scheduler-border">
-            <legend class="scheduler-border">অতিরিক্ত দায়িত্ব/সংযুক্ত পদায়নের তথ্য (যদি থেকে থাকে)</legend>
-               
-              <div class="form-group">
-               <div class="row">
-               <div class="col-md-4">
-               <label for="organization_id"> সংযুক্ত কার্যালয় </label>
-                  <select class="form-control" name="additional_organization_id" id="additional_organization_id">
-                  <option value="">নির্বাচন করুন</option>
-                    <?php foreach ($additional_organizations as $additional_organization): ?>
-                      <option value="<?php echo $additional_organization['id']; ?>" <?php if($employee['additional_organization_id'] === $additional_organization['id']): echo "selected"; endif; ?>> <?php echo remove_junk($additional_organization['name_BN']); ?></option>
-                  <?php endforeach;?>
-                  </select>
-            </div>
-
-            <div class="col-md-4">
-               <label for="designation_id">পদবী</label>
-                  <select class="form-control" name="additional_designation_id" id="additional_designation_id">
-                  <option value="">নির্বাচন করুন</option>
-                    <?php foreach ($additional_designations as $additional_designation): ?>
-                      <option value="<?php echo $additional_designation['id']; ?>" <?php if($employee['additional_designation_id'] === $additional_designation['id']): echo "selected"; endif; ?>> <?php echo remove_junk($additional_designation['name']); ?></option>
-                  <?php endforeach;?>
-                  </select>
-            </div>
-            </div>
-            </div>
-              
-          </fieldset>
-
-
+         
           <div class="form-group">
                <div class="row">
                <div class="col-md-12">

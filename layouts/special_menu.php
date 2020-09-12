@@ -7,7 +7,7 @@
   </li>
 
   <li>
-    <a href="organizations.php">
+    <a href="organization.php">
       <i class="glyphicon glyphicon-home"></i>
       <span>প্রতিষ্ঠান</span>
     </a>

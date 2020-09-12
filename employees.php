@@ -21,12 +21,9 @@
             <thead>
               <tr>
                 <th class="text-center">#</th>
-                <th class="text-center">মন্ত্রণালয়/দপ্তর/সংস্থা</th>
                 <th class="text-center">নাম</th>
-                <th class="text-center">পদবী</th>
                 <th class="text-center">মোবাইল</th>
                 <th class="text-center">ইমেইল</th>
-                <th class="text-center">পদায়নকৃত কার্যালয়</th>
                 <th class="text-center">পরিবর্তন</th>
               </tr>
             </thead>
@@ -45,7 +42,7 @@
 
     "columnDefs": [ 
         {
-            "targets": 7,
+            "targets": 4,
             "render": function ( data, type, row, meta ) {
                 return '<a href="edit_employee.php?id='+ row.id + '"><span class="glyphicon glyphicon-pencil"></span></a> | <a style="color:red" href="delete_employee.php?id='+ row.id + '"><span class="glyphicon glyphicon-remove"></span></a>';
             }
@@ -55,12 +52,9 @@
     ],
           "aoColumns": [
               { mData: 'id' } ,
-              { mData: 'agency_name' } ,
               { mData: 'name_BN' } ,
-              { mData: 'designation_name' } ,
               { mData: 'mobile_no' } ,
               { mData: 'email' },
-              { mData: 'organization_name' }
             ]
           });  
     });

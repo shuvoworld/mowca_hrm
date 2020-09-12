@@ -11,11 +11,11 @@ if(isset( $_SESSION['user_id'])){
   $user  = find_by_id('users', $_SESSION['user_id']);
 }
 
-if(isset($user['agency_id'])){
-  $sql .= " AND agency_id = ".$user['agency_id'];
-}
-else 
-$sql .= "";
+// if(isset($user['agency_id'])){
+//   $sql .= " AND agency_id = ".$user['agency_id'];
+// }
+// else 
+// $sql .= "";
 
 $result = $db->query($sql);
 

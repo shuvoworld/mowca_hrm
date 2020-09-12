@@ -15,10 +15,6 @@ $educational_qualifications = find_all('educational_qualifications');
 $permanent_divisions = find_all('divisions');
 $permanent_districts = find_all('districts');
 $permanent_upazilas = find_all('upazilas');
-$organizations = find_all('organizations');
-$designations = find_all('designations');
-$additional_organizations = find_all('organizations');
-$additional_designations = find_all('designations');
 $error = false;
 $errors = array();
 $errmsg = '';
@@ -108,18 +104,7 @@ if (empty($_POST['national_id'])) {
         $last_promoted_post = find_by_id('designations', $last_promoted_post_id);
 
         $last_promotion_date = remove_junk($db->escape($_POST['last_promotion_date']));
-        
-        $designation_id = remove_junk($db->escape($_POST['designation_id']));
-        $designation = find_by_id('designations', $designation_id);
-        
-        $additional_designation_id = remove_junk($db->escape($_POST['additional_designation_id']));
-        $additional_designation = find_by_id('designations', $additional_designation_id);
 
-        $organization_id = remove_junk($db->escape($_POST['organization_id']));
-        $organization = find_by_id('organizations', $organization_id);
-
-        $additional_organization_id = remove_junk($db->escape($_POST['additional_organization_id']));
-        $additional_organization = find_by_id('organizations', $additional_organization_id);
 
         $details = remove_junk($db->escape($_POST['details']));
 
@@ -169,21 +154,11 @@ if (empty($_POST['national_id'])) {
         last_promoted_post_name,
         last_promotion_date,
         details,
-        designation_id,
-        designation_name,
-        organization_id,
-        organization_name,
-        additional_organization_id,
-        additional_organization_name,
-        additional_designation_id,
-        additional_designation_name,
         created_at,
         created_by,
         updated_at,
         updated_by,
         is_active,
-        agency_id,
-        agency_name,
         marital_status_id,
         marital_status_name";
         
@@ -222,21 +197,11 @@ if (empty($_POST['national_id'])) {
         '{$last_promoted_post['name']}',
          '{$last_promotion_date}',
         '{$details}',
-        '{$designation_id}',
-        '{$designation['name']}',
-        '{$organization_id}',
-        '{$organization['name_BN']}',
-        '{$additional_organization_id}',
-        '{$additional_organization['name_BN']}',
-        '{$additional_designation_id}',
-        '{$additional_designation['name']}',
          '{$created_at}',
         '{$created_by}',
          '{$updated_at}',
         '{$updated_by}',
         '{$is_active}',
-        '{$agency_id}',
-        '{$agency['name']}',
         '{$marital_status_id}',
         '{$marital_status['name']}'
         ";
@@ -542,65 +507,7 @@ echo $errmsg;
             </div>
           </fieldset>
 
-          <fieldset class="scheduler-border">
-            <legend class="scheduler-border">বর্তমান নিয়মিত পদায়নের তথ্য</legend>
-             
-              <div class="form-group">
-               <div class="row">
-               <div class="col-md-4">
-               <label for="organization_id"> পদায়নকৃত কার্যালয় </label>
-                  <select class="form-control" name="organization_id" id="organization_id">
-                  <option value="">নির্বাচন করুন</option>
-                    <?php foreach ($organizations as $organization): ?>
-                      <option value="<?php echo $organization['id']; ?>"><?php echo $organization['name']; ?></option>
-                  <?php endforeach;?>
-                  </select>
-            </div>
-
-            <div class="col-md-4">
-               <label for="designation_id"> পদবী </label>
-                  <select class="form-control" name="designation_id" id="designation_id">
-                  <option value="">নির্বাচন করুন</option>
-                    <?php foreach ($designations as $designation): ?>
-                      <option value="<?php echo $designation['id']; ?>"><?php echo $designation['name']; ?></option>
-                  <?php endforeach;?>
-                  </select>
-            </div>
-            </div>
-            </div>
-              
-          </fieldset>
-
-          <fieldset class="scheduler-border">
-            <legend class="scheduler-border">অতিরিক্ত দায়িত্ব/সংযুক্ত পদায়নের তথ্য (যদি থেকে থাকে)</legend>
-               
-              <div class="form-group">
-               <div class="row">
-               <div class="col-md-4">
-               <label for="organization_id"> সংযুক্ত কার্যালয় </label>
-                  <select class="form-control" name="additional_organization_id" id="additional_organization_id">
-                  <option value="">নির্বাচন করুন</option>
-                    <?php foreach ($additional_organizations as $additional_organization): ?>
-                      <option value="<?php echo $additional_organization['id']; ?>"><?php echo $additional_organization['name']; ?></option>
-                  <?php endforeach;?>
-                  </select>
-            </div>
-
-            <div class="col-md-4">
-               <label for="designation_id">পদবী</label>
-                  <select class="form-control" name="additional_designation_id" id="additional_designation_id">
-                  <option value="">নির্বাচন করুন</option>
-                    <?php foreach ($additional_designations as $additional_designation): ?>
-                      <option value="<?php echo $additional_designation['id']; ?>"><?php echo $additional_designation['name']; ?></option>
-                  <?php endforeach;?>
-                  </select>
-            </div>
-            </div>
-            </div>
-              
-          </fieldset>
-
-
+        
           <div class="form-group">
                <div class="row">
                <div class="col-md-12">
@@ -627,7 +534,7 @@ echo $errmsg;
   </script>         
 
 
-<script>
+<!-- <script>
     $(document).ready(function(){
       var date_input=$('input[name="dob"],input[name="prl_date"],input[name="last_promotion_date"],input[name="present_post_joining_date"],input[name="present_place_joing_date"],input[name="joining_govt_service_date"]'); //our date input has the name "date"
       var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
@@ -639,4 +546,4 @@ echo $errmsg;
       };
       date_input.datepicker(options);
     })
-</script>
+</script> -->
