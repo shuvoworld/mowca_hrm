@@ -98,3 +98,33 @@ function beforeInsertCallBack($data, $obj) {
  
 }
 
+
+function beforeInsertMovein($data, $obj) {
+//http://demo.digitaldreamstech.com/PDOModel/documentation/pdo/insert.php
+
+    $pdomodel = $obj->getPDOModelObj();
+    $sanctionedpost_id = $data['movein']['sanctionedpost_id'];
+    $pdomodel->where("id",$sanctionedpost_id,"=");
+    $sanctionedpost =  $pdomodel->select("sanctionedposts");
+    
+    $data['movein']['created_at'] = date('Y/m/d h:i:s a', time());
+
+    $pdocrud = new PDOCrud(); 
+    $insertData = array(
+        "designation_id" => $sanctionedpost[0]['designation_id'], 
+        "designation_name" =>  $sanctionedpost[0]['designation_name'], 
+        "organization_id" =>$sanctionedpost[0]['organization_id'],
+        "organization_name" => $sanctionedpost[0]['organization_name'],
+        "employee_id" => $data['movein']['employee_id'],
+        "start_date" => $data['movein']['join_date'],
+        "type_of_posting" => $data['movein']['type_of_posting'],
+        "reason_of_posting" => $data['movein']['reason_of_posting'],
+        "created_at" => date('Y/m/d h:i:s a', time()),
+        "current" => "Yes"
+    );
+    $pdocrud->getPDOModelObj()->insert("posting", $insertData);
+    
+    return $data;
+ 
+}
+

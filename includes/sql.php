@@ -253,4 +253,19 @@ function find_other_programs_by_dates($month,$year,$agency){
   return find_by_sql($sql);
 }
 
+
+function find_posts_by_organization($organization_id){
+  global $db;
+  $sql  = "SELECT
+	sanctionedposts.designation_name AS designation_name,
+	employees.name_BN AS employee_name,
+	employees.mobile_no AS mobile_no
+FROM
+	sanctionedposts
+LEFT JOIN employees ON sanctionedposts.id = employees.sanctionedpost_id
+WHERE sanctionedposts.organization_id = ". $organization_id;
+  
+  return find_by_sql($sql);
+}
+
 ?>

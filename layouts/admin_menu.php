@@ -36,6 +36,20 @@
     </a>
   </li>
   <li>
+  <li>
+    <a href="movein.php">
+      <i class="glyphicon glyphicon-home"></i>
+      <span>মুভ ইন</span>
+    </a>
+  </li>
+  <li>
+  <li>
+    <a href="posting.php">
+      <i class="glyphicon glyphicon-home"></i>
+      <span>পোস্টিং</span>
+    </a>
+  </li>
+  <li>
   
   <li>
     <a href="#" class="submenu-toggle">

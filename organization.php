@@ -18,6 +18,10 @@ else{
   $agency_query = "select * from `agencies` WHERE 1";
 }
 
+$action = "org_dashboard.php?id={pk}";
+$text = '<i class="fa fa-bank" style="font-size:24px" title="Show Posts"></i>';
+$attr = array("title"=>"Redirect URL");
+$pdocrud->enqueueBtnActions("url", $action, "url",$text,"booking_status", $attr);
 
 $pdocrud->fieldTypes("agency_id", "select"); //change type to select
 $pdocrud->addPlugin("select2");//to add plugin

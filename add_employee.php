@@ -6,6 +6,7 @@ require_once 'includes/load.php';
 page_require_level(2);
 
 $agencies = find_all('agencies');
+$designations = find_all('designations');
 $sex = find_all('sex');
 $religions = find_all('religions');
 $quotas = find_all('quotas');
