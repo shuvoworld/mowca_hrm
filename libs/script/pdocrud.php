@@ -77,6 +77,7 @@ function beforeInsertCallBack($data, $obj) {
      $data['sanctionedposts']['designation_name'] = $designation[0]['name'];
      $data['sanctionedposts']['organization_name'] = $organization[0]['name'];
      $data['sanctionedposts']['created_at'] = date('Y/m/d h:i:s a', time());
+     $data['sanctionedposts']['status'] = "Vacant";
      return $data;
   
  }
@@ -111,8 +112,8 @@ function beforeInsertMovein($data, $obj) {
 
     $pdocrud = new PDOCrud(); 
     $insertData = array(
-        "designation_id" => $sanctionedpost[0]['designation_id'], 
-        "designation_name" =>  $sanctionedpost[0]['designation_name'], 
+        "designation_id" => $sanctionedpost[0]['designation_id'],
+        "designation_name" =>  $sanctionedpost[0]['designation_name'],
         "organization_id" =>$sanctionedpost[0]['organization_id'],
         "organization_name" => $sanctionedpost[0]['organization_name'],
         "employee_id" => $data['movein']['employee_id'],
@@ -123,7 +124,14 @@ function beforeInsertMovein($data, $obj) {
         "current" => "Yes"
     );
     $pdocrud->getPDOModelObj()->insert("posting", $insertData);
-    
+
+    $updatepoststatus = array(
+        "employee_id" => $data['movein']['employee_id'],
+        "status" => "Filled"
+    );
+    $pdocrud->where("id", $data['movein']['sanctionedpost_id']);
+    $pdocrud->getPDOModelObj()->update("sanctionedposts", $updatepoststatus);
+
     return $data;
  
 }
