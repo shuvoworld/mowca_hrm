@@ -15,6 +15,19 @@
 $pdocrud = new PDOCrud(false, "pure", "pure");
 $pdocrud->addPlugin("select2");//to add plugin 
 
+$pdocrud->crudTableCol(array("sanctionedpost_id","employee_id", "type_of_posting","join_date"));
+$pdocrud->relatedData('sanctionedpost_id','sanctionedposts','id','designation_name');
+$pdocrud->relatedData('employee_id','employees','id','name_BN');
+
+$pdocrud->colRename("sanctionedpost_id", "অনুমোদিত পদ");
+$pdocrud->colRename("employee_id", "কর্মচারী");
+$pdocrud->colRename("reason_of_posting", "কারণ");
+$pdocrud->colRename("type_of_posting", "নিয়মিত/অতিরিক্ত/চলতি দায়িত্ব/সংযুক্ত");
+$pdocrud->colRename("join_date", "যোগদানের তারিখ");
+
+$pdocrud->tableHeading("যোগদানের তথ্য");
+
+
 $pdocrud->fieldTypes("sanctionedpost_id", "select"); //change type to select
 $pdocrud->fieldDataBinding("sanctionedpost_id", "sanctionedposts", "id", array("organization_name","designation_name"), "db", " => "); //load select data
 
@@ -33,6 +46,13 @@ $pdocrud->fieldDataBinding("employee_id", "employees", "id", array("name_BN", "m
 $pdocrud->fieldTypes("current", "select");
 $pdocrud->fieldDataBinding("current", array("Yes"=>"Yes","No"=>"No"), "", "","array");//add data binding using array
 $pdocrud->formFieldValue("created_by", $user["id"]);
+
+$pdocrud->fieldRenameLable("sanctionedpost_id", "অনুমোদিত পদ");
+$pdocrud->fieldRenameLable("employee_id", "কর্মচারী");
+$pdocrud->fieldRenameLable("reason_of_posting", "কারণ");
+$pdocrud->fieldRenameLable("current", "কর্মরত?");
+$pdocrud->fieldRenameLable("type_of_posting", "নিয়মিত/অতিরিক্ত/চলতি দায়িত্ব/সংযুক্ত");
+$pdocrud->fieldRenameLable("join_date", "যোগদানের তারিখ");
 
 $pdocrud->addCallback("before_insert","beforeInsertMovein");
 
