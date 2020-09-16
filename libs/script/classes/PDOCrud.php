@@ -3845,17 +3845,20 @@ Class PDOCrud {
         if (!isset($this->formId))
             $this->formId = $this->getRandomKey(false);
 
-        if (is_array($this->form["class"]) && count($this->form["class"])) {
-            $class .= implode(" ", $this->form["class"]);
-        }
-
+            if(isset($this->form["class"])){
+                if (is_array($this->form["class"]) && count($this->form["class"])) {
+                    $class .= implode(" ", $this->form["class"]);
+                }
+        
+            }
+        
         if (isset($this->form["formType"]) && !empty($this->form["formType"]) && !$inlineform) {
             if (strtolower($this->form["formType"]) === "inline")
                 $class .= " form-inline";
             else if (strtolower($this->form["formType"]) === "horizontal")
                 $class .= " form-horizontal";
         }
-
+        if(isset($this->form["attr"])){
         if (is_array($this->form["attr"]) && count($this->form["attr"])) {
             $form .= implode(', ', array_map(function($v, $k) {
                         return $k . '=' . $v;
@@ -3865,6 +3868,7 @@ Class PDOCrud {
         $form .= " class = \"$class\"";
         return $form;
     }
+}
 
     private function getHTMLData($fields, $table, $result = array(), $leftJoin = false, $innerJoin = false) {
         $data = array();
@@ -3901,10 +3905,10 @@ Class PDOCrud {
                     $val[0] = $result[$fieldName];
                 else if (isset($this->formFieldVal[$fieldName]))
                     $val[0] = $this->formFieldVal[$fieldName];
-
+                if(isset($this->form["formType"])){
                 if (strtolower($this->form["formType"]) === "horizontal")
                     $blockclass = "horizontalblockClass";
-
+                    }
                 if ($leftJoin)
                     $encryptedFieldName = $encryptedFieldName . "[]";
 
@@ -4634,17 +4638,19 @@ Class PDOCrud {
         } else if (($this->settings["hideHTMLLable"]) && ($type === "HTML")) {
             return "";
         }
+if(isset($this->form["formType"])){
+    if (strtolower($this->form["formType"]) === "horizontal")
+    $lableClass = array_merge($lableClass, $this->settings["lableClass"]);
 
-        if (strtolower($this->form["formType"]) === "horizontal")
-            $lableClass = array_merge($lableClass, $this->settings["lableClass"]);
-
-        return $this->getLableField($lableText, $encryptedFieldName, $lableClass);
-    }
+return $this->getLableField($lableText, $encryptedFieldName, $lableClass);
+}
+}
+        
 
     private function getHTMLElementBlockClass($fieldName) {
         if (isset($this->fieldBlockClass[$fieldName]))
             return $this->fieldBlockClass[$fieldName];
-        else if (strtolower($this->form["formType"]) === "horizontal")
+        else if (isset($this->form["formType"]) && strtolower($this->form["formType"]) === "horizontal")
             return implode(" ", $this->settings["blockClass"]);
         else
             return "";
