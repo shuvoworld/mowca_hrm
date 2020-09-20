@@ -1,10 +1,16 @@
 jQuery(document).ready(function () {
 
+    jQuery.fn.exchangePositionWith = function(selector) {
+        var other = jQuery(selector);
+        this.after(other.clone());
+        other.remove();
+    };
+
     jQuery.pdocrud_actions = {
         init: function () {
 
             jQuery('body').tooltip({selector: '[data-toggle="tooltip"]'});
-            
+
             if(pdocrud_js.checkbox_validation){
                 jQuery(document).on('change', '.pdocrud-checkbox:checkbox', function () {
                    if (jQuery(this).is('[required]') || jQuery(this).is('[apply-req-validation]')) {
@@ -62,6 +68,47 @@ jQuery(document).ready(function () {
                   jQuery.pdocrud_actions.ajax_actions(this, instance, data,  pdocrud_js.ajax_actions[index].return_value_element);
               });
             });
+          }
+
+          if(pdocrud_js.hasOwnProperty('js_actions')){
+            jQuery.each(pdocrud_js.js_actions, function (index) {
+              jQuery(document).on(pdocrud_js.js_actions[index].event, '.'+pdocrud_js.js_actions[index].class, function (evt) {
+                  var instance = jQuery.pdocrud_actions.getInstance(this, "form");
+                  var data = {};
+                  data.action = "js_actions";
+                  data.function = pdocrud_js.js_actions[index].callback_function;
+                  data.post_data  = {};
+                  data.post_data.element_name = pdocrud_js.js_actions[index].element_name;
+                  data.post_data.value = jQuery(this).val();
+                  if(pdocrud_js.js_actions[index].other_elements.length){
+                    data.post_data.other_element_name = {};
+                    data.post_data.other_element_value = {};
+                    jQuery.each(pdocrud_js.js_actions[index].other_elements, function (loop) {
+                      data.post_data.other_element_name[loop] = pdocrud_js.js_actions[index].other_elements[loop];
+                      data.post_data.other_element_value[loop] = jQuery('.pdocrud_js_action_other_'+pdocrud_js.ajax_actions[index].other_elements[loop]).val();
+                    });                    
+                  }
+                  jQuery.pdocrud_actions.js_actions(this, instance, data,  pdocrud_js.ajax_actions[index].return_value_element);
+              });
+            });
+          }
+
+          if(pdocrud_js.hasOwnProperty('invoice_headers')){
+            var header_count = pdocrud_js.invoice_headers - 1;
+            var total_header =  0;
+            if(jQuery('table.pdocrud-table-view').length){
+              total_header =  jQuery('table.pdocrud-table-view tbody tr').length - 1;
+              jQuery("table.pdocrud-table-view tbody tr:eq("+header_count+")").exchangePositionWith("table.pdocrud-table-view tbody tr:eq("+total_header+")");
+            }
+
+            if(jQuery('.pdocrud-form div.form-group').length)
+              total_header =  jQuery('.pdocrud-form div.form-group').length - 2;
+              jQuery(".pdocrud-form div.form-group:eq("+header_count+")").exchangePositionWith(".pdocrud-form div.form-group:eq("+total_header+")");
+
+              jQuery(document).on("pdocrud_after_ajax_action",function(event,container){
+                var total_header =  jQuery('.pdocrud-form div.form-group').length - 2;
+                jQuery(".pdocrud-form div.form-group:eq("+header_count+")").exchangePositionWith(".pdocrud-form div.form-group:eq("+total_header+")");
+               });              
           }
 
             jQuery(document).on("click", "table.pdocrud-excel-table tbody tr td.pdocrud-row-cols", function (evt) {
@@ -428,7 +475,7 @@ jQuery(document).ready(function () {
                    data.updateData = JSON.stringify(updateData);
                 }
 
-                if (data.action === "add") {
+                if (data.action === "add" || data.action === "add_invoice") {
                     instance = jQuery(this).closest(".pdocrud-table-container").data("objkey");
                 }
 
@@ -615,7 +662,12 @@ jQuery(document).ready(function () {
                                 jQuery("#" + instance + "_modal").modal('show');
                                 jQuery("#" + instance + "_modal").on('shown', function () {
                                     jQuery("#" + instance + "_modal").find(".modal-body").find("input").focus();
-                                });
+                                });                               
+                                if (data.action === "edit") { 
+                                    jQuery("#" + instance + "_modal").find(".modal-body").find(":input[data-condition-logic]").each(function(){
+                                        jQuery(this).trigger("change");
+                                    });
+                                }
                             }
                         }
                         else if (data.action === "inline_edit") {
@@ -650,10 +702,19 @@ jQuery(document).ready(function () {
                             element.find(".pdocrud-related-table-view").html(response);
                             jQuery('html, body').animate({ scrollTop: $(".pdocrud-related-table-view").offset().top }, 'slow');
                         }
+                        else if (data.action === "printpdf") { 
+                          var win = window.open(response, '_blank');
+                          win.focus();
+                        }
                         else {
                             jQuery(obj).closest(".pdocrud-table-container").html(response);
                             if (jQuery(".pdocrud_tabs").length > 0) {
                                 jQuery(obj).parents(".pdocrud-table-container").last().html(response);
+                            }
+                            if (data.action === "edit") { 
+                                jQuery(".pdocrud-table-container").find(":input[data-condition-logic]").each(function(){
+                                    jQuery(this).trigger("change");
+                                });
                             }
                         }
                         if (jQuery(".pdocrud_tabs").length > 0) {
@@ -958,7 +1019,6 @@ jQuery(document).ready(function () {
                     mapTypeId: google.maps.MapTypeId.mapType
                 }
 
-
                 var map = new google.maps.Map(document.getElementById(mapElemId), mapOptions);
 
                 var marker = new google.maps.Marker({
@@ -1010,6 +1070,12 @@ jQuery(document).ready(function () {
                     }
                     else if(data[key].task === "hide"){
                         jQuery(":input[name='"+data[key].field.trim()+"']").parent("div.form-group").hide();
+                    }
+                    else if(data[key].task === "enable"){
+                        jQuery(":input[name='"+data[key].field.trim()+"']").attr("disabled", false);
+                    }
+                    else if(data[key].task === "disable"){
+                        jQuery(":input[name='"+data[key].field.trim()+"']").attr("disabled", true);
                     }
                 }                
             }

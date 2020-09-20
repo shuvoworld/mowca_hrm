@@ -9,15 +9,19 @@
 </div>
 <?php
 $body = "";
+$rowCount = 1;
 foreach ($data as $rows) {
     $header = "";
     $body .= "<tr>";
+    $colCount = 1;
     foreach ($rows as $row) {
         $header .= "<th>" . $row["lable"] . $row["tooltip"] . "</th>";
-        $body .= "<td>" . $row["element"] . "</td>";
+        $body .= "<td class='pdocrud_leftjoin_row_$rowCount pdocrud_leftjoin_col_$colCount'>" . $row["element"] . "</td>";
+        $colCount++;
     }
     $body .= ' <td class="text-right"><a href="javascript:;" class="pdocrud-actions" data-action="delete_row"><i class="fa fa-remove"></i> ' . $lang["remove"] . '</a></td>';
     $body .= "</tr>";
+    $rowCount++;
 }
 ?>
 <table class="table pdocrud-left-join responsive">

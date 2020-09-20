@@ -31,7 +31,7 @@
                     if ($loop === 0) {
                         $leftCols = array_keys($rows);
                         ?>
-                        <tr>
+                        <tr class="pdocrud_view_left_join">
                                 <?php
                                 foreach ($leftCols as $col) {
                                     ?>
@@ -42,7 +42,6 @@
                                     echo $col;
                                 ?>
                                 </td>
-
                             <?php }
                             ?>
                         </tr> 

@@ -25,7 +25,7 @@ $config["password"] = "";
 //Set the database type to be used. Available values are "mysql", "pgsql", "sqlite" and "sqlserver".
 $config["dbtype"] = "mysql";
 //Please enter purchase code. Please check how to find purchase code details here https://help.market.envato.com/hc/en-us/articles/202822600-Where-Is-My-Purchase-Code-
-$config["purchase_code"] = "";
+$config["purchase_code"] = "a2d63207-866b-4502-9918-c796f7fdb339";
 //Set the character set to be used
 $config["characterset"] = "utf8";
 //Encryption and Decryption salt
@@ -205,7 +205,7 @@ $config["defaultValueFieldRequired"] = true;
 $config["enableSearchOnEnter"] = true;
 /******************************** Other settings  ***********************************/
 //show left join data in view of form
-$config["leftJoinData"] = false;
+$config["leftJoinData"] = true;
 //by default single step form
 $config["formtype"] = "singlestep";
 //whether to encrypt or decrypt fields - version 1.2
@@ -233,4 +233,3 @@ $config["SMTPpassword"] = "";
 $config["SMTPSecure"] = ""; 
 
 $config["SMTPKeepAlive"] = true; 
-date_default_timezone_set('Asia/Dhaka');

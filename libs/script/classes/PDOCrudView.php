@@ -35,6 +35,33 @@ class PDOCrudView {
         }
     }
 
+    public function renderJSFormula($formulajs, $fields, $event){
+        $element = "";
+        foreach ($fields as $field) {
+            $element .= '.pdo_js_'.$field.',';
+        }
+        $element = rtrim($element, ",");
+        $jsOutput = "";
+        $jsOutput .= "<script type='text/javascript'>";
+        $jsOutput .= "jQuery(document).on('" . $event . "', '" . $element. "', function(evt, obj, data) {";
+        $jsOutput .= $formulajs;
+        $jsOutput .= "})";
+        $jsOutput .= "</script>";
+        return $jsOutput;
+    }
+
+    public function renderLeftJoinJSFormula($element, $formula, $event, $eventFields){
+        $jsOutput = "";
+        $jsOutput .= "<script type='text/javascript'>";
+        $jsOutput .= "jQuery(document).on('" . $event . "', '" . $eventFields. "', function(evt, obj, data) {";
+        $jsOutput .= "jQuery('table.pdocrud-left-join tbody tr').each(function(){";
+        $jsOutput .= "jQuery(this).find('$element').val($formula);";
+        $jsOutput .= "})";
+        $jsOutput .= "})";
+        $jsOutput .= "</script>";
+        return $jsOutput;
+    }
+
     public function outputCss($cssList) {
         if (is_array($cssList) && count($cssList)) {
             $cssOutput = "";

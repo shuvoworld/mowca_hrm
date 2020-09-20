@@ -68,7 +68,7 @@ Class PDOCrudTableFormat extends PDOCrudHelper {
             foreach ($colFormat as $col => $options) {
                 foreach ($data as $rows) {
                     if (isset($rows[$col]))
-                        $rows[$col] = $this->formatTableColOptions($col, $options, $rows[$col]);
+                        $rows[$col] = $this->formatTableColOptions($col, $options, $rows[$col], $rows);
                     $data[$loop] = $rows;
                     $loop++;
                 }
@@ -131,6 +131,20 @@ Class PDOCrudTableFormat extends PDOCrudHelper {
 
     }
 
+    public function renderFormula($element, $formula){
+        preg_match_all('/{(.*?)}/', $formula, $matches);
+        if(is_array($matches[1]) && count($matches[1])){
+            $returnFormula = $formula;
+            foreach ($matches[0] as $index => $var_name) {
+                $fieldname = "pdo_js_".$matches[1][$index];
+                $replacement = "parseFloat(jQuery('.$fieldname').val())";
+                $returnFormula = str_replace($var_name, $replacement, $returnFormula);
+            }
+            $returnFormula = "jQuery('.pdo_js_$element').val($returnFormula)";
+            return array("fields" => $matches[1], "returnFormula" => $returnFormula);
+        }
+    }
+
     private function parseExpression($expression){
         if(preg_match('/(\d+)(?:\s*)([\+\-\*\/])(?:\s*)(\d+)/', $expression, $matches) !== FALSE){
             if(is_array($matches) && count($matches)){
@@ -152,7 +166,6 @@ Class PDOCrudTableFormat extends PDOCrudHelper {
                      default:
                         $val = $matches[1];
                         break;
-                        
                 }
             return $val;
             }
@@ -354,6 +367,11 @@ Class PDOCrudTableFormat extends PDOCrudHelper {
                     return $fields[1] * $fields[0];
                 }   
                 break;
+            case "percentage":
+                if (isset($fields[0]) && isset($fields[1]) && $fields[0]!=0) {
+                    return (($fields[1] *100 )/ $fields[0])."%";
+                }
+                break;    
             case "subtract":
                 if (isset($fields[0]) && isset($fields[1]) && $fields[0]!=0) {
                     return $fields[1] - $fields[0];

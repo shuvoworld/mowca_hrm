@@ -14,7 +14,6 @@ Class PDOCrudAjaxCtrl {
         $action = $_POST["pdocrud_data"]["action"];
         $data = $_POST["pdocrud_data"];
         $post = $_POST;
-
         if (isset($_FILES))
             $post = array_merge($_FILES, $post);
         $data["post"] = $post;
@@ -188,6 +187,9 @@ Class PDOCrudAjaxCtrl {
             case "AJAX_ACTION":
                 echo $pdocrud->render("AJAX_ACTION", $data);
                 break;   
+            case "PRINTPDF":
+                echo $pdocrud->render("PRINT_PDF", $data);
+                break;    
             default:
                 break;
         }
