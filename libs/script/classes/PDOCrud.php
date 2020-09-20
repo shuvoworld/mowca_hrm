@@ -3,11 +3,11 @@
  * PDOCrud - Advance PHP CRUD application using PDO
  * File: PDOCrud.php
  * Author: Pritesh Gupta
- * Version: 4.4.1
+ * Version: 4.7.1
  * Release Date: 21-Aug-2016
- * Last Update : 03-Oct-2019
+ * Last Update : 06-July-2020
  *
- * Copyright (c) 2019 Pritesh Gupta. All Rights Reserved.
+ * Copyright (c) 2020 Pritesh Gupta. All Rights Reserved.
 
   /* ABOUT THIS FILE:
   ---------------------------------------------------------------------------------------------------------------
@@ -144,6 +144,8 @@ Class PDOCrud {
     private $isRelData;
     private $pdf;
     private $subSelectQuery;
+    private $invoiceDetails;
+    private $xinvoicePrint;
 
     /*     * ******************* File related variables - use this for various file operations ******************************** */
     public $fileOutputMode = "save"; // if fileOutputMode="browser", then it will ask for download else it will save
@@ -1977,6 +1979,16 @@ Class PDOCrud {
     }
 
     /**
+     * Set invoice table header details 
+     * @param   array    $headerFields                    data array containing all header fields information
+     * return   mixed                                     Object of class or js content
+     */
+    public function setInvoiceDetails($headerFields = array()) {
+        $this->jsSettings["invoice_headers"] = is_array($headerFields) ? count($headerFields) : 0;
+        return $this;
+    }
+
+    /**
      * Output js
      * @param   bool   $output                            if true output the content else return the content.
      * return   mixed                                     Object of class or js content
@@ -2004,6 +2016,21 @@ Class PDOCrud {
         else
             return $js;
         return $this;
+    }
+
+    /**
+     * Set the invoice print action button
+     * @param   string   $sql                              Sql to be used for getting the data
+     * @param   string   $path                             path of xinvoice, default is in library
+     * return   mixed                                      Object of class or js content
+     */
+    public function invoicePrint($sql, $path = ""){
+      if(empty($path))
+        $path = dirname(__FILE__) . "/library/xinvoice/script/xinvoice.php";
+     $this->xinvoicePrint = array("sql" => $sql, "path"=> $path);
+     $text = '<i class="fa fa-file-pdf-o" aria-hidden="true"></i>';
+     $this->enqueueBtnActions("printpdf", "javascript:;", "printpdf", $text);
+     return $this;
     }
 
     /**
@@ -2249,7 +2276,7 @@ Class PDOCrud {
      * @param   string   $event                       Javascript event name
      * @param   string   $callbackFunc                Function to be called upon
      * @param   string   $returnValueElement          On which element, return value should be displayed
-     * @param   string   $otherElements               Other elements to be passed along if any
+     * @param   array    $otherElements               Other elements to be passed along if any
      * return   object                                Object of class
      */
     public function setAjaxActions($elementName,$event, $callbackFunc, $returnValueElement = "", $otherElements = array()) {
@@ -2270,6 +2297,53 @@ Class PDOCrud {
           "callback_function" => $callbackFunc,"return_value_element"=>$returnValueElement ,
           "class"=> "pdocrud_ajax_action_".$elementName, "other_elements"=>$otherElements);
         return $this;
+    }
+
+    /**
+     * Set/Call js actions for the form elements on some js event
+     * @param   string   $element                     Main element, On which element, calculated value should be displayed
+
+     * @param   string   $formula                     Formula to be applied
+     * @param   string   $event                       Javascript event, this will be applied on formula fields  if no event fields passed
+     * @param   string   $eventFields                 Event fields if any
+     * return   object                                Object of class
+     */
+    public function setJsActions($element, $formula, $event, $eventFields = array() ) {
+        $this->fieldCssClass($element, array("pdo_js_".$element));
+        $formulajs = $this->pdoTableFormatObj->renderFormula($element, $formula);
+        if(count($formulajs["fields"])){
+          foreach($formulajs["fields"] as $field){
+            $this->fieldCssClass($field, array("pdo_js_".$field));
+          }
+        }
+        $eventFields = count($eventFields) ? $eventFields : $formulajs["fields"]; 
+        $this->enqueueHTMLContent($this->pdocrudView->renderJSFormula( $formulajs["returnFormula"], $eventFields, $event));
+        return $this;
+    }
+
+    /**
+     * Set/Call js actions for the left join form elements
+     * @param   string   $element                     Main element, On which, calculated value should be displayed
+     * @param   string   $formula                     Formula to be applied
+     * @param   string   $event                       Javascript event, this will be applied on formula fields  if no event fields passed
+     * @param   string   $eventFields                 Event fields
+     * return   object                                Object of class
+     */
+    public function setLeftJoinJsActions($element, $formula, $event, $eventFields) {
+      for($colLoop = 0; $colLoop < 10; $colLoop++){
+        $element = str_replace("col$colLoop",".pdocrud_leftjoin_col_$colLoop input", $element);
+        $formula = str_replace("col$colLoop","parseFloat(jQuery(this).find('.pdocrud_leftjoin_col_$colLoop input').val())", $formula);
+      }
+
+      $field = "";
+      foreach ($eventFields as $fields => $type) {
+        $field .= str_replace("col",".pdocrud_leftjoin_col_", $fields);
+        $field .= " $type, ";
+      }
+      $field = rtrim($field, ", ");
+      $this->enqueueHTMLContent($this->pdocrudView->renderLeftJoinJSFormula($element, $formula, $event, 
+        $field));
+      return $this;
     }
 
     private function savePDOCrudObj() {
@@ -2395,6 +2469,8 @@ Class PDOCrud {
                 return $this->dbCellUpdate($data);
             case "AJAX_ACTION":
                 return $this->ajaxAction($data);
+            case "PRINT_PDF":
+                return $this->getInvoicePDF($data);    
             default:
                 $this->addError($this->getLangData("error_valid_render_option"));
         }
@@ -2806,7 +2882,7 @@ Class PDOCrud {
     }
 
     private function uploadFormImage($val) {
-        if (count($val) !== count($val, COUNT_RECURSIVE)) {
+        if (is_array($val) && count($val) !== count($val, COUNT_RECURSIVE)) {
             $path = array();
             for ($loop = 0; $loop < count($val["name"]); $loop++) {
                 $file["name"] = $val["name"][$loop];
@@ -2886,7 +2962,14 @@ Class PDOCrud {
             unset($this->btnActions["view"]);
             $this->btnActions["onepageedit"] = $this->btnActions["edit"];
             unset($this->btnActions["edit"]);
-        } else {
+        } 
+        else if (isset($this->invoiceDetails) && count($this->invoiceDetails)){          
+          $this->enqueueBtnTopActions("add_invoice",  "Add Invoice", "javascript:;", array("data-action"=>"add_invoice"), "pdocrud-actions");
+          $this->btnActions["view"][3] = "view_invoice";
+          $this->btnActions["edit"][3] = "edit_invoice";
+          $this->btnActions["delete"][3] = "delete_invoice";
+        }
+        else {
             $this->crudCall = true;
         }
         if (strtolower($recordPerPage) === "all" || $recordPerPage > $totalRecords)
@@ -3356,7 +3439,18 @@ Class PDOCrud {
         } else if (isset($this->columns)) {
             $pdoModelObj->columns = $this->columns;
             $cols = $this->columns;
-        } else {
+        } 
+        else if (isset($this->relData)) {
+            if(!isset($this->viewColumns)){
+                $pdoModelObj->columns  = $this->getPDOModelObj()->columnNames($this->tableName);
+                $cols = $pdoModelObj->columns;
+            }
+            foreach ($this->relData as $relData) {
+                $key = array_search($relData["mainTableCol"], $pdoModelObj->columns);
+                $pdoModelObj->columns[$key] = $this->getRelatedColumn($relData);
+                $cols = $pdoModelObj->columns;
+            }
+        }else {
             $cols = $pdoModelObj->columnNames($this->tableName);
         }
         $pdoModelObj->where($this->tableName . "." . $this->pk, $this->pkVal);
@@ -3443,6 +3537,19 @@ Class PDOCrud {
         return $data["callback"]."(".$json.")";
     }
 
+    private function getInvoicePDF($data){
+      $sql = $this->xinvoicePrint["sql"];
+      $path = $this->xinvoicePrint["path"];
+      $dataID = $data["id"];
+      $sql = preg_replace('/{[^}]+}/', $dataID, $sql);
+      $data = $this->getPDOModelObj()->executeQuery($sql);
+      require_once($path);
+      $xinvoice = new Xinvoice();
+      $xinvoice->setInvoiceCompleteData($data);
+      $xinvoice->setSettings("output", "F");
+      echo $xinvoice->render();
+    }
+
     private function ajaxAction($data){
         $callback = isset($data["post"]["pdocrud_data"]["function"])?$data["post"]["pdocrud_data"]["function"]:"";
         if (is_callable($callback))
@@ -3481,6 +3588,7 @@ Class PDOCrud {
         return $form;
     }
 
+
     private function renderFormData($data, $submitData = array(), $type = "insert") {
         $this->submitbtnClass = "";
         if (isset($this->formSteps)) {
@@ -3496,7 +3604,7 @@ Class PDOCrud {
         }
 
         if (isset($this->leftJoin))
-            $output .= $this->leftJoin;
+            $output .= "<div class='form-group'>".$this->leftJoin."</div>";
 
         return $output;
     }
@@ -3519,17 +3627,30 @@ Class PDOCrud {
 
     private function getLeftJoinData() {
         $data = array();
+        $output = array();
         $pdoModelObj = $this->getPDOModelObj();
-        if (is_array($this->joinTable) && count($this->joinTable) > 0) {
+        if (is_array($this->joinTable) && count($this->joinTable) > 0) {          
             foreach ($this->joinTable as $join) {
+              $fields = $pdoModelObj->tableFieldInfo($join["table"]);
                 if ($join["type"] == "LEFT JOIN") {
                     $keyName = $this->getJoinKeyName($join["condition"]);
                     $pdoModelObj->where($keyName, $this->pkVal);
-                    $data[$keyName] = $pdoModelObj->select($join["table"]);
+                    $leftJoinData[$keyName] = $pdoModelObj->select($join["table"]);   
+                    foreach ($leftJoinData as $rows) {
+                      foreach ($rows as $key => $value) {
+                        $results = array();
+                        array_walk_recursive($value, function ($item, $key) use (&$results){ 
+                          $key = str_replace("-", " ", ucfirst(str_replace("_", " ", $key)));
+                          $results[$key] = $item;});
+                        $data[$key] = $results;
+
+                      }
+                    }
+                    $output[$keyName] = $data;
                 }
             }
         }
-        return $data;
+        return $output;
     }
 
     private function exportTableData($data) {
@@ -3845,7 +3966,7 @@ Class PDOCrud {
         if (!isset($this->formId))
             $this->formId = $this->getRandomKey(false);
 
-        if (is_array($this->form["class"]) && count($this->form["class"])) {
+        if (isset($this->form["class"]) && is_array($this->form["class"]) && count($this->form["class"])) {
             $class .= implode(" ", $this->form["class"]);
         }
 
@@ -3856,7 +3977,7 @@ Class PDOCrud {
                 $class .= " form-horizontal";
         }
 
-        if (is_array($this->form["attr"]) && count($this->form["attr"])) {
+        if (isset($this->form["attr"]) && is_array($this->form["attr"]) && count($this->form["attr"])) {
             $form .= implode(', ', array_map(function($v, $k) {
                         return $k . '=' . $v;
                     }, $this->form["attr"], array_keys($this->form["attr"])));
@@ -3902,7 +4023,7 @@ Class PDOCrud {
                 else if (isset($this->formFieldVal[$fieldName]))
                     $val[0] = $this->formFieldVal[$fieldName];
 
-                if (strtolower($this->form["formType"]) === "horizontal")
+                if (isset($this->form["formType"]) && strtolower($this->form["formType"]) === "horizontal")
                     $blockclass = "horizontalblockClass";
 
                 if ($leftJoin)
@@ -3950,7 +4071,7 @@ Class PDOCrud {
             $htmlType = "void";
             $blockclass = "blockClass";
             $encryptedFieldName = $this->encrypt($table . $this->tableFieldJoin . $fieldName);
-            if (strtolower($this->form["formType"]) === "horizontal") {
+            if (isset($this->form["formType"]) && strtolower($this->form["formType"]) === "horizontal") {
                 $blockclass = "horizontalblockClass";
             }
             if (isset($this->fieldType[$fieldName])) {
@@ -4635,7 +4756,7 @@ Class PDOCrud {
             return "";
         }
 
-        if (strtolower($this->form["formType"]) === "horizontal")
+        if (isset($this->form["formType"]) && strtolower($this->form["formType"]) === "horizontal")
             $lableClass = array_merge($lableClass, $this->settings["lableClass"]);
 
         return $this->getLableField($lableText, $encryptedFieldName, $lableClass);
@@ -4644,7 +4765,7 @@ Class PDOCrud {
     private function getHTMLElementBlockClass($fieldName) {
         if (isset($this->fieldBlockClass[$fieldName]))
             return $this->fieldBlockClass[$fieldName];
-        else if (strtolower($this->form["formType"]) === "horizontal")
+        else if (isset($this->form["formType"]) && strtolower($this->form["formType"]) === "horizontal")
             return implode(" ", $this->settings["blockClass"]);
         else
             return "";
