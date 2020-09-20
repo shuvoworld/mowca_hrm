@@ -8,15 +8,14 @@
 
 
 $pdocrud = new PDOCrud(false, "pure", "pure");
-$pdocrud->crudTableCol(array("name_BN","last_name","user_name","gender"));
 
 if (isset($user['agency_id'])) {
   $pdocrud->where("agency_id", $user['agency_id'], "=");
   
-  $agency_query = "select * from agencies where id = {$user['agency_id']} ";
+  $agency_query = "select name, name_BN from agencies where id = {$user['agency_id']} ";
 }
 else{
-  $agency_query = "select * from `agencies` WHERE 1";
+  $agency_query = "select name, name_BN from `agencies` WHERE 1";
 }
 
 
