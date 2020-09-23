@@ -125,4 +125,45 @@ function beforeInsertMovein($data, $obj) {
         return $data;
     }
     
+    function beforeInsertContactCallBack($data, $obj) {
+        $pdomodel = $obj->getPDOModelObj();
+        
+        $designation_id = $data['contact_directory']['designation_id'];
+        $office_id = $data['contact_directory']['office_id'];
+        $organization_level_id = $data['contact_directory']['organization_level_id'];
+        $agency_id = $data['contact_directory']['agency_id'];
+        $division_id = $data['contact_directory']['division_id'];
+        $district_id = $data['contact_directory']['district_id'];
+        $upazila_id = $data['contact_directory']['upazila_id'];
+        
+        $pdomodel->where("id",$designation_id,"=");
+        $designation =  $pdomodel->select("designations");
+        $pdomodel->where("id",$designation_id,"=");
+        $designation =  $pdomodel->select("designations");
+        $pdomodel->where("id",$office_id,"=");
+        $organization_types =  $pdomodel->select("organization_types");
+        $pdomodel->where("id",$organization_level_id,"=");
+        $organization_levels =  $pdomodel->select("organization_levels");
+        $pdomodel->where("id",$agency_id,"=");
+        $agencies =  $pdomodel->select("agencies");
+
+        $pdomodel->where("id",$division_id,"=");
+        $divisions =  $pdomodel->select("divisions");
+        $pdomodel->where("id",$district_id,"=");
+        $districts =  $pdomodel->select("districts");
+        $pdomodel->where("id",$upazila_id,"=");
+        $upazilas =  $pdomodel->select("upazilas");
+
+        
+        $data['contact_directory']['designation_name'] = $designation[0]['name'];
+        $data['contact_directory']['organization_level_name'] = $organization_levels[0]['name_BN'];
+        $data['contact_directory']['office_name'] = $organization_types[0]['name_BN'];
+        $data['contact_directory']['agency_name'] = $agencies[0]['name_BN'];
+        $data['contact_directory']['division_name'] = $divisions[0]['name_BN'];
+        $data['contact_directory']['district_name'] = $districts[0]['name_BN'];
+        $data['contact_directory']['upazila_name'] = $upazilas[0]['name_BN'];
+        $data['contact_directory']['updated_at'] = date('Y/m/d h:i:s a', time());
+        return $data;
+        
+        }
 

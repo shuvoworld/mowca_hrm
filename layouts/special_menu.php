@@ -6,16 +6,17 @@
     </a>
   </li>
 
-  <li>
+  <!-- <li>
     <a href="organization.php">
       <i class="glyphicon glyphicon-home"></i>
       <span>প্রতিষ্ঠান</span>
     </a>
   </li>
+  -->
   <li>
-    <a href="employees.php">
+    <a href="contact.php">
       <i class="glyphicon glyphicon-home"></i>
-      <span>কর্মচারী ডাটাব্যাঙ্ক</span>
+      <span>তথ্য যোগ করুন</span>
     </a>
   </li>
   <li>
