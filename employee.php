@@ -24,6 +24,9 @@ $pdocrud->fieldTypes("agency_id", "select"); //change type to select
 $pdocrud->addPlugin("select2");//to add plugin
 $pdocrud->fieldDataBinding("agency_id", $agency_query, "id", "name_BN", "sql");
 
+$pdocrud->addPlugin("ckeditor");
+
+
 $pdocrud->fieldTypes("quota_id", "select"); //change type to select
 $pdocrud->fieldDataBinding("quota_id", "quotas", "id", "name", "db");
 
@@ -148,7 +151,8 @@ $pdocrud->fieldGroups("update_info",array("updated_at", "updated_by"));
 $pdocrud->addCallback("before_update", "beforeEmployeeUpdateCallBack");
 
 
-
+$pdocrud->fieldCssClass("details", array("ckeditor"));
 echo $pdocrud->dbTable("employees")->render();
+echo $pdocrud->loadPluginJsCode("ckeditor","ZW1wbG95ZWVzIyRkZXRhaWxzQDNkc2ZzZGYqKjk5MzQzMjQ=");
 echo $pdocrud->loadPluginJsCode("select2","select");//to add plugin call on select elements
 ?>

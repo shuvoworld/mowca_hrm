@@ -17,13 +17,13 @@ if (isset($user['agency_id'])) {
 else{
   $agency_query = "select * from `agencies` WHERE 1";
 }
-
+$pdocrud->addPlugin("ckeditor");
 $action = "org_dashboard.php?id={pk}";
 $text = '<i class="fa fa-bank" style="font-size:24px" title="Show Posts"></i>';
 $attr = array("title"=>"Redirect URL");
 $pdocrud->enqueueBtnActions("url", $action, "url",$text,"booking_status", $attr);
 
-
+$pdocrud->addPlugin("ckeditor");
 $pdocrud->fieldTypes("agency_id", "select"); //change type to select
 $pdocrud->addPlugin("select2");//to add plugin
 $pdocrud->fieldDataBinding("agency_id", $agency_query, "id", "name_BN", "sql");
@@ -55,12 +55,12 @@ $pdocrud->relatedData('division_id','divisions','id','name_BN');
 $pdocrud->relatedData('district_id','districts','id','name_BN');
 $pdocrud->relatedData('upazila_id','upazilas','id','name_BN');
 
-$pdocrud->fieldRenameLable("agency_id", "Agency");//Rename label
-$pdocrud->fieldRenameLable("division_id", "Division");//Rename label
-$pdocrud->fieldRenameLable("district_id", "District");//Rename label
-$pdocrud->fieldRenameLable("upazila_id", "Upazila");//Rename label
-$pdocrud->fieldRenameLable("organization_type_id", "Type");//Rename label
-$pdocrud->fieldRenameLable("organization_level_id", "Level");//Rename label
+$pdocrud->fieldRenameLable("agency_id", "দপ্তর/সংস্থা");//Rename label
+$pdocrud->fieldRenameLable("division_id", "বিভাগ");//Rename label
+$pdocrud->fieldRenameLable("district_id", "জেলা");//Rename label
+$pdocrud->fieldRenameLable("upazila_id", "উপজেলা");//Rename label
+$pdocrud->fieldRenameLable("organization_type_id", "দরণ");//Rename label
+$pdocrud->fieldRenameLable("organization_level_id", "লেভেল");//Rename label
 
 $pdocrud->fieldDataAttr("created_at", array("disabled"=>"disabled"));
 $pdocrud->fieldHideLable("created_by");
@@ -76,16 +76,18 @@ $pdocrud->formFieldValue("is_active", 1);
 $pdocrud->fieldHideLable("is_active");
 $pdocrud->fieldDataAttr("is_active", array("style"=>"display:none"));
 
-$pdocrud->fieldGroups("Naming",array("name","name_BN"));
-$pdocrud->fieldGroups("Organization Attribute",array("agency_id","organization_type_id","organization_level_id"));
+$pdocrud->fieldGroups("Naming",array("name_BN", "agency_id"));
+$pdocrud->fieldGroups("Organization Attribute",array("organization_type_id","organization_level_id"));
 $pdocrud->fieldGroups("Geo Location",array("division_id","district_id", "upazila_id"));
 
 
 
 $pdocrud->addCallback("before_update", "beforeUpdateCallBack");
 
+$pdocrud->fieldCssClass("details", array("ckeditor"));
 
 
 echo $pdocrud->dbTable("organizations")->render();
 echo $pdocrud->loadPluginJsCode("select2","select");//to add plugin call on select elements
+echo $pdocrud->loadPluginJsCode("ckeditor","b3JnYW5pemF0aW9ucyMkYWRkcmVzc0AzZHNmc2RmKio5OTM0MzI0");
 ?>

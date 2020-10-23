@@ -150,9 +150,8 @@ function tableExists($table){
   /* Function to update the last log in of a user
   /*--------------------------------------------------------------*/
 
- function updateLastLogIn($user_id)
-	{
-		global $db;
+ function updateLastLogIn($user_id){
+     global $db;
     $date = make_date();
     $sql = "UPDATE users SET last_login='{$date}' WHERE id ='{$user_id}' LIMIT 1";
     $result = $db->query($sql);
@@ -190,11 +189,8 @@ function tableExists($table){
      if (!$session->isUserLoggedIn(true)):
             $session->msg('d','Please login...');
             redirect('index.php', false);
-      //if Group status Deactive
-    //  elseif($login_level['group_status'] === 0):
-    //        $session->msg('d','This level user has been band!');
-    //        redirect('home.php',false);
-      //cheackin log in User level and Require level is Less than or equal to
+
+            //cheackin log in User level and Require level is Less than or equal to
      elseif($current_user['user_level'] <= (int)$require_level):
               return true;
       else:

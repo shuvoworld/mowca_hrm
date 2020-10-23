@@ -3,17 +3,32 @@
 $connect = new PDO("mysql:host=localhost;dbname=mowca_hrm;charset=utf8", "root", "");
 
 $column = array(
-    'name_BN', 
-    'organization_type_name', 
-    'agency_name', 
-    'division_name', 
-    'district_name', 
+    'name_BN',
+    'agency_name',
+    'organization_type_name',
+    'division_name',
+    'district_name',
     'upazila_name',
     'address'
 );
 
 $query = "
-SELECT * FROM organizations
+SELECT
+    organizations.id,
+	organizations.name_BN,
+	agencies.name_BN AS agency_name,
+	organization_types. NAME AS organization_type_name,
+	divisions.name_BN AS division_name,
+	districts.name_BN AS district_name,
+	upazilas.name_BN AS upazila_name,
+	organizations.address
+FROM
+	organizations
+LEFT JOIN upazilas ON organizations.upazila_id = upazilas.id
+LEFT JOIN districts ON organizations.district_id = districts.id
+LEFT JOIN divisions ON organizations.division_id = divisions.id
+LEFT JOIN agencies ON organizations.agency_id = agencies.id
+LEFT JOIN organization_types ON organizations.organization_type_id = organization_types.id
 ";
 
 if((isset($_POST['filter_organization_type']) && $_POST['filter_organization_type'] != '') && (isset($_POST['filter_agencies']) && $_POST['filter_agencies'] != ''))
@@ -52,8 +67,8 @@ $data = array();
     {
     $sub_array = array();
     $sub_array[] = $row['name_BN'];
-    $sub_array[] = $row['organization_type_name'];
     $sub_array[] = $row['agency_name'];
+    $sub_array[] = $row['organization_type_name'];
     $sub_array[] = $row['division_name'];
     $sub_array[] = $row['district_name'];
     $sub_array[] = $row['upazila_name'];
