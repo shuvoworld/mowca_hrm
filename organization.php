@@ -47,7 +47,7 @@ $pdocrud->fieldDataBinding("upazila_id", "upazilas", "id", "name_BN", "db"); //l
 $pdocrud->fieldDependent("district_id", "division_id", "division_id"); //now on change of country it will change state
 $pdocrud->fieldDependent("upazila_id", "district_id", "district_id"); //now on change of country it will change state
 
-$pdocrud->crudRemoveCol(array("name","organization_level_id","organization_type_id","contact_email", "cretaed_at", "is_active"));
+$pdocrud->crudRemoveCol(array("name","organization_level_id","organization_type_id","contact_email", "created_at", "is_active"));
 
 //$pdocrud->crudTableCol(array("ID","Name","Directorate","Division","District", "Upazila", "Contact"));//optional
 //$pdocrud->relatedData('agency_id','agencies','id','name_BN');

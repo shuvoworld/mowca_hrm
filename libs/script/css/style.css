@@ -301,3 +301,8 @@ ul.pdocrud-export-options li a {
     width: 100px;
     height: 100px;
 }
+table.pdocrud-table-view tr td:nth-child(2){
+    border-right: 1px solid #d5d5d5;
+    white-space: normal !important;
+    padding: 9px 15px;
+}

@@ -19,7 +19,7 @@ $pdocrud->fieldTypes("designation_id", "select"); //change type to select
 $pdocrud->fieldDataBinding("designation_id", "designations", "id", "name", "db"); //load select data
 
 $pdocrud->fieldTypes("organization_id", "select"); //change type to select
-$pdocrud->fieldDataBinding("organization_id", "organizations", "id", "name_BN", "db"); //load select data
+$pdocrud->fieldDataBinding("organization_id", "organizations", "id", "name", "db"); //load select data
 
 $pdocrud->addCallback("before_insert","beforeInsertSanctionedPost");
 
@@ -31,6 +31,8 @@ $pdocrud->fieldHideLable("organization_name");
 $pdocrud->fieldDataAttr("organization_name", array("style"=>"display:none"));
 $pdocrud->fieldDataAttr("organization_name", array("disabled"=>"disabled"));
 $pdocrud->fieldDataAttr("created_at", array("disabled"=>"disabled"));
+$pdocrud->fieldDataAttr("status", array("disabled"=>"disabled"));
+$pdocrud->fieldDataAttr("employee_id", array("disabled"=>"disabled"));
 
 echo $pdocrud->dbTable("sanctionedposts")->render();
 echo $pdocrud->loadPluginJsCode("select2","select");//to add plugin call on select elements

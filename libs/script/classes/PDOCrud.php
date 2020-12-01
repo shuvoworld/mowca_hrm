@@ -1,18 +1,18 @@
 <?php
 /**
- * PDOCrud - Advance PHP CRUD application using PDO
+ * PDOCrud - Advance PHP CRUD application generator using PDO
  * File: PDOCrud.php
  * Author: Pritesh Gupta
- * Version: 4.7.1
+ * Version: 4.8.1
  * Release Date: 21-Aug-2016
- * Last Update : 06-July-2020
+ * Last Update : 25-Oct-2020
  *
  * Copyright (c) 2020 Pritesh Gupta. All Rights Reserved.
 
   /* ABOUT THIS FILE:
   ---------------------------------------------------------------------------------------------------------------
-  PDOCrud is an advance PHP based CRUD(Create, Read, Update and Delete) application. It supports Mysql, Pgsql and Sqlite database.
-  By writing just 2-3 lines of code only, you can perform insert/update/delete and select operation. You just to need to create object  and call for render function for that table and everything will be generated automatically. It supports all types of database fields.
+  PDOCrud is an advance PHP based CRUD(Create, Read, Update and Delete) generator application. It supports Mysql, Pgsql, MSSQL and Sqlite database.
+  By writing just 2-3 lines of code only, you can perform insert/update/delete and select operation. You just to need to create object and call for render function for that table and everything will be generated automatically. PDO Crud supports all types of database fields.
   Fields will be generated based on the data type. You can remove fields, change type of fields and can do various types of customization.
 
   ---------------------------------------------------------------------------------------------------------------
@@ -271,7 +271,7 @@ Class PDOCrud {
      * Set particular configuaration setting
      * @param   string   $setting                   Config key for setting
      * @param   mixed    $value                     Value for setting
-     * return   object                              Object of class
+     * @return   object                              Object of class
      */
     public function setSettings($setting, $value) {
         $this->settings[$setting] = $value;
@@ -281,7 +281,7 @@ Class PDOCrud {
     /**
      * Set table name for which form needs to be generated
      * @param   string   $tableName                      The name of the table to generate form.
-     * return   object                                   Object of class
+     * @return   object                                   Object of class
      */
     public function dbTable($tableName) {
         $this->tableName = $tableName;
@@ -293,7 +293,7 @@ Class PDOCrud {
      * @param   string  $joinTableName                             name of table to be joined
      * @param   string  $joinCondition                             join condition e.g. 
      * @param   string  $joinType                                  type of join (Inner or left join)-default is inner join
-     * return   object                                             Object of class
+     * @return   object                                             Object of class
      */
     public function joinTable($joinTableName, $joinCondition, $joinType = "INNER JOIN") {
         $this->joinTable[] = array(
@@ -307,7 +307,7 @@ Class PDOCrud {
     /**
      * Set html curd table display columns
      * @param   string   $columns                        Columns names to be displayed in table format
-     * return   object                                   Object of class
+     * @return   object                                   Object of class
      */
     public function crudTableCol($columns) {
         $this->columns = $columns;
@@ -317,7 +317,7 @@ Class PDOCrud {
     /**
      * Hide a specific crud table columns
      * @param   string   $columns                        Columns names to be displayed in table format
-     * return   object                                   Object of class
+     * @return   object                                   Object of class
      */
     public function crudRemoveCol($columns) {
         $this->colsRemove = $columns;
@@ -330,7 +330,7 @@ Class PDOCrud {
      * @param   string   $colName                        column name to be action applied
      * @param   array   $displayVal                      display value of button based on the column value
      * @param   array   $applyVal                        On click, apply value to the column
-     * return   object                                   Object of class
+     * @return   object                                   Object of class
      */
     public function crudAddAction($actionName, $colName, $displayVal = array(), $applyVal = array()) {
         $this->curdAddActionBtn[$colName] = array("actionName" => $actionName, "displayVal" => $displayVal, "applyVal" => $applyVal);
@@ -340,7 +340,7 @@ Class PDOCrud {
     /**
      * Set how many records per page to be displayed in html table
      * @param   int   $val                        no. of records per page e.g. 10
-     * return   object                            Object of class
+     * @return   object                            Object of class
      */
     public function recordsPerPage($val) {
         if (!empty($val)) {
@@ -352,7 +352,7 @@ Class PDOCrud {
     /**
      * Set drop down list of records per page
      * @param   array   $val                      list of records per page e.g 10,25,50,100
-     * return   object                            Object of class
+     * @return   object                            Object of class
      */
     public function setRecordsPerPageList($val) {
         if (!empty($val)) {
@@ -364,7 +364,7 @@ Class PDOCrud {
     /**
      * Sets current page in pagination
      * @param   int   $pageNo                     page no. e.g. 2
-     * return   object                            Object of class
+     * @return   object                            Object of class
      */
     public function currentPage($pageNo) {
         $this->currentpage = $pageNo;
@@ -376,7 +376,7 @@ Class PDOCrud {
      * @param   string   $colName                     column name to be changed
      * @param   string   $colType                     type of column to be set
      * @param   string   $parameters                  column parameters
-     * return   object                                Object of class
+     * @return   object                                Object of class
      */
     public function colTypes($colName, $colType, $parameters = "") {
         $this->colTypes[$colName] = array(
@@ -391,7 +391,7 @@ Class PDOCrud {
      * @param   string   $colName                                Name of columns for which tooltip needs to be added
      * @param   string   $tooltip                                Tooltip to be shown
      * @param   string   $tooltipIcon                            Icon for the tooltip
-     * return   object                                           Object of class
+     * @return   object                                           Object of class
      */
     public function crudColTooltip($colName, $tooltip, $tooltipIcon = "<i class='glyphicon glyphicon-info-sign'></i>") {
         $this->crudTooltip[$colName] = array(
@@ -404,7 +404,7 @@ Class PDOCrud {
     /**
      * Sets primary key
      * @param   string   $columnName              sets primary key
-     * return   object                            Object of class
+     * @return   object                            Object of class
      */
     public function setPK($columnName) {
         $this->pk = $columnName;
@@ -413,9 +413,8 @@ Class PDOCrud {
 
     /**
      * Set whether current operation is inline edit or not
-     * @param   string   $setting                   Config key for setting
-     * @param   mixed    $value                     Value for setting
-     * return   object                              Object of class
+     * @param   boolean   $val                    whether to enable inline edit or not
+     * @return   object                              Object of class
      */
     public function setInlineEdit($val = false) {
         $this->inlineEdit = $val;
@@ -425,7 +424,7 @@ Class PDOCrud {
     /**
      * Sets order by condition for crud html table data
      * @param   mixed   $orderbyCols             columns names for which data needs to be order by
-     * return   object                            Object of class
+     * @return   object                            Object of class
      */
     public function dbOrderBy($orderbyCols) {
         if (is_array($orderbyCols))
@@ -438,7 +437,7 @@ Class PDOCrud {
     /**
      * Sets limit of records to be displayed
      * @param   int   $limit                        limit of records to be used
-     * return   object                              Object of class
+     * @return   object                              Object of class
      */
     public function dbLimit($limit) {
         $this->limit = $limit;
@@ -448,7 +447,7 @@ Class PDOCrud {
     /**
      * Sets search columns 
      * @param   array   $cols                       Set columns to be used for search
-     * return   object                              Object of class
+     * @return   object                              Object of class
      */
     public function setSearchCols($cols) {
         $this->searchCols = $cols;
@@ -462,7 +461,7 @@ Class PDOCrud {
      * @param   string   $formType                        Type of form (normal, horizontal or inline) for bootstrap
      * @param   array    $class                           CSS Class for form
      * @param   array    $attr                            Various data attributes for form 
-     * return   object                                    Object of class
+     * @return   object                                    Object of class
      */
     public function formTag($formHeading = "", $formType = "", $class = array(), $attr = array()) {
         $this->form = array(
@@ -477,7 +476,7 @@ Class PDOCrud {
     /**
      * Set which fields of table to be displayed in form
      * @param   array   $fields                           Form fields to displayed only
-     * return   object                                    Object of class
+     * @return   object                                    Object of class
      */
     public function formFields($fields) {
         $this->fields = $fields;
@@ -487,7 +486,7 @@ Class PDOCrud {
     /**
      * Set which fields of table to be displayed in edit form
      * @param   array   $fields                           Form fields to displayed only
-     * return   object                                    Object of class
+     * @return   object                                    Object of class
      */
     public function editFormFields($fields) {
         $this->editFields = $fields;
@@ -497,7 +496,7 @@ Class PDOCrud {
     /**
      * Removes specific fields from form
      * @param   array   $fields                           Fields to removed from form
-     * return   object                                    Object of class
+     * @return   object                                    Object of class
      */
     public function formRemoveFields($fields = array()) {
         $this->fieldsRemove = $fields;
@@ -510,7 +509,8 @@ Class PDOCrud {
      * @param   string   $to                            To email
      * @param   string   $subject                       Subject of email
      * @param   string   $message                       Message of the email
-     * return   object                                  Object of class
+     * @param   bool     $saveDb                        whether to save msg in database or not 
+     * @return   object                                  Object of class
      */
     public function formSendEmail($from, $to, $subject, $message, $saveDb = false) {
         $this->formEmail = array(
@@ -527,7 +527,7 @@ Class PDOCrud {
      * Set primary key and value for update form
      * @param   string   $pk                             Set primary key field name
      * @param   string   $pkval                          Set primary key value for which data needs to be retreived
-     * return   object                                  Object of class
+     * @return   object                                  Object of class
      */
     public function formSetPrimarykey($pk, $pkval) {
         $this->pk = $pk;
@@ -538,7 +538,7 @@ Class PDOCrud {
     /**
      * Set primary key and value for update form
      * @param   string   $pkval                          Set primary key value for which data needs to be retreived
-     * return   object                                  Object of class
+     * @return   object                                  Object of class
      */
     public function setPrimarykeyValue($pkval) {
         $this->pkVal = $pkval;
@@ -548,7 +548,7 @@ Class PDOCrud {
     /**
      * Export related settings, instead of inserting data in database, you can directly export it to PDF, CSV, Excel and XML
      * @param   string   $exportType                    Whether to export in pdf, csv, excel or xml
-     * return   object                                  Object of class
+     * @return   object                                  Object of class
      */
     public function formExportData($exportType = "pdf") {
         $this->formExport = $exportType;
@@ -558,7 +558,7 @@ Class PDOCrud {
     /**
      * Add captcha in form
      * @param   string   $fieldName                     Name of field for captcha
-     * return   object                                  Object of class
+     * @return   object                                  Object of class
      */
     public function formAddCaptcha($fieldName) {
         $this->formCaptcha[$fieldName] = array(
@@ -577,7 +577,7 @@ Class PDOCrud {
      * @param   string   $buttonContent                     Text for the button 
      * @param   string   $headerContent                     Header text for the popup
      * @param   string   $directCall                        Set this true to use it for form directly
-     * return   object                                      Object of class
+     * @return   object                                      Object of class
      */
     public function formDisplayInPopup($buttonContent = "", $headerContent = "", $directCall = false) {
         $this->formPopup = array(
@@ -591,7 +591,7 @@ Class PDOCrud {
     /**
      * Sets ID of Form
      * @param   string   $id                                ID of the form
-     * return   object                                      Object of class
+     * @return   object                                      Object of class
      */
     public function formId($id) {
         $this->formId = $id;
@@ -601,7 +601,7 @@ Class PDOCrud {
     /**
      * Change display order of the fields
      * @param   array   $fields                             fields in ascending order to be displayed in form
-     * return   object                                      Object of class
+     * @return   object                                      Object of class
      */
     public function fieldDisplayOrder($fields) {
         $this->fieldOrder = $fields;
@@ -613,7 +613,7 @@ Class PDOCrud {
      * @param   string   $field                              Field to be modified  
      * @param   string   $formatType                         Type of formula, e.g. string or formula(math forumula)
      * @param   array    $paramaters                         parameters to be used for formula
-     * return   object                                       Object of class
+     * @return   object                                       Object of class
      */
     public function fieldFormula($field, $formatType, $paramaters) {
         $this->fieldFormula[$field] = array(
@@ -627,7 +627,7 @@ Class PDOCrud {
      * Set specific css class to the different fields
      * @param   string  $fieldName                             field name for which css class name needs to be applied
      * @param   array   $fieldClass                         css class name for the field
-     * return   object                                         Object of class
+     * @return   object                                         Object of class
      */
     public function fieldCssClass($fieldName, $fieldClass = array()) {
         $this->fieldClass[$fieldName] = $fieldClass;
@@ -640,7 +640,8 @@ Class PDOCrud {
      * @param   string  $fieldType                             type of field, e.g. radio, checkbox etc
      * @param   string  $fieldValue                            Value of the field
      * @param   string  $extra                                 Whether it is static field or database field
-     * return   object                                         Object of class
+     * @param   string  $dbField                               Database field name if it is database field type
+     * @return   object                                         Object of class
      */
     public function formStaticFields($fieldName, $fieldType, $fieldValue = "", $extra = "static", $dbField = "") {
         $this->fieldsStatic[$fieldName] = array(
@@ -660,7 +661,7 @@ Class PDOCrud {
      * Rename the field label name
      * @param   string  $fieldName                             field name for which lable name needs to be changed
      * @param   string  $lableName                             lable name to be set
-     * return   object                                         Object of class
+     * @return   object                                         Object of class
      */
     public function fieldRenameLable($fieldName, $lableName) {
         $this->fieldNames[$fieldName] = $lableName;
@@ -671,7 +672,7 @@ Class PDOCrud {
      * Hide the field label name
      * @param   string  $fieldName                             field name for label needs to be hidden
      * @param   bool    $takeSpace                             whether hidden lable should take space or not
-     * return   object                                         Object of class
+     * @return   object                                         Object of class
      */
     public function fieldHideLable($fieldName, $takeSpace = false) {
         $this->hideFieldName[$fieldName] = array(
@@ -683,7 +684,7 @@ Class PDOCrud {
     /**
      * Removes required attribute from fields
      * @param   string  $fieldName                             field name for which required attribute needs to be removed
-     * return   object                                         Object of class
+     * @return   object                                         Object of class
      */
     public function fieldNotMandatory($fieldName) {
         $this->fieldNotRequired[$fieldName] = true;
@@ -694,7 +695,7 @@ Class PDOCrud {
      * Sets the data attribute of field
      * @param   string  $fieldName                             field name for attribute needs to set
      * @param   array   $attr                                  Array of data attributes with key as attribute name and value as attribute value
-     * return   object                                         Object of class
+     * @return   object                                         Object of class
      */
     public function fieldAttributes($fieldName, $attr = array()) {
         $this->fieldAttr[$fieldName][] = $attr;
@@ -706,7 +707,7 @@ Class PDOCrud {
      * @param   string  $fieldName                             field name for types needs to be set
      * @param   string  $type                                  Field type 
      * @param   string  $parameters                            Field parameters
-     * return   object                                         Object of class
+     * @return   object                                         Object of class
      */
     public function fieldTypes($fieldName, $type, $parameters = "") {
         $this->fieldType[$fieldName] = array(
@@ -723,7 +724,7 @@ Class PDOCrud {
      * @param   string  $param                                 value of validation, default is true
      * @param   string  $errorMsg                              error message to be displayed
      * @param   string  $fieldType                             field type
-     * return   object                                         Object of class
+     * @return   object                                         Object of class
      */
     public function fieldValidationType($fieldName, $validation, $param = "true", $errorMsg = "", $fieldType = "table") {
         $validation = str_replace("_", "-", $validation);
@@ -781,7 +782,7 @@ Class PDOCrud {
      * @param   string  $dependent                             field name to be changed on onchange operation of dependOn field
      * @param   string  $dependOn                              field that change will cause trigger change
      * @param   string  $colName                               name of col, needs to be retrived to change the field value
-     * return   object                                         Object of class
+     * @return   object                                         Object of class
      */
     public function fieldDependent($dependent, $dependOn, $colName) {
         $this->fieldDepend[$dependent] = array(
@@ -801,7 +802,7 @@ Class PDOCrud {
      * @param   string  $separator                             Separator string in case of $val is an array of columns. Default value is " "
      * @param   string  $where                                 Where condition for the datasource
      * @param   string  $orderby                               Order by clause for the datasource
-     * return   object                                         Object of class
+     * @return   object                                         Object of class
      */
     public function fieldDataBinding($fieldName, $dataSource, $key, $val, $bind = "db", $separator = " ", $where = array(), $orderby = array()) {
         $this->fieldDataBind[$fieldName] = array(
@@ -836,7 +837,7 @@ Class PDOCrud {
      * @param   string  $fieldName                             field name for input addon needs to be added
      * @param   string  $position                              position of addon text, whether before or after input it needs to be added
      * @param   string  $addOnText                             add on content that will be added in html format
-     * return   object                                         Object of class
+     * @return   object                                         Object of class
      */
     public function fieldAddOnInfo($fieldName, $position, $addOnText) {
         $this->fieldAddOn[$fieldName][$position] = $addOnText;
@@ -847,7 +848,7 @@ Class PDOCrud {
      * Sets the class of complete input block inside a bootstrap form-group class
      * @param   string  $fieldName                             field name for which block class needs to be added
      * @param   string  $class                                 class name like col-sm-8 etc.
-     * return   object                                         Object of class
+     * @return   object                                         Object of class
      */
     public function fieldBlockClass($fieldName, $class) {
         $this->fieldBlockClass[$fieldName] = $class;
@@ -858,7 +859,7 @@ Class PDOCrud {
      * Group fields together like first_name and last_name under Full name group
      * @param   string  $groupName                             Any unuique name of group e.g. full_name
      * @param   array   $fields                                array of fields like array(first_name, last_name)
-     * return   object                                         Object of class
+     * @return   object                                         Object of class
      */
     public function fieldGroups($groupName, $fields = array()) {
         $this->fieldGroup[$groupName] = $fields;
@@ -877,7 +878,7 @@ Class PDOCrud {
      * @param   string   $stepName                                Name of step(Tab)
      * @param   string   $stepType                                Step type either stepy or tabs 
      * @param   string   $attr                                    Attributes of the step
-     * return   object                                            Object of class
+     * @return   object                                            Object of class
      */
     public function FormSteps(array $fields, $stepName, $stepType = "stepy", $attr = array()) {
         $stepId = rand(1, 100) . time();
@@ -896,7 +897,7 @@ Class PDOCrud {
      * @param   string   $fieldName                              Name of field for which tooltip needs to be added
      * @param   string   $tooltip                                Tooltip to be shown
      * @param   string   $tooltipIcon                            Icon for the tooltip
-     * return   object                                           Object of class
+     * @return   object                                           Object of class
      */
     public function fieldTooltip($fieldName, $tooltip, $tooltipIcon = "<i class='glyphicon glyphicon-info-sign'></i>") {
         $this->tooltip[$fieldName] = array(
@@ -910,7 +911,7 @@ Class PDOCrud {
      * Set description of the field
      * @param   string   $fieldName                            Field for which description needs to be set
      * @param   string   $desc                                 Description of the field
-     * return   object                                         Object of class
+     * @return   object                                         Object of class
      */
     public function fieldDesc($fieldName, $desc) {
         $this->fieldDesc[$fieldName] = array(
@@ -923,7 +924,7 @@ Class PDOCrud {
      * Set attributes of field
      * @param   string   $colName                            column name for which attribute to be added
      * @param   array    $attr                               attribute to be set
-     * return   object                                       Object of class
+     * @return   object                                       Object of class
      */
     public function fieldDataAttr($colName, $attr = array()) {
         $this->fieldAttr[$colName][] = $attr;
@@ -934,7 +935,7 @@ Class PDOCrud {
      * Rename a field name
      * @param   string   $fieldName                          field name to renamed
      * @param   string   $newName                            new field name to be used
-     * return   object                                       Object of class
+     * @return   object                                       Object of class
      */
     public function fieldRename($fieldName, $newName) {
         $this->fieldNames[$fieldName] = $newName;
@@ -947,7 +948,7 @@ Class PDOCrud {
      * @param   string   $value                                value of the field
      * @param   bool     $fieldHidden                          Wheter that field is hidden or not
      * @param   string   $tablename                            Tablename = Required only when using join table field name
-     * return   object                                         Object of class
+     * @return   object                                         Object of class
      */
     public function formFieldValue($fieldName, $value, $fieldHidden=false, $tablename = "" ) {
         $this->formFieldVal[$fieldName] = $value;
@@ -962,7 +963,7 @@ Class PDOCrud {
      * Redirects to some other url after form submission
      * @param   string  $redirectionURL                        url to be redirected
      * @param   bool    $reset                                 whether to reset it to empty string when no data present.
-     * return   object                                         Object of class
+     * @return   object                                         Object of class
      */
     public function formRedirection($redirectionURL, $reset = false) {
         $this->formRedirection["redirectionURL"] = $redirectionURL;
@@ -977,7 +978,7 @@ Class PDOCrud {
      * @param   string  $op                               Operator to b used
      * @param   string  $field                            field names to be affected
      * @param   string  $task                             Operation(task) to be applied
-     * return   object                                    Object of class
+     * @return   object                                    Object of class
      */
     public function fieldConditionalLogic($fieldname, $condition, $op = "=", $field, $task) {
         $this->fieldConditionalLogic[strtolower($fieldname)][] = array("condition" => $condition, "op" => $op, "field" => $field, "task" => $task);
@@ -989,7 +990,7 @@ Class PDOCrud {
      * @param   string   $elementName                        element for which tooltip needs to be added
      * @param   string   $desc                               description of the field
      * @param   string   $type                               type of element whether element or column
-     * return   object                                       Object of class
+     * @return   object                                       Object of class
      */
     public function addFieldDesc($elementName, $desc, $type = "field") {
         $this->fieldDesc[$elementName] = array(
@@ -1002,8 +1003,7 @@ Class PDOCrud {
     /**
      * Hide the cancel button
      * @param   string  $fieldName                             field name for label needs to be hidden
-     * @param   bool    $takeSpace                             whether hidden lable should take space or not
-     * return   object                                         Object of class
+     * @return   object                                         Object of class
      */
     public function buttonHide($buttonname = "cancel") {
         $this->hideButton[$buttonname] = true;
@@ -1013,7 +1013,7 @@ Class PDOCrud {
     /**
      * Set the resize dimension
      * @param   array   $dimensions                     dimensions of image
-     * return   object                                  Object of class
+     * @return   object                                  Object of class
      */
     public function resizeImage($dimensions = array()) {
         $this->imageDimensions = $dimensions;
@@ -1029,7 +1029,7 @@ Class PDOCrud {
      * @param int|null      $height If omitted - assumed equal to $width
      * @param string        $focal 
      *
-     * return   object      Object of class
+     * @return   object      Object of class
      */
     public function thumbnailImage($width, $height = null, $focal = 'center') {
         $this->imageThumbnail = array("width" => $width, "height" => $height, "focal" => $focal);
@@ -1107,7 +1107,7 @@ Class PDOCrud {
     /**
      * Set sql 
      * @param   string   $sql                                  Query to be executed
-     * return   object                                         Object of class
+     * @return   object                                         Object of class
      */
     public function setQuery($sql) {
         $this->sql = $sql;
@@ -1120,7 +1120,7 @@ Class PDOCrud {
      * @param   string   $fieldType                          type of field
      * @param   array    $attr                               Attributes of field
      * @param   array    $fieldData                          Data for the field
-     * return   object                                       Object of class
+     * @return   object                                       Object of class
      */
     public function bulkCrudUpdate($colName, $fieldType, $attr = array(), $fieldData = array()) {
         $this->bulkCrudUpdateCol[$colName] = array(
@@ -1137,7 +1137,7 @@ Class PDOCrud {
      * @param   string   $colName                            Column name to be formatted
      * @param   string   $formatType                         type of format
      * @param   array    $paramaters                         parameters based on the formatting type
-     * return   object                                       Object of class
+     * @return   object                                       Object of class
      */
     public function tableColFormatting($colName, $formatType, $paramaters = array()) {
         $this->colFormat[][$colName] = array(
@@ -1152,7 +1152,7 @@ Class PDOCrud {
      * @param   string   $colName                            Column name to be formatted
      * @param   string   $formatType                         type of format
      * @param   array    $paramaters                         parameters based on the formatting type
-     * return   object                                       Object of class
+     * @return   object                                       Object of class
      */
     public function viewColFormatting($colName, $formatType, $paramaters = array()) {
         $this->viewColFormat[][$colName] = array(
@@ -1168,7 +1168,7 @@ Class PDOCrud {
      * @param   string   $formatType                         type of format
      * @param   array    $condition                          format condition ot be matched
      * @param   array    $apply                              rules toe be applied
-     * return   object                                       Object of class
+     * @return   object                                       Object of class
      */
     public function tableDataFormatting($applyOn, $formatType, $condition = array(), $apply = array()) {
         $this->tableDataFormat[] = array(
@@ -1185,7 +1185,7 @@ Class PDOCrud {
      * @param   string   $colName                            Column name to be added
      * @param   string   $type                               type of column
      * @param   array    $paramaters                         parameters on basis of which column to be added
-     * return   object                                       Object of class
+     * @return   object                                       Object of class
      */
     public function tableColAddition($colName, $type, $paramaters = array()) {
         $this->colAdd[$colName] = array(
@@ -1198,7 +1198,7 @@ Class PDOCrud {
     /**
      * Change table heading
      * @param   string   $heading                            table heading to be changed
-     * return   object                                       Object of class
+     * @return   object                                       Object of class
      */
     public function tableHeading($heading) {
         $this->tableHeading = $heading;
@@ -1208,7 +1208,7 @@ Class PDOCrud {
     /**
      * Change table sub heading
      * @param   string   $subHeading                         table sub heading to be changed
-     * return   object                                       Object of class
+     * @return   object                                       Object of class
      */
     public function tableSubHeading($subHeading) {
         $this->tableSubHeading = $subHeading;
@@ -1222,7 +1222,7 @@ Class PDOCrud {
      * @param   string   $joinColName                        Join column name (if datasource = db)
      * @param   string   $dataCol                            Data column name (if datasource = db)
      * @param   string   $dataSource                         dataSource = db or datasource = array
-     * return   object                                       Object of class
+     * @return   object                                       Object of class
      */
     public function tableColUsingDatasource($colname, $data, $joinColName, $dataCol, $dataSource = "db") {
         $this->tableColDatasource[] = array("colname" => $colname, "tableName" => $data, "joinColName" => $joinColName, "dataCol" => $dataCol, "dataSource" => $dataSource);
@@ -1241,7 +1241,7 @@ Class PDOCrud {
      * Rename a column name
      * @param   string   $colName                            column name to renamed
      * @param   string   $newName                            new column name to be used
-     * return   object                                       Object of class
+     * @return   object                                       Object of class
      */
     public function colRename($colName, $newName) {
         $this->colNames[$colName] = $newName;
@@ -1252,7 +1252,7 @@ Class PDOCrud {
      * Set attributes of column
      * @param   string   $colName                            column name for which attribute to be added
      * @param   array   $attr                                attribute to be set
-     * return   object                                       Object of class
+     * @return   object                                       Object of class
      */
     public function colDataAttr($colName, $attr = array()) {
         $this->colAttr[$colName] = $attr;
@@ -1262,7 +1262,7 @@ Class PDOCrud {
     /**
      * Get sum per page for column
      * @param   string   $colName                            column name for sum to be calculated
-     * return   object                                       Object of class
+     * @return   object                                       Object of class
      */
     public function colSumPerPage($colName) {
         $this->colSumPerPage[] = $colName;
@@ -1271,7 +1271,7 @@ Class PDOCrud {
     /**
      * Get total sum for column
      * @param   string   $colName                            column name for sum to be calculated
-     * return   object                                       Object of class
+     * @return   object                                       Object of class
      */
     public function colSumTotal($colName) {
         $this->colSumTotals[] = $colName;
@@ -1280,7 +1280,7 @@ Class PDOCrud {
     /**
      * Set view display columns
      * @param   string   $columns                        Columns names to be displayed in table format
-     * return   object                                   Object of class
+     * @return   object                                   Object of class
      */
     public function setViewColumns($columns) {
         $this->viewColumns = $columns;
@@ -1290,7 +1290,7 @@ Class PDOCrud {
     /**
      * Set order of columns to be displayed
      * @param   array   $columnOrder                        New Column order you want to display
-     * return   object                                   Object of class
+     * @return   object                                   Object of class
      */
     public function setColumnsOrders($columnOrder) {
         $this->colOrder = $columnOrder;
@@ -1302,7 +1302,7 @@ Class PDOCrud {
      * @param   string   $elementName                        element for which tooltip needs to be added
      * @param   string   $toolTip                            tooltip to be added
      * @param   string   $type                               type of element whether element or column
-     * return   object                                       Object of class
+     * @return   object                                       Object of class
      */
     public function addTooltip($elementName, $toolTip, $type = "field") {
         $this->tooltip[$elementName] = array(
@@ -1321,7 +1321,7 @@ Class PDOCrud {
      * @param   array    $where                                   where condition array
      * @param   array    $orderby                                 Order by condition array
      * @param   mixed    $fieldType                               Field type to be displayed for that field, default is "select", if empty, then textarea will be shown
-     * return   object                                            Object of class
+     * @return   object                                            Object of class
      */
     public function relatedData($mainTableCol, $relTable, $relTableCol, $relDisplayCol,$where = array(), $orderby = array(), $fieldType = "select") {
         $this->relData[] = array(
@@ -1343,7 +1343,7 @@ Class PDOCrud {
      * Rename a export/print column heading
      * @param   string   $colName                            column name to renamed
      * @param   string   $newName                            new column name to be used
-     * return   object                                       Object of class
+     * @return   object                                       Object of class
      */
     public function exportColHeading($colName, $newName) {
         $this->exportColName[$colName] = $newName;
@@ -1357,7 +1357,7 @@ Class PDOCrud {
      * @param   string   $operator                         any operator like =, !=, default value is "="
      * @param   string   $andOroperator                    whether to use "and" or "or" operator, if empty, default andOrOperator = "and" will be used
      * @param   string   $bracket                          whether to use opening "(" or closing bracket ")", leave empty if not required
-     * return   object                                     Object of class
+     * @return   object                                     Object of class
      */
     public function where($colName, $val, $operator = "=", $andOroperator = "", $bracket = "") {
         $this->whereCondition[] = array(
@@ -1373,7 +1373,7 @@ Class PDOCrud {
     /**
      * Set whether current operation is back button operation or not
      * @param   bool   $operation                              true/false, current operation is back button operation or not 
-     * return   object                                         Object of class
+     * @return   object                                         Object of class
      */
     public function setBackOperation($operation = true) {
         $this->backOperation = $operation;
@@ -1383,7 +1383,7 @@ Class PDOCrud {
     /**
      * Set search operator
      * @param   string   $operator                             Set search operator 'like', '>', '>=', '<','=<' etc
-     * return   object                                         Object of class
+     * @return   object                                         Object of class
      */
     public function setSearchOperator($operator = "=") {
         $this->searchOperator = $operator;
@@ -1393,7 +1393,7 @@ Class PDOCrud {
     /**
      * whether current call is direct or called usign CRUD operation
      * @param   bool   $show                              true/false, whether current call is direct or called usign CRUD operation
-     * return   object                                    Object of class
+     * @return   object                                    Object of class
      */
     public function crudCall($show = false) {
         $this->crudCall = $show;
@@ -1406,7 +1406,7 @@ Class PDOCrud {
      * @param   string   $displayText                           display text for filter
      * @param   string   $matchingCol                           column to be matched
      * @param   string   $filterType                            type of filter , default is radio button
-     * return   object                                          Object of class
+     * @return   object                                          Object of class
      */
     public function addFilter($filterName, $displayText, $matchingCol, $filterType) {
         $this->crudFilter[$filterName] = array("displayText" => $displayText,
@@ -1422,7 +1422,7 @@ Class PDOCrud {
      * @param   string  $key                                   name of col, that will serve as data key
      * @param   string  $val                                   name of col, that will serve as field valye
      * @param   string  $bind                                  whether datasource is db table or array, default is db table
-     * return   object                                         Object of class
+     * @return   object                                         Object of class
      */
     public function setFilterSource($filterName, $dataSource, $key, $val, $bind = "db") {
         $this->crudFilterSource[$filterName] = array("dataSource" => $dataSource,
@@ -1435,7 +1435,7 @@ Class PDOCrud {
     /**
      * Add advanced search options
      * @param   array  $columns                                 Column names to be searched
-     * return   object                                         Object of class
+     * @return   object                                         Object of class
      */
     public function addAdvSearch($columns) {
         $this->advSearch = $columns;
@@ -1449,7 +1449,7 @@ Class PDOCrud {
      * @param   string  $key                                   name of col, that will serve as data key
      * @param   string  $val                                   name of col, that will serve as field valye
      * @param   string  $bind                                  whether datasource is db table or array, default is db table
-     * return   object                                         Object of class
+     * @return   object                                         Object of class
      */
     public function setAdvSearchSource($columnName, $dataSource, $key, $val, $bind = "db") {
         $this->advSearchDataSource[$columnName] = array("dataSource" => $dataSource,
@@ -1464,7 +1464,7 @@ Class PDOCrud {
      * @param   string   $columnName                            unique filter name
      * @param   string   $displayText                           display text for filter
      * @param   string   $searchType                            type of filter , default is radio button
-     * return   object                                          Object of class
+     * @return   object                                          Object of class
      */
     public function setAdvSearchParam($columnName, $displayText, $searchType) {
         $this->advSearchParam[$columnName] = array("displayText" => $displayText,
@@ -1479,7 +1479,7 @@ Class PDOCrud {
      * @param   array    $where                                where condition with column name and value
      * @param   string   $operationType                        operation type i.e. insert update or delete
      * @param   string   $event                                At which event, we need to perform this operation i.e. before_update, after_update
-     * return   object                                         Object of class
+     * @return   object                                         Object of class
      */
     public function setTriggerOperation($tableName, $colVal, $where, $operationType = "update", $event = "after_update") {
         $this->triggerOperation[$tableName] = array("colVal" => $colVal, "where" => $where, "operationType" => $operationType);
@@ -1494,7 +1494,7 @@ Class PDOCrud {
      * @param   string   $sidebarHeading2                     column name for sidebar heading 2 or some text
      * @param   array    $sidebarURLs                         sidebar urls
      * @param   string   $position                            Position of the sidebar (either left or right)
-     * return   object                                        Object of class
+     * @return   object                                        Object of class
      */
     public function addSidebar($sidebarImage, $sidebarHeading1, $sidebarHeading2, $sidebarURLs, $position = "left") {
         $this->sidebar = array("sidebar_image" => $sidebarImage, "sidebar_heading_1" => $sidebarHeading1, "sidebar_heading_2" => $sidebarHeading2, "sidebar_urls" => $sidebarURLs, "position" => $position);
@@ -1504,7 +1504,7 @@ Class PDOCrud {
     /**
      * set whether to delete join table data or not
      * @param   bool  $delJoinTableData                                set true to delete the join table data else false
-     * return   object                                         Object of class
+     * @return   object                                         Object of class
      */
     public function setDelJoinTableData($delJoinTableData = true) {
         $this->delJoinTableData = $delJoinTableData;
@@ -1518,7 +1518,7 @@ Class PDOCrud {
      * @param   mixed   $text                                 text to be used
      * @param   string  $colName                              name of column
      * @param   array   $attr                                 attribute of columns
-     * return   object                                        Object of class
+     * @return   object                                        Object of class
      */
     public function enqueueActions($action, $type = "switch", $text = "", $colName = "", $attr = array()) {
         $this->actions[$this->getRandomKey(false)] = array(
@@ -1540,7 +1540,7 @@ Class PDOCrud {
      * @param   string   $colName                              name of column
      * @param   array    $attr                                 attribute of columns
      * @param   string   $cssClass                             Css Class of buton
-     * return   object                                         Object of class
+     * @return   object                                         Object of class
      */
     public function enqueueBtnActions($actionName, $action, $type = "switch", $text = "", $colName = "", $attr = array(),$cssClass = "") {
         $url = "javascript:;";
@@ -1570,7 +1570,7 @@ Class PDOCrud {
      * @param   string    $url                                 url 
      * @param   array    $attr                                 attribute of columns
      * @param   string   $cssClass                             Css Class of buton
-     * return   object                                         Object of class
+     * @return   object                                         Object of class
      */
     public function enqueueBtnTopActions($actionName, $text = "",$url ="javascript:;", $attr = array(),$cssClass = "") {
         $this->btnTopAction[strtolower($actionName)] = array(
@@ -1585,7 +1585,7 @@ Class PDOCrud {
 
     /**
      * dequeue button actions
-     * return   object                                         Object of class
+     * @return   object                                         Object of class
      */
     public function dequeueBtnActions() {
         unset($this->btnActions);
@@ -1596,7 +1596,7 @@ Class PDOCrud {
     /**
      * Add some html content in the form (normally added at the end of form)
      * @param   string   $html                            html content to be added
-     * return   object                                         Object of class
+     * @return   object                                         Object of class
      */
     public function enqueueHTMLContent($html) {
         $this->HTMLContent[] = $html;
@@ -1611,7 +1611,7 @@ Class PDOCrud {
      * @param   string   $subject                               subject of the email
      * @param   string   $message                               message of the meail
      * @param   string   $encryption                            encryption to be used, default type md5
-     * return   object                                          Object of class
+     * @return   object                                          Object of class
      */
     public function forgotPassword($email, $password, $from = array(), $subject = "", $message = "", $encryption = "md5") {
         if (empty($subject))
@@ -1625,7 +1625,7 @@ Class PDOCrud {
      /**
      * Checks for duplicate record before inserting data
      * @param   array   $fields                            fields to be checked for duplicacy 
-    * return   object                                         Object of class
+    * @return   object                                         Object of class
      */
     public function checkDuplicateRecord($fields) {
         $this->checkDuplicate = $fields;
@@ -1636,7 +1636,7 @@ Class PDOCrud {
      * Add recaptcha
      * @param   string   $siteKey                            site key 
      * @param   string   $secret                             secret 
-     * return   object                                       Object of class
+     * @return   object                                       Object of class
      */
     public function recaptcha($siteKey, $secret) {
         $this->recaptcha[$siteKey] = $secret;
@@ -1650,7 +1650,7 @@ Class PDOCrud {
      * Add data type of search column
      * @param   string   $columnName                           name of column
      * @param   string   $dataType                             data type e.g. datetime 
-     * return   object                                         Object of class
+     * @return   object                                         Object of class
      */
     public function setSearchColumnDataType($columnName, $dataType) {
         $this->searchColDataType[$columnName] = $dataType;
@@ -1661,7 +1661,8 @@ Class PDOCrud {
      * Add date range report buttons (eg daily ,monthly ,yearly report button)
      * @param   string   $text                          Name/Text of the button
      * @param   string   $type                          Type of the report to be generated.
-     * return   object                                  Object of class
+     * @param   string   $dateField                     date field in the database to be used
+     * @return   object                                  Object of class
      */
     public function addDateRangeReport($text, $type, $dateField) {
         $this->dateRangeReport[$this->getRandomKey()] = array("text" =>$text, "type" => $type, "dateField" => $dateField);
@@ -1673,7 +1674,7 @@ Class PDOCrud {
      * @param   string   $filename                          File name 
      * @param   string   $includeTables                     Include particular tables
      * @param   string   $excludeTables                     Exclude particular tables
-     * return   object                                      Object of class
+     * @return   object                                      Object of class
      */
     public function exportDB($filename, $includeTables = array(), $excludeTables = array()) {
         require_once(dirname(__FILE__) . "/library/shuttle-export-master/dumper.php");
@@ -1699,7 +1700,7 @@ Class PDOCrud {
      * 
      * @param   string   $sessionName                          Name/Text of the session
      * @param   string   $val                                  Value of the session (column name of table or some fixed value)
-     * return   object                                         Object of class
+     * @return   object                                         Object of class
      */
     public function setUserSession($sessionName, $val) {
         $this->session[$sessionName] = $val;
@@ -1726,7 +1727,7 @@ Class PDOCrud {
     /**
      * Unset array of sessions or particular session value, set by user for user management functionality using setSession function
      * @param   string   $sessionKey                          session key that needs to be unset (optional)
-     * return   bool                                          If session is unset successfully, return true else return false
+     * @return   bool                                          If session is unset successfully, return true else return false
      */
     public function unsetUserSession($sessionKey = "") {
         if (isset($_SESSION["pdocrud_user"]) && count($_SESSION["pdocrud_user"])) {
@@ -1744,7 +1745,9 @@ Class PDOCrud {
 
     /**
      * Check whether session is set or not by user for user management functionality using setSession function
-     * return   bool                                         return true/false depending upon session set or not
+     * @param   string   $sessionKey                          session key that needs to be checked (optional)
+     * @param   string   $val                                 value that needs to be checked (optional)
+     * @return   bool                                         return true/false depending upon session set or not
      */
     public function checkUserSession($sessionKey = "", $val = array()) {
         if (isset($_SESSION["pdocrud_user"]) && count($_SESSION["pdocrud_user"])) {
@@ -1775,7 +1778,7 @@ Class PDOCrud {
      * @param   string  $val                                  name of col, that will serve as field valye
      * @param   string  $bind                                 whether datasource is db table or array or sql, default is db table
      * @param   string  $param                                data parameter for the chart element
-     * return   object                                        Object of class
+     * @return   object                                        Object of class
      */
     public function addChart($chartName, $chartType, $dataSource, $key, $val, $bind = "db", $param = array()) {
         switch (strtolower($chartType)) {
@@ -1796,7 +1799,7 @@ Class PDOCrud {
      * Modify the file upload path and download path later
      * @param   string  $uploadPath                              Path of upload folder
      * @param   string  $downloadPath                            Path of download folder
-     * return   object                                           Object of class
+     * @return   object                                           Object of class
      */
     public function fileSavePath($uploadPath = "", $downloadPath = "") {
         if (!empty($uploadPath))
@@ -1856,7 +1859,7 @@ Class PDOCrud {
 
     /**
      * Initialize plugins to be loaded directly from the config file
-     * return   object                                     Object of class
+     * @return   object                                     Object of class
      */
     private function initializePlugins() {
         if (isset($this->settings["loadJsPlugins"])) {
@@ -1872,7 +1875,7 @@ Class PDOCrud {
     /**
      * Add js/css based plugin, plugin needs to be placed inside plugins folder with js files under js folder and css files under css folder
      * @param   string   $pluginName                     Name of the plugin to be added, make sure plugins folder is readable
-     * return   object                                    Object of class
+     * @return   object                                    Object of class
      */
     public function addPlugin($pluginName) {
         $this->plugins["css"][$pluginName] = $this->getDirFiles(PDOCrudABSPATH . "plugins/" . $pluginName . "/css/", "css");
@@ -1884,7 +1887,7 @@ Class PDOCrud {
      * Allows you to add the dynamic column based on sub query
      * @param   string   $columnName                      Alias column name to be used for the query
      * @param   string   $query                           Sub Query to be used
-     * return   object                                    Object of class
+     * @return   object                                    Object of class
      */
     public function subQueryColumn($columnName, $query){
       $this->subSelectQuery[$columnName] = $query;
@@ -1918,7 +1921,7 @@ Class PDOCrud {
      * Add javascript by specify js name and path of js, it will be loaded with other scripts
      * @param   string   $jsName                     Name of javascript to be loaded
      * @param   string   $jsPath                     Path of javascript to be loaded
-     * return   object                               Object of class
+     * @return   object                               Object of class
      */
     public function enqueueJs($jsName, $jsPath) {
         $this->js[strtolower($jsName)] = $jsPath;
@@ -1932,7 +1935,7 @@ Class PDOCrud {
      * @param   string   $functionName                function name
      * @param   string   $action                      action to be used 
      * @param   string   $options                     options for that function
-     * return   object                                Object of class
+     * @return   object                                Object of class
      */
     public function applyJS($applyOn, $applyOnVal, $functionName, $action = "on_form_load", $options = array()) {
         $this->colApplyJs[$applyOn][] = array(
@@ -1947,7 +1950,7 @@ Class PDOCrud {
     /**
      * Removes already enqueue js, useful for removing js that are already included in your page
      * @param   string   $jsName                     Name of javascript to be removed
-     * return   object                               Object of class
+     * @return   object                               Object of class
      */
     public function unsetJs($jsName) {
         unset($this->js[strtolower($jsName)]);
@@ -1960,7 +1963,7 @@ Class PDOCrud {
      * @param   string   $field2                     field name of 2nd object to be matched
      * @param   PDOCrud  $obj                        2nd table (object)
      * @param   string   $renderParam                render type, default is CRUD
-     * return   object                               Object of class
+     * @return   object                               Object of class
      */
     public function multiTableRelation($field1, $field2, $obj, $renderParam = "CRUD") {
         $this->multiTableRelation[] = array("field1" => $field1, "field2" => $field2, "obj" => $obj, "renderParam" => $renderParam);
@@ -2037,7 +2040,7 @@ Class PDOCrud {
      * Add callback function to be called on certain event
      * @param   string   $eventName                       Eventname for which callback function needs to be called
      * @param   string   $callback                        Name of callback function
-     * return   object                                    Object of class
+     * @return   object                                    Object of class
      */
     public function addCallback($eventName, $callback) {
         $this->callback[$eventName][] = $callback;
@@ -2132,7 +2135,7 @@ Class PDOCrud {
     /**
      * Set skin 
      * @param   mixed    $skin                        Name of skin
-     * return   object                                Object of class
+     * @return   object                                Object of class
      */
     public function setSkin($skin) {
         $this->settings["skin"] = $skin;
@@ -2153,7 +2156,7 @@ Class PDOCrud {
      * Add css by specify css name and path of css, it will be loaded with other css
      * @param   string   $cssName                     Name of css to be loaded
      * @param   string   $cssPath                     Path of css to be loaded
-     * return   object                                Object of class
+     * @return   object                                Object of class
      */
     public function enqueueCss($cssName, $cssPath) {
         $this->css[strtolower($cssName)] = $cssPath;
@@ -2163,7 +2166,7 @@ Class PDOCrud {
     /**
      * Removes already enqueue css, useful for removing css that are already included in your page
      * @param   string   $cssName                     Name of css to be removed
-     * return   object                                Object of class
+     * @return   object                                Object of class
      */
     public function unsetCss($cssName) {
         unset($this->css[$cssName]);
@@ -2210,7 +2213,7 @@ Class PDOCrud {
     /**
      * Set current language
      * @param   string   $lang                            language to be used
-     * return   object                                    Object of class
+     * @return   object                                    Object of class
      */
     public function setCurrentLang($lang) {
         $this->currentLang = $lang;
@@ -2241,7 +2244,7 @@ Class PDOCrud {
      * Set language data
      * @param   string   $param                          lanuguage key for which data needs to save
      * @param   string   $val                            Value for the language parameter
-     * return   object                                   Object of class
+     * @return   object                                   Object of class
      */
     public function setLangData($param, $val) {
         $this->langData[$param] = $val;
@@ -2251,7 +2254,7 @@ Class PDOCrud {
     /**
      * Set portfolio column
      * @param   int   $columns                          no of columns to be used per row
-     * return   object                                   Object of class
+     * @return   object                                   Object of class
      */
     public function setPortfolioColumn($columns) {
         $this->portfolioCol = $columns;
@@ -2261,7 +2264,7 @@ Class PDOCrud {
     /**
      * Set Form skin 
      * @param   string   $skin                        Name of skin
-     * return   object                                Object of class
+     * @return   object                                Object of class
      */
     public function setFormSkin($skin) {
         $scripturl = $this->settings["script_url"];
@@ -2277,7 +2280,7 @@ Class PDOCrud {
      * @param   string   $callbackFunc                Function to be called upon
      * @param   string   $returnValueElement          On which element, return value should be displayed
      * @param   array    $otherElements               Other elements to be passed along if any
-     * return   object                                Object of class
+     * @return   object                                Object of class
      */
     public function setAjaxActions($elementName,$event, $callbackFunc, $returnValueElement = "", $otherElements = array()) {
         $this->ajaxActions[$elementName] = array("event"=>$event,"returnValueElement"=>$returnValueElement, "otherElements"=>$otherElements);
@@ -2306,7 +2309,7 @@ Class PDOCrud {
      * @param   string   $formula                     Formula to be applied
      * @param   string   $event                       Javascript event, this will be applied on formula fields  if no event fields passed
      * @param   string   $eventFields                 Event fields if any
-     * return   object                                Object of class
+     * @return   object                                Object of class
      */
     public function setJsActions($element, $formula, $event, $eventFields = array() ) {
         $this->fieldCssClass($element, array("pdo_js_".$element));
@@ -2327,7 +2330,7 @@ Class PDOCrud {
      * @param   string   $formula                     Formula to be applied
      * @param   string   $event                       Javascript event, this will be applied on formula fields  if no event fields passed
      * @param   string   $eventFields                 Event fields
-     * return   object                                Object of class
+     * @return   object                                Object of class
      */
     public function setLeftJoinJsActions($element, $formula, $event, $eventFields) {
       for($colLoop = 0; $colLoop < 10; $colLoop++){
@@ -3440,8 +3443,8 @@ Class PDOCrud {
             $pdoModelObj->columns = $this->columns;
             $cols = $this->columns;
         } 
-        else if (isset($this->relData)) {
-            if(!isset($this->viewColumns)){
+        if (isset($this->relData)) {
+            if(!isset($this->columns) && !isset($this->viewColumns)){
                 $pdoModelObj->columns  = $this->getPDOModelObj()->columnNames($this->tableName);
                 $cols = $pdoModelObj->columns;
             }
@@ -4241,7 +4244,7 @@ Class PDOCrud {
                 }
                 //apply order by condition
                 if (is_array($this->fieldDataBind[$fieldName]["orderby"]) && count($this->fieldDataBind[$fieldName]["orderby"]) > 0) {
-                    $orderByCols = implode($this->fieldDataBind[$fieldName]["orderby"], ",");
+                    $orderByCols = implode(",", $this->fieldDataBind[$fieldName]["orderby"]);
                     $pdoModelObj->orderByCols = array($orderByCols);
                 }
 
@@ -5904,7 +5907,7 @@ Class PDOCrud {
      * @param   int $maxSize                    Max size allowed, default is 10000000
      * @param   array $allowedFileTypes         Allowed file types
      *
-     * return   boolean                         return true if file uploaded successfully else false
+     * @return   boolean                         return true if file uploaded successfully else false
      */
     function fileUpload($fileName, $fileUploadPath = "", $maxSize = 10000000, $allowedFileTypes = array()) {
         if ($this->checkValidFileUpload($fileName, $fileUploadPath, $maxSize, $allowedFileTypes)) {
@@ -6428,7 +6431,7 @@ Class PDOCrud {
      * @param   array  $smtp              SMTP authentication details if SMTP mode is used
      * @param   bool   isHTML             whether to send email as HTML email or not
      *
-     * return   boolean                   return true if email function works properly
+     * @return   boolean                   return true if email function works properly
      */
     public function sendEmail($to, $subject, $message, $from = array(), $altMessage = "", $cc = array(), $bcc = array(), $attachments = array(), $mode = "PHPMAIL", $smtp = array(), $isHTML = true) {
         require_once(dirname(__FILE__) . "/library/PHPMailer-master/PHPMailerAutoload.php");

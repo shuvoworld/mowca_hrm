@@ -22,7 +22,7 @@
     </a>
   </li>
   <li>
-    <a href="employees.php">
+    <a href="employee.php">
       <i class="glyphicon glyphicon-home"></i>
       <span>কর্মচারী ডাটাব্যাঙ্ক</span>
     </a>

@@ -119,6 +119,21 @@ function beforeInsertMovein($data, $obj) {
      
     }
 
+    function afterInsertMovein($data, $obj) {
+        //http://demo.digitaldreamstech.com/PDOModel/documentation/pdo/insert.php
+        
+            $pdomodel = $obj->getPDOModelObj();
+            $pdocrud = new PDOCrud(); 
+            $updateData = array(
+                "employee_id" => $data['movein']['employee_id']
+            );
+            $pdomodel->where("id", $data['movein']['sanctionedpost_id']);
+            $pdocrud->getPDOModelObj()->update("sanctionedposts", $updateData);
+            
+            return $data;
+         
+        }
+
     function beforeEmployeeUpdateCallBack($data, $obj) {
         $data['employees']['updated_by'] = $_SESSION['user_id'];
         $data['employees']['updated_at'] = date('Y/m/d h:i:s a', time());

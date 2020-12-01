@@ -55,7 +55,7 @@ $pdocrud->fieldRenameLable("type_of_posting", "নিয়মিত/অতির�
 $pdocrud->fieldRenameLable("join_date", "যোগদানের তারিখ");
 
 $pdocrud->addCallback("before_insert","beforeInsertMovein");
-
+$pdocrud->addCallback("after_insert","afterInsertMovein");
 
 $pdocrud->fieldDataAttr("created_at", array("disabled"=>"disabled"));
 
