@@ -14,9 +14,9 @@
   </li>
   -->
   <li>
-    <a href="contact.php">
+    <a href="employee.php">
       <i class="glyphicon glyphicon-home"></i>
-      <span>তথ্য যোগ করুন</span>
+      <span>কর্মকর্তা/কর্মচারী তথ্যব্যাঙ্ক</span>
     </a>
   </li>
   <li>

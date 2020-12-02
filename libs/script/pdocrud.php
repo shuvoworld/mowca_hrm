@@ -104,7 +104,7 @@ function beforeInsertMovein($data, $obj) {
         $insertData = array(
             "designation_id" => $sanctionedpost[0]['designation_id'], 
             "designation_name" =>  $sanctionedpost[0]['designation_name'], 
-            "organization_id" =>$sanctionedpost[0]['organization_id'],
+            "organization_id" => $sanctionedpost[0]['organization_id'],
             "organization_name" => $sanctionedpost[0]['organization_name'],
             "employee_id" => $data['movein']['employee_id'],
             "start_date" => $data['movein']['join_date'],
@@ -114,25 +114,16 @@ function beforeInsertMovein($data, $obj) {
             "current" => "Yes"
         );
         $pdocrud->getPDOModelObj()->insert("posting", $insertData);
+        $updateData = array(
+            "employee_id" => $data['movein']['employee_id']
+        );
+        $pdocrud->where("id", $data['movein']['sanctionedpost_id']);
+        $pdocrud->getPDOModelObj()->update("sanctionedposts", $updateData);
         
         return $data;
      
     }
 
-    function afterInsertMovein($data, $obj) {
-        //http://demo.digitaldreamstech.com/PDOModel/documentation/pdo/insert.php
-        
-            $pdomodel = $obj->getPDOModelObj();
-            $pdocrud = new PDOCrud(); 
-            $updateData = array(
-                "employee_id" => $data['movein']['employee_id']
-            );
-            $pdomodel->where("id", $data['movein']['sanctionedpost_id']);
-            $pdocrud->getPDOModelObj()->update("sanctionedposts", $updateData);
-            
-            return $data;
-         
-        }
 
     function beforeEmployeeUpdateCallBack($data, $obj) {
         $data['employees']['updated_by'] = $_SESSION['user_id'];
@@ -180,5 +171,5 @@ function beforeInsertMovein($data, $obj) {
         $data['contact_directory']['updated_at'] = date('Y/m/d h:i:s a', time());
         return $data;
         
-        }
+    }
 

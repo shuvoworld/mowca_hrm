@@ -20,12 +20,20 @@ else{
 
 
 
-$pdocrud->fieldTypes("agency_id", "select"); //change type to select
 $pdocrud->addPlugin("select2");//to add plugin
 $pdocrud->fieldDataBinding("agency_id", $agency_query, "id", "name_BN", "sql");
 
 $pdocrud->addPlugin("ckeditor");
 
+if (isset($user['agency_id'])) {
+  $agency_query = "select id, name, name_BN from agencies where id = {$user['agency_id']} ";
+}
+else{
+  $agency_query = "select id, name, name_BN from `agencies` WHERE 1";
+}
+
+$pdocrud->fieldTypes("agency_id", "select"); //change type to select
+$pdocrud->fieldDataBinding("agency_id", $agency_query, "id", "name_BN", "sql");
 
 $pdocrud->fieldTypes("quota_id", "select"); //change type to select
 $pdocrud->fieldDataBinding("quota_id", "quotas", "id", "name", "db");
@@ -60,15 +68,15 @@ $pdocrud->fieldDataBinding("permanent_upazila_id", "upazilas", "id", "name_BN", 
 $pdocrud->fieldDependent("permanent_district_id", "permanent_division_id", "division_id");
 $pdocrud->fieldDependent("permanent_upazila_id", "permanent_district_id", "district_id");
 
+$pdocrud->crudTableCol(array("name_BN","national_id", "mobile_no", "email", "updated_at"));
+$pdocrud->colRename("name_BN", "নাম");
+$pdocrud->colRename("mobile_no", "মোবাইল");
+$pdocrud->colRename("email", "ইমেইল");
+$pdocrud->colRename("updated_at", "তথ্য পরিবর্তনের তারিখ");
 
-$pdocrud->colRename("নাম", "দপ্তর/সংস্থা", "মোবাইল", "ইমেইল", "তথ্য পরিবর্তনের তারিখ");
-$pdocrud->crudTableCol(array("name_BN","agency_name", "mobile_no", "email", "updated_at"));
-
-
-
-$pdocrud->fieldRenameLable("agency_id", "Agency");//Rename label
-$pdocrud->fieldRenameLable("name_BN", "Name (Bangla)");//Rename label
-$pdocrud->fieldRenameLable("name_EN", "Name (English)");//Rename label
+$pdocrud->fieldRenameLable("agency_id", "দপ্তর");//Rename label
+$pdocrud->fieldRenameLable("name_BN", "নাম (বাংলা)");//Rename label
+$pdocrud->fieldRenameLable("name_EN", "নাম (ইংরেজি)");//Rename label
 
 $pdocrud->fieldDataAttr("created_at", array("disabled"=>"disabled"));
 
