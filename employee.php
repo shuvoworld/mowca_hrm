@@ -39,6 +39,7 @@ if (isset($user['agency_id'])) {
 else{
   $agency_query = "select id, name, name_BN from `agencies` WHERE 1";
 }
+$pdocrud->fieldNotMandatory("name_EN","code","quota_id","sex_id", "religion_id", "bloodgroup_id", "educational_qualification_id", "details");
 
 $pdocrud->fieldTypes("agency_id", "select"); //change type to select
 $pdocrud->fieldDataBinding("agency_id", $agency_query, "id", "name_BN", "sql");
