@@ -39,7 +39,13 @@
   <li>
     <a href="movein.php">
       <i class="glyphicon glyphicon-home"></i>
-      <span>মুভ ইন</span>
+      <span>যোগদান</span>
+    </a>
+  </li>
+    <li>
+    <a href="moveout.php">
+      <i class="glyphicon glyphicon-home"></i>
+      <span>অব্যাহতি</span>
     </a>
   </li>
   <li>

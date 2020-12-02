@@ -19,7 +19,7 @@ $pdocrud->fieldTypes("designation_id", "select"); //change type to select
 $pdocrud->fieldDataBinding("designation_id", "designations", "id", "name", "db"); //load select data
 
 $pdocrud->fieldTypes("organization_id", "select"); //change type to select
-$pdocrud->fieldDataBinding("organization_id", "organizations", "id", "name_BN", "db"); //load select data
+$pdocrud->fieldDataBinding("organization_id", "organizations", "id", "name", "db"); //load select data
 
 $pdocrud->fieldTypes("type_of_posting", "select"); //change type to select
 $pdocrud->fieldDataBinding("type_of_posting", "type_of_posting", "id", "name_BN", "db"); //load select data
@@ -29,6 +29,8 @@ $pdocrud->fieldDataBinding("employee_id", "employees", "id", array("name_BN", "m
 
 $pdocrud->fieldTypes("current", "select");
 $pdocrud->fieldDataBinding("current", array("Yes"=>"Yes","No"=>"No"), "", "","array");//add data binding using array
+
+$pdocrud->crudTableCol(["designation_name","employee_id", "organization_name", "start_date", "end_date"]);
 
 $pdocrud->addCallback("before_insert","beforeInsertPosting");
 $pdocrud->addCallback("before_update", "beforeInsertPosting"); 

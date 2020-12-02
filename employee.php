@@ -8,6 +8,14 @@
 
 
 $pdocrud = new PDOCrud(false, "pure", "pure");
+$pdocrud->multiTableRelationDisplay("tab", "Employee");
+
+$pEmployeePosting = new PDOCrud(true);
+$pEmployeePosting->crudTableCol(["designation_name", "organization_name", "start_date", "end_date"]);
+$pEmployeePosting->dbTable("posting");
+
+$pdocrud->multiTableRelation("id", "employee_id", $pEmployeePosting);
+$pEmployeePosting->multiTableRelationDisplay("tab", "Posting");
 
 if (isset($user['agency_id'])) {
   $pdocrud->where("agency_id", $user['agency_id'], "=");
@@ -72,11 +80,35 @@ $pdocrud->crudTableCol(array("name_BN","national_id", "mobile_no", "email", "upd
 $pdocrud->colRename("name_BN", "নাম");
 $pdocrud->colRename("mobile_no", "মোবাইল");
 $pdocrud->colRename("email", "ইমেইল");
-$pdocrud->colRename("updated_at", "তথ্য পরিবর্তনের তারিখ");
+$pdocrud->colRename("sex_id", "তথ্য পরিবর্তনের তারিখ");
+$pdocrud->colRename("sex_id", "তথ্য পরিবর্তনের তারিখ");
 
+$pdocrud->fieldRenameLable("code", "কোড");//Rename label
 $pdocrud->fieldRenameLable("agency_id", "দপ্তর");//Rename label
 $pdocrud->fieldRenameLable("name_BN", "নাম (বাংলা)");//Rename label
 $pdocrud->fieldRenameLable("name_EN", "নাম (ইংরেজি)");//Rename label
+$pdocrud->fieldRenameLable("mobile_no", "মোবাইল");
+$pdocrud->fieldRenameLable("email", "ইমেইল");
+$pdocrud->fieldRenameLable("father_name", "বাবার নাম (বাংলায়)");
+$pdocrud->fieldRenameLable("mother_name", "মার নাম (বাংলায়)");
+$pdocrud->fieldRenameLable("quota_id", "কোটা");
+$pdocrud->fieldRenameLable("sex_id", "লিঙ্গ");
+$pdocrud->fieldRenameLable("religion_id", "ধর্ম");
+$pdocrud->fieldRenameLable("bloodgroup_id", "রক্তের গ্রুপ");
+$pdocrud->fieldRenameLable("dob", "জন্ম তারিখ");
+$pdocrud->fieldRenameLable("prl_date", "পিআরএল");
+$pdocrud->fieldRenameLable("permanent_address", "স্থায়ী ঠিকানা");
+$pdocrud->fieldRenameLable("details", "অন্যান্য তথ্য");
+
+$pdocrud->fieldRenameLable("permanent_division_id", "স্থায়ী বিভাগ");
+$pdocrud->fieldRenameLable("permanent_district_id", "স্থায়ী জেলা");
+$pdocrud->fieldRenameLable("permanent_upazila_id", "স্থায়ীউপজেলা");
+$pdocrud->fieldRenameLable("educational_qualification_id", "সর্বসেশ শিক্ষাগত যোগ্যতা");
+$pdocrud->fieldRenameLable("joining_govt_service_date", "সকারি চাকুরীতে যোগদানের তারিখ");
+$pdocrud->fieldRenameLable("present_place_joing_date", "বর্তমান কর্মস্থলে যোগদানের তারিখ");
+$pdocrud->fieldRenameLable("present_post_joining_date", "বর্তমান পদে যোগদানের তারিখ");
+$pdocrud->fieldRenameLable("last_promoted_post_id", "সর্বশেষ পদোন্নতি প্রাপ্ত পদ");
+$pdocrud->fieldRenameLable("last_promotion_date", "সর্বশেষ পদোন্নতির তারিখ");
 
 $pdocrud->fieldDataAttr("created_at", array("disabled"=>"disabled"));
 

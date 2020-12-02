@@ -12,8 +12,8 @@ if(empty($errors)){
      $session->login($user_id);
     //Update Sign in time
      updateLastLogIn($user_id);
-     $session->msg("s", "তথ্য হালনাগাদকরন সফটওয়্যারে আপনাকে স্বাগতম");
-     redirect('home.php',false);
+     $session->msg("s", "HRM সফটওয়্যারে আপনাকে স্বাগতম");
+     redirect('admin.php',false);
 
   } else {
     $session->msg("d", "দুঃখিত, সঠিক লগইন আইডি এবং পাসওয়ার্ড প্রদান করুন!");
