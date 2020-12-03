@@ -15,32 +15,33 @@
 $pdocrud = new PDOCrud(false, "pure", "pure");
 $pdocrud->addPlugin("select2");//to add plugin 
 
-$pdocrud->fieldTypes("designation_id", "select"); //change type to select
-$pdocrud->fieldDataBinding("designation_id", "designations", "id", "name", "db"); //load select data
+$pdocrud->joinTable("sanctionedposts", "sanctionedposts.id = posting.sanctionedpost_id", "INNER JOIN");
 
-$pdocrud->fieldTypes("organization_id", "select"); //change type to select
-$pdocrud->fieldDataBinding("organization_id", "organizations", "id", "name", "db"); //load select data
+$pdocrud->crudTableCol(array(
+  "designation_name",
+  "organization_name",
+  "status",
+  "current",
+));
+$pdocrud->colRename("পদবী", "অফিস", "পদের অবস্থা", "কর্মরত?");
+
+$pdocrud->formFields(array("sanctionedpost_id","type_of_posting","employee_id", "start_date", "end_date", "current"));
+
+$pdocrud->fieldTypes("sanctionedpost_id", "select"); //change type to select
+$pdocrud->fieldDataBinding("sanctionedpost_id", "sanctionedposts", "id", array("designation_name", "organization_name"), "db", " --> "); //load select data
 
 $pdocrud->fieldTypes("type_of_posting", "select"); //change type to select
 $pdocrud->fieldDataBinding("type_of_posting", "type_of_posting", "id", "name_BN", "db"); //load select data
 
 $pdocrud->fieldTypes("employee_id", "select"); //change type to select
-$pdocrud->fieldDataBinding("employee_id", "employees", "id", array("name_BN", "mobile_no", "national_id"), "db", " => "); //load select data
+$pdocrud->fieldDataBinding("employee_id", "employees", "id", array("name_BN", "mobile_no", "national_id"), "db", " "); //load select data
 
 $pdocrud->fieldTypes("current", "select");
 $pdocrud->fieldDataBinding("current", array("Yes"=>"Yes","No"=>"No"), "", "","array");//add data binding using array
 
-$pdocrud->crudTableCol(["designation_name","employee_id", "organization_name", "start_date", "end_date"]);
-
 $pdocrud->addCallback("before_insert","beforeInsertPosting");
-$pdocrud->addCallback("before_update", "beforeInsertPosting"); 
 
-$pdocrud->fieldHideLable("designation_name");
-$pdocrud->fieldDataAttr("designation_name", array("style"=>"display:none"));
-$pdocrud->fieldDataAttr("designation_name", array("disabled"=>"disabled"));
-$pdocrud->fieldHideLable("organization_name");
-$pdocrud->fieldDataAttr("organization_name", array("style"=>"display:none"));
-$pdocrud->fieldDataAttr("organization_name", array("disabled"=>"disabled"));
+
 $pdocrud->fieldDataAttr("created_at", array("disabled"=>"disabled"));
 
 echo $pdocrud->dbTable("posting")->render();

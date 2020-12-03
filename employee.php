@@ -10,9 +10,32 @@
 $pdocrud = new PDOCrud(false, "pure", "pure");
 $pdocrud->multiTableRelationDisplay("tab", "Employee");
 
-$pEmployeePosting = new PDOCrud(true);
+$pEmployeePosting = new PDOCrud(false, "pure", "pure");
+$pEmployeePosting->joinTable("sanctionedposts", "sanctionedposts.id = posting.sanctionedpost_id", "INNER JOIN");
+$pEmployeePosting->formFields(array("sanctionedpost_id","type_of_posting","employee_id", "start_date", "end_date", "current"));
+$pEmployeePosting->crudTableCol(array(
+  "designation_name",
+  "organization_name",
+  "status",
+  "current",
+));
+
 $pEmployeePosting->crudTableCol(["designation_name", "organization_name", "start_date", "end_date"]);
 $pEmployeePosting->dbTable("posting");
+$pEmployeePosting->fieldTypes("sanctionedpost_id", "select"); //change type to select
+$pEmployeePosting->fieldDataBinding("sanctionedpost_id", "sanctionedposts", "id", array("designation_name", "organization_name"), "db", " --> ");
+$pEmployeePosting->fieldTypes("type_of_posting", "select"); //change type to select
+$pEmployeePosting->fieldDataBinding("type_of_posting", "type_of_posting", "id", "name_BN", "db"); //load select data
+$pEmployeePosting->fieldTypes("reason_of_posting", "select"); //change type to select
+$pEmployeePosting->fieldDataBinding("reason_of_posting", "reason_of_postings", "id", "name", "db"); //load select data
+$pEmployeePosting->fieldTypes("current", "select");
+$pEmployeePosting->fieldDataBinding("current", array("Yes"=>"Yes","No"=>"No"), "", "","array");
+
+$pEmployeePosting->fieldHideLable("employee_id");
+$pEmployeePosting->fieldDataAttr("employee_id", array("style"=>"display:none"));
+$pEmployeePosting->fieldHideLable("created_at");
+$pEmployeePosting->fieldDataAttr("created_at", array("style"=>"display:none"));
+$pEmployeePosting->fieldDataAttr("created_at", array("disabled"=>"disabled"));
 
 $pdocrud->multiTableRelation("id", "employee_id", $pEmployeePosting);
 $pEmployeePosting->multiTableRelationDisplay("tab", "Posting");
@@ -39,7 +62,6 @@ if (isset($user['agency_id'])) {
 else{
   $agency_query = "select id, name, name_BN from `agencies` WHERE 1";
 }
-$pdocrud->fieldNotMandatory("name_EN","code","quota_id","sex_id", "religion_id", "bloodgroup_id", "educational_qualification_id", "details");
 
 $pdocrud->fieldTypes("agency_id", "select"); //change type to select
 $pdocrud->fieldDataBinding("agency_id", $agency_query, "id", "name_BN", "sql");
@@ -78,16 +100,17 @@ $pdocrud->fieldDependent("permanent_district_id", "permanent_division_id", "divi
 $pdocrud->fieldDependent("permanent_upazila_id", "permanent_district_id", "district_id");
 
 $pdocrud->crudTableCol(array("name_BN","national_id", "mobile_no", "email", "updated_at"));
+
 $pdocrud->colRename("name_BN", "নাম");
 $pdocrud->colRename("mobile_no", "মোবাইল");
 $pdocrud->colRename("email", "ইমেইল");
-$pdocrud->colRename("sex_id", "তথ্য পরিবর্তনের তারিখ");
-$pdocrud->colRename("sex_id", "তথ্য পরিবর্তনের তারিখ");
+$pdocrud->colRename("updated_at", "তথ্য পরিবর্তনের তারিখ");
 
 $pdocrud->fieldRenameLable("code", "কোড");//Rename label
 $pdocrud->fieldRenameLable("agency_id", "দপ্তর");//Rename label
 $pdocrud->fieldRenameLable("name_BN", "নাম (বাংলা)");//Rename label
 $pdocrud->fieldRenameLable("name_EN", "নাম (ইংরেজি)");//Rename label
+$pdocrud->fieldRenameLable("national_id", "জাতীয় পরিচয়পত্র নং");
 $pdocrud->fieldRenameLable("mobile_no", "মোবাইল");
 $pdocrud->fieldRenameLable("email", "ইমেইল");
 $pdocrud->fieldRenameLable("father_name", "বাবার নাম (বাংলায়)");
@@ -95,16 +118,17 @@ $pdocrud->fieldRenameLable("mother_name", "মার নাম (বাংলা�
 $pdocrud->fieldRenameLable("quota_id", "কোটা");
 $pdocrud->fieldRenameLable("sex_id", "লিঙ্গ");
 $pdocrud->fieldRenameLable("religion_id", "ধর্ম");
+$pdocrud->colRename("marital_status_id", "বৈবাহিক অবস্থা");
 $pdocrud->fieldRenameLable("bloodgroup_id", "রক্তের গ্রুপ");
 $pdocrud->fieldRenameLable("dob", "জন্ম তারিখ");
-$pdocrud->fieldRenameLable("prl_date", "পিআরএল");
+$pdocrud->fieldRenameLable("prl_date", "পিআরএল তারিখ");
 $pdocrud->fieldRenameLable("permanent_address", "স্থায়ী ঠিকানা");
 $pdocrud->fieldRenameLable("details", "অন্যান্য তথ্য");
 
 $pdocrud->fieldRenameLable("permanent_division_id", "স্থায়ী বিভাগ");
 $pdocrud->fieldRenameLable("permanent_district_id", "স্থায়ী জেলা");
-$pdocrud->fieldRenameLable("permanent_upazila_id", "স্থায়ীউপজেলা");
-$pdocrud->fieldRenameLable("educational_qualification_id", "সর্বসেশ শিক্ষাগত যোগ্যতা");
+$pdocrud->fieldRenameLable("permanent_upazila_id", "স্থায়ী উপজেলা");
+$pdocrud->fieldRenameLable("educational_qualification_id", "সর্বশেষ শিক্ষাগত যোগ্যতা");
 $pdocrud->fieldRenameLable("joining_govt_service_date", "সকারি চাকুরীতে যোগদানের তারিখ");
 $pdocrud->fieldRenameLable("present_place_joing_date", "বর্তমান কর্মস্থলে যোগদানের তারিখ");
 $pdocrud->fieldRenameLable("present_post_joining_date", "বর্তমান পদে যোগদানের তারিখ");
@@ -141,7 +165,7 @@ $pdocrud->fieldDataAttr("educational_qualification_name", array("style"=>"displa
 $pdocrud->fieldDataAttr("educational_qualification_name", array("disabled"=>"disabled"));
 
 $pdocrud->fieldHideLable("religion_name");
-$pdocrud->fieldDataAttr("religioreligion_nameus_name", array("style"=>"display:none"));
+$pdocrud->fieldDataAttr("religion_name", array("style"=>"display:none"));
 $pdocrud->fieldDataAttr("religion_name", array("disabled"=>"disabled"));
 
 $pdocrud->fieldHideLable("permanent_division_name");
@@ -173,6 +197,15 @@ $pdocrud->fieldDisplayOrder(array("agency_id","code","name_BN","name_EN","father
 "last_promoted_post_id", "last_promotion_date", "details",
 "created_at", "created_by", "updated_at", "updated_by"
 ));
+$pdocrud->fieldNotMandatory("alternate_mobile_no");
+$pdocrud->fieldNotMandatory("quota_id");
+$pdocrud->fieldNotMandatory("sex_id");
+$pdocrud->fieldNotMandatory("religion_id");
+$pdocrud->fieldNotMandatory("bloodgroup_id");
+$pdocrud->fieldNotMandatory("marital_status_id");
+$pdocrud->fieldNotMandatory("name_EN");
+$pdocrud->fieldNotMandatory("code");
+$pdocrud->fieldNotMandatory("details");
 
 $pdocrud->fieldGroups("agency",array("agency_id", "code"));
 $pdocrud->fieldGroups("Naming",array("name_BN","name_EN"));

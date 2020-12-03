@@ -74,19 +74,17 @@ function beforeInsertSanctionedPost($data, $obj) {
 
 
 function beforeInsertPosting($data, $obj) {
-$pdomodel = $obj->getPDOModelObj();
-$designation_id = $data['posting']['designation_id'];
-$organization_id = $data['posting']['organization_id'];
-$pdomodel->where("id",$designation_id,"=");
-$designation =  $pdomodel->select("designations");
-
-$pdomodel->where("id",$organization_id,"=");
-$organization =  $pdomodel->select("organizations");
-
-$data['posting']['designation_name'] = $designation[0]['name'];
-$data['posting']['organization_name'] = $organization[0]['name'];
-$data['posting']['created_at'] = date('Y/m/d h:i:s a', time());
-return $data;
+    // $pdomodel = $obj->getPDOModelObj();
+    // $sanctionedpost_id = $data['movein']['sanctionedpost_id'];
+    // $pdomodel->where("id",$sanctionedpost_id,"=");
+    // $sanctionedpost =  $pdomodel->select("sanctionedposts");
+    
+    // $data['posting']['designation_id'] = $sanctionedpost[0]['designation_id'];
+    // $data['posting']['designation_name'] = $sanctionedpost[0]['designation_name'];
+    // $data['posting']['organization_id'] = $sanctionedpost[0]['organization_id'];
+    // $data['posting']['organization_name'] = $sanctionedpost[0]['organization_name'];
+    $data['posting']['created_at'] = date('Y/m/d h:i:s a', time());
+    return $data;
 
 }
 
@@ -102,6 +100,7 @@ function beforeInsertMovein($data, $obj) {
     
         $pdocrud = new PDOCrud(); 
         $insertData = array(
+            "sanctionedpost_id" => $data['movein']['sanctionedpost_id'],
             "designation_id" => $sanctionedpost[0]['designation_id'], 
             "designation_name" =>  $sanctionedpost[0]['designation_name'], 
             "organization_id" => $sanctionedpost[0]['organization_id'],
@@ -115,7 +114,8 @@ function beforeInsertMovein($data, $obj) {
         );
         $pdocrud->getPDOModelObj()->insert("posting", $insertData);
         $updateData = array(
-            "employee_id" => $data['movein']['employee_id']
+            "employee_id" => $data['movein']['employee_id'],
+            'status' => 'Filled'
         );
         $pdocrud->where("id", $data['movein']['sanctionedpost_id']);
         $pdocrud->getPDOModelObj()->update("sanctionedposts", $updateData);
