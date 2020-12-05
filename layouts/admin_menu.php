@@ -37,18 +37,6 @@
   </li>
   <li>
   <li>
-    <a href="movein.php">
-      <i class="glyphicon glyphicon-home"></i>
-      <span>যোগদান</span>
-    </a>
-  </li>
-    <li>
-    <a href="moveout.php">
-      <i class="glyphicon glyphicon-home"></i>
-      <span>অব্যাহতি</span>
-    </a>
-  </li>
-  <li>
   <li>
     <a href="posting.php">
       <i class="glyphicon glyphicon-home"></i>

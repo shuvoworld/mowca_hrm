@@ -71,8 +71,6 @@ function beforeInsertSanctionedPost($data, $obj) {
 
 }
 
-
-
 function beforeInsertPosting($data, $obj) {
     // $pdomodel = $obj->getPDOModelObj();
     // $sanctionedpost_id = $data['movein']['sanctionedpost_id'];

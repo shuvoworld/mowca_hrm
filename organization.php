@@ -59,7 +59,7 @@ $pdocrud->fieldRenameLable("agency_id", "দপ্তর/সংস্থা");//
 $pdocrud->fieldRenameLable("division_id", "বিভাগ");//Rename label
 $pdocrud->fieldRenameLable("district_id", "জেলা");//Rename label
 $pdocrud->fieldRenameLable("upazila_id", "উপজেলা");//Rename label
-$pdocrud->fieldRenameLable("organization_type_id", "দরণ");//Rename label
+$pdocrud->fieldRenameLable("organization_type_id", "ধরণ");//Rename label
 $pdocrud->fieldRenameLable("organization_level_id", "লেভেল");//Rename label
 
 $pdocrud->fieldDataAttr("created_at", array("disabled"=>"disabled"));

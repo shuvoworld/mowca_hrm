@@ -22,7 +22,7 @@
   <body>
   <?php  if ($session->isUserLoggedIn(true)): ?>
     <header id="header">
-      <div class="logo pull-left"> মাসিক তথ্য হালনাগাদকরন </div>
+      <div class="logo pull-left"> পিডিএস সিস্টেম </div>
       <div class="header-content">
       <div class="header-date pull-left">
         <strong><?php echo date("F j, Y, g:i a");?></strong>

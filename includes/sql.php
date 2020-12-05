@@ -258,7 +258,8 @@ function find_posts_by_organization($organization_id){
 	employees.mobile_no AS mobile_no
 FROM
 	sanctionedposts
-LEFT JOIN employees ON sanctionedposts.employee_id = employees.id
+LEFT JOIN posting ON sanctionedposts.id = posting.employee_id
+LEFT JOIN employees ON posting.employee_id = employees.id
 WHERE sanctionedposts.organization_id = ". $organization_id;
   
   return find_by_sql($sql);

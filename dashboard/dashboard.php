@@ -136,7 +136,7 @@ foreach($result as $row)
                                     <tr>
                                     <th>প্রতিষ্ঠানের নাম</th>
                                     <th>দপ্তর/সংস্থা</th>
-                                        <th>ধরণ</th>
+                                    <th>ধরণ</th>
                                     <th>বিভাগ</th>
                                     <th>জেলা</th>
                                     <th>উপজেলা</th>

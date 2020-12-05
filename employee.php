@@ -6,22 +6,24 @@
   include_once('layouts/header.php');
   page_require_level(2);
 
-
 $pdocrud = new PDOCrud(false, "pure", "pure");
+$pdocrud->addPlugin("select2");//to add plugin
 $pdocrud->multiTableRelationDisplay("tab", "Employee");
 
+
 $pEmployeePosting = new PDOCrud(false, "pure", "pure");
-$pEmployeePosting->joinTable("sanctionedposts", "sanctionedposts.id = posting.sanctionedpost_id", "INNER JOIN");
+$pEmployeePosting->dbTable("posting");
+
+
 $pEmployeePosting->formFields(array("sanctionedpost_id","type_of_posting","employee_id", "start_date", "end_date", "current"));
 $pEmployeePosting->crudTableCol(array(
-  "designation_name",
-  "organization_name",
-  "status",
-  "current",
+  "sanctionedpost_id",
+  "employee_id",
+  "start_date",
+  "end_date",
+  "current"
 ));
 
-$pEmployeePosting->crudTableCol(["designation_name", "organization_name", "start_date", "end_date"]);
-$pEmployeePosting->dbTable("posting");
 $pEmployeePosting->fieldTypes("sanctionedpost_id", "select"); //change type to select
 $pEmployeePosting->fieldDataBinding("sanctionedpost_id", "sanctionedposts", "id", array("designation_name", "organization_name"), "db", " --> ");
 $pEmployeePosting->fieldTypes("type_of_posting", "select"); //change type to select
@@ -30,7 +32,6 @@ $pEmployeePosting->fieldTypes("reason_of_posting", "select"); //change type to s
 $pEmployeePosting->fieldDataBinding("reason_of_posting", "reason_of_postings", "id", "name", "db"); //load select data
 $pEmployeePosting->fieldTypes("current", "select");
 $pEmployeePosting->fieldDataBinding("current", array("Yes"=>"Yes","No"=>"No"), "", "","array");
-
 $pEmployeePosting->fieldHideLable("employee_id");
 $pEmployeePosting->fieldDataAttr("employee_id", array("style"=>"display:none"));
 $pEmployeePosting->fieldHideLable("created_at");
@@ -39,6 +40,14 @@ $pEmployeePosting->fieldDataAttr("created_at", array("disabled"=>"disabled"));
 
 $pdocrud->multiTableRelation("id", "employee_id", $pEmployeePosting);
 $pEmployeePosting->multiTableRelationDisplay("tab", "Posting");
+
+
+$pEmployeePromotion = new PDOCrud(false, "pure", "pure");
+$pEmployeePromotion->dbTable("promotion");
+
+
+$pdocrud->multiTableRelation("id", "employee_id", $pEmployeePromotion);
+$pEmployeePromotion->multiTableRelationDisplay("tab", "Promotion");
 
 if (isset($user['agency_id'])) {
   $pdocrud->where("agency_id", $user['agency_id'], "=");
@@ -51,7 +60,7 @@ else{
 
 
 
-$pdocrud->addPlugin("select2");//to add plugin
+
 $pdocrud->fieldDataBinding("agency_id", $agency_query, "id", "name_BN", "sql");
 
 $pdocrud->addPlugin("ckeditor");
@@ -112,6 +121,7 @@ $pdocrud->fieldRenameLable("name_BN", "নাম (বাংলা)");//Rename la
 $pdocrud->fieldRenameLable("name_EN", "নাম (ইংরেজি)");//Rename label
 $pdocrud->fieldRenameLable("national_id", "জাতীয় পরিচয়পত্র নং");
 $pdocrud->fieldRenameLable("mobile_no", "মোবাইল");
+$pdocrud->fieldRenameLable("alternate_mobile_no", "বিকল্প মোবাইল");
 $pdocrud->fieldRenameLable("email", "ইমেইল");
 $pdocrud->fieldRenameLable("father_name", "বাবার নাম (বাংলায়)");
 $pdocrud->fieldRenameLable("mother_name", "মার নাম (বাংলায়)");
@@ -227,6 +237,5 @@ $pdocrud->addCallback("before_update", "beforeEmployeeUpdateCallBack");
 
 $pdocrud->fieldCssClass("details", array("ckeditor"));
 echo $pdocrud->dbTable("employees")->render();
-echo $pdocrud->loadPluginJsCode("ckeditor","ZW1wbG95ZWVzIyRkZXRhaWxzQDNkc2ZzZGYqKjk5MzQzMjQ=");
 echo $pdocrud->loadPluginJsCode("select2","select");//to add plugin call on select elements
 ?>
