@@ -8,7 +8,7 @@
 
 $pdocrud = new PDOCrud(false, "pure", "pure");
 $pdocrud->addPlugin("select2");//to add plugin
-$pdocrud->multiTableRelationDisplay("tab", "Employee");
+$pdocrud->multiTableRelationDisplay("tab", "প্রোফাইল");
 
 
 $pEmployeePosting = new PDOCrud(false, "pure", "pure");
@@ -23,6 +23,18 @@ $pEmployeePosting->crudTableCol(array(
   "end_date",
   "current"
 ));
+$pEmployeePosting->crudTableCol(array("sanctionedpost_id","type_of_posting","start_date","end_date","current"));
+$pEmployeePosting->fieldRenameLable("sanctionedpost_id", "পদবী");
+$pEmployeePosting->fieldRenameLable("type_of_posting", "টাইপ");
+$pEmployeePosting->fieldRenameLable("start_date", "শুরু");
+$pEmployeePosting->fieldRenameLable("end_date", "শেষ");
+$pEmployeePosting->fieldRenameLable("current", "কর্মরত কিনা?");
+
+$pEmployeePosting->colRename("sanctionedpost_id", "পদবী");
+$pEmployeePosting->colRename("type_of_posting", "টাইপ");
+$pEmployeePosting->colRename("start_date", "শুরু");
+$pEmployeePosting->colRename("end_date", "শেষ");
+$pEmployeePosting->colRename("current", "কর্মরত কিনা?");
 
 $pEmployeePosting->fieldTypes("sanctionedpost_id", "select"); //change type to select
 $pEmployeePosting->fieldDataBinding("sanctionedpost_id", "sanctionedposts", "id", array("designation_name", "organization_name"), "db", " --> ");
@@ -39,7 +51,7 @@ $pEmployeePosting->fieldDataAttr("created_at", array("style"=>"display:none"));
 $pEmployeePosting->fieldDataAttr("created_at", array("disabled"=>"disabled"));
 
 $pdocrud->multiTableRelation("id", "employee_id", $pEmployeePosting);
-$pEmployeePosting->multiTableRelationDisplay("tab", "Posting");
+$pEmployeePosting->multiTableRelationDisplay("tab", "পোস্টিং");
 
 
 $pEmployeePromotion = new PDOCrud(false, "pure", "pure");
@@ -47,7 +59,7 @@ $pEmployeePromotion->dbTable("promotion");
 
 
 $pdocrud->multiTableRelation("id", "employee_id", $pEmployeePromotion);
-$pEmployeePromotion->multiTableRelationDisplay("tab", "Promotion");
+$pEmployeePromotion->multiTableRelationDisplay("tab", "প্রোমোশন");
 
 if (isset($user['agency_id'])) {
   $pdocrud->where("agency_id", $user['agency_id'], "=");
@@ -71,6 +83,8 @@ if (isset($user['agency_id'])) {
 else{
   $agency_query = "select id, name, name_BN from `agencies` WHERE 1";
 }
+
+$pdocrud->tableHeading("কর্মকর্তা/কর্মচারী ডাটাবেজ");
 
 $pdocrud->fieldTypes("agency_id", "select"); //change type to select
 $pdocrud->fieldDataBinding("agency_id", $agency_query, "id", "name_BN", "sql");

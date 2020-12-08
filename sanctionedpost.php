@@ -15,6 +15,15 @@
 $pdocrud = new PDOCrud(false, "pure", "pure");
 $pdocrud->addPlugin("select2");//to add plugin 
 
+$pdocrud->crudTableCol(array("designation_name","organization_name","status"));
+$pdocrud->fieldRenameLable("designation_id", "পদবী");
+$pdocrud->fieldRenameLable("organization_id", "টাইপ");
+$pdocrud->fieldRenameLable("status", "শুন্য/পূরনকৃত?");
+
+$pdocrud->colRename("designation_id", "পদবী");
+$pdocrud->colRename("organization_id", "টাইপ");
+$pdocrud->colRename("status", "শুন্য/পূরনকৃত?");
+
 $pdocrud->fieldTypes("designation_id", "select"); //change type to select
 $pdocrud->fieldDataBinding("designation_id", "designations", "id", "name", "db"); //load select data
 

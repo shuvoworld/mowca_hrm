@@ -17,7 +17,7 @@ $pdocrud->addPlugin("select2");//to add plugin
 
 $pdocrud->crudTableCol(array("employee_id","start_date","end_date","type_of_posting"));
 $pdocrud->formFields(array("sanctionedpost_id","type_of_posting","employee_id", "start_date", "end_date", "current"));
- $pdocrud->colRename("sanctionedpost_id", "পদবী");
+$pdocrud->colRename("sanctionedpost_id", "পদবী");
 $pdocrud->colRename("organization_name", "অফিস");
 // $pdocrud->colRename("status", "পদের অবস্থা");
 // $pdocrud->colRename("current", "কর্মরত?");

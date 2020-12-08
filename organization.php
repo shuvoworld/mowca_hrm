@@ -21,6 +21,8 @@ $pdocrud->addPlugin("ckeditor");
 $action = "org_dashboard.php?id={pk}";
 $text = '<i class="fa fa-bank" style="font-size:24px" title="Show Posts"></i>';
 $attr = array("title"=>"Redirect URL");
+
+$pdocrud->tableHeading("প্রতিষ্ঠানের ডাটাবেজ");
 $pdocrud->enqueueBtnActions("url", $action, "url",$text,"booking_status", $attr);
 
 $pdocrud->addPlugin("ckeditor");
@@ -47,7 +49,6 @@ $pdocrud->fieldDataBinding("upazila_id", "upazilas", "id", "name_BN", "db"); //l
 $pdocrud->fieldDependent("district_id", "division_id", "division_id"); //now on change of country it will change state
 $pdocrud->fieldDependent("upazila_id", "district_id", "district_id"); //now on change of country it will change state
 
-$pdocrud->crudRemoveCol(array("name","organization_level_id","organization_type_id","contact_email", "created_at", "is_active"));
 
 //$pdocrud->crudTableCol(array("ID","Name","Directorate","Division","District", "Upazila", "Contact"));//optional
 //$pdocrud->relatedData('agency_id','agencies','id','name_BN');
@@ -55,12 +56,25 @@ $pdocrud->relatedData('division_id','divisions','id','name_BN');
 $pdocrud->relatedData('district_id','districts','id','name_BN');
 $pdocrud->relatedData('upazila_id','upazilas','id','name_BN');
 
+$pdocrud->crudTableCol(array("name","division_id","district_id","upazila_id","organization_type_id","contact_no","email"));
+
 $pdocrud->fieldRenameLable("agency_id", "দপ্তর/সংস্থা");//Rename label
 $pdocrud->fieldRenameLable("division_id", "বিভাগ");//Rename label
 $pdocrud->fieldRenameLable("district_id", "জেলা");//Rename label
 $pdocrud->fieldRenameLable("upazila_id", "উপজেলা");//Rename label
 $pdocrud->fieldRenameLable("organization_type_id", "ধরণ");//Rename label
 $pdocrud->fieldRenameLable("organization_level_id", "লেভেল");//Rename label
+$pdocrud->fieldRenameLable("contact_no", "যোগাযোগের নম্বর");//Rename label
+$pdocrud->fieldRenameLable("email", "ইমেইল");//Rename label
+
+$pdocrud->colRename("name", "প্রতিষ্ঠানের নাম");
+$pdocrud->colRename("agency_id", "দপ্তর/সংস্থা");
+$pdocrud->colRename("division_id", "বিভাগ");
+$pdocrud->colRename("district_id", "জেলা");
+$pdocrud->colRename("upazila_id", "উপজেলা");
+$pdocrud->colRename("organization_type_id", "ধরণ");
+$pdocrud->colRename("contact_no", "যোগাযোগের নম্বর");
+$pdocrud->colRename("email", "ইমেইল");
 
 $pdocrud->fieldDataAttr("created_at", array("disabled"=>"disabled"));
 $pdocrud->fieldHideLable("created_by");
