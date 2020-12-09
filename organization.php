@@ -58,6 +58,10 @@ $pdocrud->relatedData('upazila_id','upazilas','id','name_BN');
 
 $pdocrud->crudTableCol(array("name","division_id","district_id","upazila_id","organization_type_id","contact_no","email"));
 
+$pdocrud->fieldNotMandatory("email");
+$pdocrud->fieldNotMandatory("organization_level_id");
+$pdocrud->fieldNotMandatory("address");
+
 $pdocrud->fieldRenameLable("agency_id", "দপ্তর/সংস্থা");//Rename label
 $pdocrud->fieldRenameLable("division_id", "বিভাগ");//Rename label
 $pdocrud->fieldRenameLable("district_id", "জেলা");//Rename label

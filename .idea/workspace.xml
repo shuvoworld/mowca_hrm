@@ -2,8 +2,29 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e66aad88-6fa8-4f52-b4eb-19168f6eff83" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/layouts/images/background.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/layouts/images/images.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/script/uploads/1607535480_128867213_2702129466782996_8797223987484168316_n.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/script/uploads/1607535481_128867213_2702129466782996_8797223987484168316_n.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/script/uploads/1607537160_29177890_1618543761566051_6863733492811825152_n.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/script/uploads/1607537174_29177890_1618543761566051_6863733492811825152_n.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/libs/script/uploads/1607537175_29177890_1618543761566051_6863733492811825152_n.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/employee.php" beforeDir="false" afterPath="$PROJECT_DIR$/employee.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/libs/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/libs/css/main.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/libs/script/uploads/1481031296_demo.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libs/script/uploads/1487766929_demo.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libs/script/uploads/1487766985_demo.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libs/script/uploads/1556024027_if_phone_1140318.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libs/script/uploads/1556536426_bhushan marriage expense details.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libs/script/uploads/1556866593_iconfinder_pdf_272711.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libs/script/uploads/1556866760_iconfinder_pdf_272711.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libs/script/uploads/1556866775_iconfinder_pdf_272711.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libs/script/uploads/1556866906_iconfinder_pdf_272711.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libs/script/uploads/1556866933_iconfinder_pdf_272711.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/libs/script/uploads/advertisement.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/organization.php" beforeDir="false" afterPath="$PROJECT_DIR$/organization.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -89,6 +110,8 @@
       <workItem from="1603430250632" duration="9812000" />
       <workItem from="1606187622867" duration="38000" />
       <workItem from="1606914558853" duration="5021000" />
+      <workItem from="1607441428006" duration="223000" />
+      <workItem from="1607531041575" duration="5274000" />
     </task>
     <servers />
   </component>

@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2020-12-08 21:28:17
+Date: 2020-12-10 00:09:17
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -343,14 +343,16 @@ CREATE TABLE `employees` (
   `agency_id` int(10) DEFAULT NULL,
   `agency_name` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   `alternate_mobile_no` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `employee_image` varchar(255) COLLATE utf8_unicode_ci DEFAULT '',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of employees
 -- ----------------------------
-INSERT INTO `employees` VALUES ('1', '101', 'Asma Khatun', 'Asma Khatun', 'sdsds', 'sdsd', '36556562', '01911445858', 'ww@gmail.com', '0', null, '0', null, '0', null, '0', null, '1980-01-01', '2030-01-01', '1', null, '1', null, '154', null, 'erer', '2', null, '2001-01-01', '2007-01-01', '2007-01-01', '1', null, '2007-01-01', '', null, null, null, null, '1', '1', null, '2', null, '01911445858');
-INSERT INTO `employees` VALUES ('2', '12121', 'Josna Begum', '', 'asasa', 'asa', 'wewe', '123434343434', 'ee@ere.com', '0', null, '0', null, '0', null, '0', null, '1984-02-05', '2025-01-01', '2', null, '18', null, '43', null, 'swds', '1', null, '1999-01-01', '1999-01-01', '1999-01-01', '2', null, '2010-01-01', '', null, null, null, null, '1', '0', null, '2', null, '123434343434');
+INSERT INTO `employees` VALUES ('1', '101', 'Asma Khatun', 'Asma Khatun', 'sdsds', 'sdsd', '36556562', '01911445858', 'ww@gmail.com', '0', null, '0', null, '0', null, '0', null, '1980-01-01', '2030-01-01', '1', null, '1', null, '154', null, 'erer', '2', null, '2001-01-01', '2007-01-01', '2007-01-01', '1', null, '2007-01-01', '', null, null, '2020-12-09 06:38:01', '1', '1', '1', null, '2', null, '01911445858', 'http://localhost/mowca_hrm/libs/script/uploads/1607535481_128867213_2702129466782996_8797223987484168316_n.jpg');
+INSERT INTO `employees` VALUES ('2', '12121', 'Josna Begum', '', 'asasa', 'asa', 'wewe', '123434343434', 'ee@ere.com', '0', null, '0', null, '0', null, '0', null, '1984-02-05', '2025-01-01', '2', null, '18', null, '43', null, 'swds', '1', null, '1999-01-01', '1999-01-01', '1999-01-01', '2', null, '2010-01-01', '', null, null, null, null, '1', '0', null, '2', null, '123434343434', null);
+INSERT INTO `employees` VALUES ('3', '3434', 'sdsdsdsd', '34343', '3344343', '43434', '343434', '34343', 'email@email.com', '1', null, '1', null, '0', null, '0', null, '2020-12-01', '2020-12-31', '2', null, '19', null, '51', null, '', '0', null, '2020-12-24', '2020-12-17', '2020-12-16', '0', null, '0000-00-00', '', null, null, '2020-12-09 07:06:15', '1', '1', '0', null, '1', null, '4343434', 'http://localhost/mowca_hrm/libs/script/uploads/1607537175_29177890_1618543761566051_6863733492811825152_n.png');
 
 -- ----------------------------
 -- Table structure for grade
@@ -530,13 +532,16 @@ CREATE TABLE `posting` (
   `created_at` datetime DEFAULT NULL,
   `reason_of_posting` int(10) DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of posting
 -- ----------------------------
 INSERT INTO `posting` VALUES ('1', '1', '1', '1', '2020-12-01', '2020-12-02', 'No', '2020-12-04 07:29:46', null);
 INSERT INTO `posting` VALUES ('3', '3', '2', '1', '1999-01-01', '2010-01-01', 'No', '2020-12-05 12:05:26', null);
+INSERT INTO `posting` VALUES ('4', '4', '3', '1', '2020-12-12', '2020-12-29', 'Yes', null, null);
+INSERT INTO `posting` VALUES ('5', '4', '3', '1', '2020-12-12', '2020-12-29', 'Yes', null, null);
+INSERT INTO `posting` VALUES ('6', '4', '3', '1', '2020-12-12', '2020-12-29', 'Yes', null, null);
 
 -- ----------------------------
 -- Table structure for promotion
@@ -618,13 +623,14 @@ CREATE TABLE `sanctionedposts` (
   `organization_name` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `status` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of sanctionedposts
 -- ----------------------------
 INSERT INTO `sanctionedposts` VALUES ('1', '1', '1', '2020-12-04 02:12:46', 'উপপরিচালক', 'উপপরিচালকের কার্যালয়, খুলনা', 'Vacant');
-INSERT INTO `sanctionedposts` VALUES ('3', '2', '3', '2020-12-04 06:55:06', 'উপজেলা মহিলা বিষয়ক কর্মকর্তা', 'উপপরিচালকের কার্যালয়, ঢাকা', 'Vacant');
+INSERT INTO `sanctionedposts` VALUES ('3', '2', '3', '2020-12-04 06:55:06', 'উপজেলা মহিলা বিষয়ক কর্মকর্তা', 'উপপরিচালকের কার্যালয়, ঢাকা', 'Filled');
+INSERT INTO `sanctionedposts` VALUES ('4', '4', '2', '2020-12-09 07:06:36', 'প্রোগ্রাম অফিসার', 'উপপরিচালকের কার্যালয়, যশোর', 'Filled');
 
 -- ----------------------------
 -- Table structure for sex
@@ -1268,7 +1274,7 @@ CREATE TABLE `users` (
 -- ----------------------------
 -- Records of users
 -- ----------------------------
-INSERT INTO `users` VALUES ('1', 'Ministry Admin', 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', '1', 'w19i5my51.png', null, '1', '2020-12-08 20:13:42');
+INSERT INTO `users` VALUES ('1', 'Ministry Admin', 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', '1', 'w19i5my51.png', null, '1', '2020-12-09 23:23:03');
 INSERT INTO `users` VALUES ('2', 'বাংলাদেশ শিশু একডেমী', 'bsa', '942078ca2d04f25545a316c123a392c4d5d339fd', '2', 'no_image.jpg', '1', '1', '2018-02-02 11:53:54');
 INSERT INTO `users` VALUES ('3', 'মহিলা ও শিশু বিষয়ক মন্ত্রণালয়', 'mowca', '12dea96fec20593566ab75692c9949596833adc9', '2', 'no_image.jpg', '4', '1', '2018-01-25 16:42:21');
 INSERT INTO `users` VALUES ('4', 'জাতীয় মহিলা সংস্থা', 'Jms', '8cb2237d0679ca88db6464eac60da96345513964', '2', 'fn44z3oj4.jpg', '1', '1', '2020-09-23 11:54:43');

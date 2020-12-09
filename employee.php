@@ -36,6 +36,8 @@ $pEmployeePosting->colRename("start_date", "শুরু");
 $pEmployeePosting->colRename("end_date", "শেষ");
 $pEmployeePosting->colRename("current", "কর্মরত কিনা?");
 
+
+
 $pEmployeePosting->fieldTypes("sanctionedpost_id", "select"); //change type to select
 $pEmployeePosting->fieldDataBinding("sanctionedpost_id", "sanctionedposts", "id", array("designation_name", "organization_name"), "db", " --> ");
 $pEmployeePosting->fieldTypes("type_of_posting", "select"); //change type to select
@@ -71,8 +73,6 @@ else{
 }
 
 
-
-
 $pdocrud->fieldDataBinding("agency_id", $agency_query, "id", "name_BN", "sql");
 
 $pdocrud->addPlugin("ckeditor");
@@ -85,6 +85,9 @@ else{
 }
 
 $pdocrud->tableHeading("কর্মকর্তা/কর্মচারী ডাটাবেজ");
+
+$pdocrud->fieldTypes("employee_image", "image");//change type to image
+//$pdocrud->formFields (array("employee_image"));
 
 $pdocrud->fieldTypes("agency_id", "select"); //change type to select
 $pdocrud->fieldDataBinding("agency_id", $agency_query, "id", "name_BN", "sql");
@@ -230,6 +233,10 @@ $pdocrud->fieldNotMandatory("marital_status_id");
 $pdocrud->fieldNotMandatory("name_EN");
 $pdocrud->fieldNotMandatory("code");
 $pdocrud->fieldNotMandatory("details");
+$pdocrud->fieldNotMandatory("permanent_address");
+$pdocrud->fieldNotMandatory("educational_qualification_id");
+$pdocrud->fieldNotMandatory("last_promoted_post_id");
+$pdocrud->fieldNotMandatory("last_promotion_date");
 
 $pdocrud->fieldGroups("agency",array("agency_id", "code"));
 $pdocrud->fieldGroups("Naming",array("name_BN","name_EN"));
