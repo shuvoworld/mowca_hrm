@@ -28,18 +28,71 @@
   </div>
 
   <div class="row">
-      <?php
-
-    $pdocrud->setQuery(
-            "SELECT
-	    organizations.name_BN as 'প্রতিষ্ঠান',
-	    COUNT(sanctionedposts.id) AS 'মঞ্জুরীকৃতপদ'
-        FROM
-	    sanctionedposts
-        LEFT JOIN organizations ON sanctionedposts.organization_id = organizations.id
-    ");
-    echo $pdocrud->render("SQL");
-      ?>
+  <div class="col-md-12">
+  <h3>এক নজরে সার্বিক অবস্থা</h3>
+  <table id="summary" class="table table-striped table-bordered" style="width:100%">
+        <thead>
+            <tr>
+                <th>প্রতিষ্ঠান</th>
+                <th>জেলা</th>
+                <th>উপজেলা</th>
+                <th>পদবী</th>
+                <th>মোট পদ</th>
+                <th>পূরনকৃত</th>
+                <th>খালি</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th>উপ-পরিচালকের কার্যালয়</th>
+                <th>উপ-পরিচালক</th>
+                <th>ভোলা</th>
+                <th>বোরহানউদ্দীন</th>
+                <th>১</th>
+                <th>০</th>
+                <th style="background-color: green; color: white">১</th>
+            </tr>
+            <tr>
+                <th>উপ-পরিচালকের কার্যালয়</th>
+                <th>উপ-পরিচালক</th>
+                <th>রাঙ্গামাটি</th>
+                <th>রাঙ্গামাটি সদর</th>
+                <th>১</th>
+                <th>১</th>
+                <th style="background-color: red; color: white">০</th>
+            </tr>
+            <tr>
+                <th>উপজেলা মহিলা বিষয়ক কর্মকর্তার কার্যালয়</th>
+                <th>উপজেলা মহিলা বিষয়ক কর্মকর্তা</th>
+                <th>রাঙ্গামাটি</th>
+                <th>রাঙ্গামাটি সদর</th>
+                <th>১</th>
+                <th>১</th>
+                <th style="background-color: red; color: white">০</th>
+            </tr>
+            <tr>
+                <th>উপ-পরিচালকের কার্যালয়</th>
+                <th>উপ-পরিচালক</th>
+                <th>রাঙ্গামাটি</th>
+                <th>রাঙ্গামাটি সদর</th>
+                <th>১</th>
+                <th>১</th>
+                <th>০</th>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>প্রতিষ্ঠান</th>
+                <th>জেলা</th>
+                <th>উপজেলা</th>
+                <th>পদবী</th>
+                <th>মোট পদ</th>
+                <th>পূরনকৃত</th>
+                <th>খালি</th>
+            </tr>
+        </tfoot>
+    </table>
+  </div>
   </div>
 
 
