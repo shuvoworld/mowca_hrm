@@ -24,7 +24,7 @@ $page_title = 'মাসিক ছকে রিপোর্ট';
             <div class="form-group">
                <div class="row">
                   <div class="col-md-4">
-                <label for="month_id">প্রতিবেদনাধিন মাস *</label>
+                <label for="month_id">প্রতিবেদনাধীন মাস *</label>
                 <select class="form-control" name="month_id">
                 <option value="">নির্বাচন করুন</option>
                   <?php foreach ($months as $month ):?>

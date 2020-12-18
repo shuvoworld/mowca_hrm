@@ -31,23 +31,23 @@ $pdocrud->addPlugin("select2");//to add plugin
 $pdocrud->fieldDataBinding("agency_id", $agency_query, "id", "name_BN", "sql");
 
 $pdocrud->fieldTypes("organization_type_id", "select"); //change type to select
-$pdocrud->fieldDataBinding("organization_type_id", "organization_types", "id", "name_BN", "db"); //load select data
+$pdocrud->fieldDataBinding("organization_type_id", "organization_types", "id", "name_BN", "db");
 
 $pdocrud->fieldTypes("organization_level_id", "select"); //change type to select
-$pdocrud->fieldDataBinding("organization_level_id", "organization_levels", "id", "name_BN", "db"); //load select data
+$pdocrud->fieldDataBinding("organization_level_id", "organization_levels", "id", "name_BN", "db");
 
 
 $pdocrud->fieldTypes("division_id", "select"); //change type to select
-$pdocrud->fieldDataBinding("division_id", "divisions", "id", "name_BN", "db"); //load select data
+$pdocrud->fieldDataBinding("division_id", "divisions", "id", "name_BN", "db");
 
 $pdocrud->fieldTypes("district_id", "select"); //change type to select
-$pdocrud->fieldDataBinding("district_id", "districts", "id", "name_BN", "db"); //load select data
+$pdocrud->fieldDataBinding("district_id", "districts", "id", "name_BN", "db");
 
 $pdocrud->fieldTypes("upazila_id", "select"); //change type to select
-$pdocrud->fieldDataBinding("upazila_id", "upazilas", "id", "name_BN", "db"); //load select data
+$pdocrud->fieldDataBinding("upazila_id", "upazilas", "id", "name_BN", "db");
 
-$pdocrud->fieldDependent("district_id", "division_id", "division_id"); //now on change of country it will change state
-$pdocrud->fieldDependent("upazila_id", "district_id", "district_id"); //now on change of country it will change state
+$pdocrud->fieldDependent("district_id", "division_id", "division_id");
+$pdocrud->fieldDependent("upazila_id", "district_id", "district_id");
 
 
 //$pdocrud->crudTableCol(array("ID","Name","Directorate","Division","District", "Upazila", "Contact"));//optional

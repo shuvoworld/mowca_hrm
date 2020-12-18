@@ -8,12 +8,10 @@
 
 $pdocrud = new PDOCrud(false, "pure", "pure");
 $pdocrud->addPlugin("select2");//to add plugin
-$pdocrud->multiTableRelationDisplay("tab", "প্রোফাইল");
-
+//$pdocrud->multiTableRelationDisplay("tab", "প্রোফাইল");
 
 $pEmployeePosting = new PDOCrud(false, "pure", "pure");
 $pEmployeePosting->dbTable("posting");
-
 
 $pEmployeePosting->formFields(array("sanctionedpost_id","type_of_posting","employee_id", "start_date", "end_date", "current"));
 $pEmployeePosting->crudTableCol(array(
@@ -23,6 +21,7 @@ $pEmployeePosting->crudTableCol(array(
   "end_date",
   "current"
 ));
+
 $pEmployeePosting->crudTableCol(array("sanctionedpost_id","type_of_posting","start_date","end_date","current"));
 $pEmployeePosting->fieldRenameLable("sanctionedpost_id", "পদবী");
 $pEmployeePosting->fieldRenameLable("type_of_posting", "টাইপ");
@@ -35,8 +34,6 @@ $pEmployeePosting->colRename("type_of_posting", "টাইপ");
 $pEmployeePosting->colRename("start_date", "শুরু");
 $pEmployeePosting->colRename("end_date", "শেষ");
 $pEmployeePosting->colRename("current", "কর্মরত কিনা?");
-
-
 
 $pEmployeePosting->fieldTypes("sanctionedpost_id", "select"); //change type to select
 $pEmployeePosting->fieldDataBinding("sanctionedpost_id", "sanctionedposts", "id", array("designation_name", "organization_name"), "db", " --> ");
@@ -53,7 +50,7 @@ $pEmployeePosting->fieldDataAttr("created_at", array("style"=>"display:none"));
 $pEmployeePosting->fieldDataAttr("created_at", array("disabled"=>"disabled"));
 
 $pdocrud->multiTableRelation("id", "employee_id", $pEmployeePosting);
-$pEmployeePosting->multiTableRelationDisplay("tab", "পোস্টিং");
+//$pEmployeePosting->multiTableRelationDisplay("tab", "পোস্টিং");
 
 
 $pEmployeePromotion = new PDOCrud(false, "pure", "pure");
@@ -61,7 +58,7 @@ $pEmployeePromotion->dbTable("promotion");
 
 
 $pdocrud->multiTableRelation("id", "employee_id", $pEmployeePromotion);
-$pEmployeePromotion->multiTableRelationDisplay("tab", "প্রোমোশন");
+//$pEmployeePromotion->multiTableRelationDisplay("tab", "প্রোমোশন");
 
 if (isset($user['agency_id'])) {
   $pdocrud->where("agency_id", $user['agency_id'], "=");
@@ -140,8 +137,8 @@ $pdocrud->fieldRenameLable("national_id", "জাতীয় পরিচয়পত
 $pdocrud->fieldRenameLable("mobile_no", "মোবাইল");
 $pdocrud->fieldRenameLable("alternate_mobile_no", "বিকল্প মোবাইল");
 $pdocrud->fieldRenameLable("email", "ইমেইল");
-$pdocrud->fieldRenameLable("father_name", "বাবার নাম (বাংলায়)");
 $pdocrud->fieldRenameLable("mother_name", "মার নাম (বাংলায়)");
+$pdocrud->fieldRenameLable("father_name", "বাবার নাম (বাংলায়)");
 $pdocrud->fieldRenameLable("quota_id", "কোটা");
 $pdocrud->fieldRenameLable("sex_id", "লিঙ্গ");
 $pdocrud->fieldRenameLable("religion_id", "ধর্ম");
@@ -217,7 +214,7 @@ $pdocrud->fieldHideLable("last_promoted_post_name");
 $pdocrud->fieldDataAttr("last_promoted_post_name", array("style"=>"display:none"));
 $pdocrud->fieldDataAttr("last_promoted_post_name", array("disabled"=>"disabled"));
 
-$pdocrud->fieldDisplayOrder(array("agency_id","code","name_BN","name_EN","father_name","mother_name","dob","prl_date","national_id", "mobile_no", 
+$pdocrud->fieldDisplayOrder(array("agency_id","code","name_BN","name_EN","mother_name", "father_name","dob","prl_date","national_id", "mobile_no",
 "alternate_mobile_no", "email", "quota_id","sex_id", "religion_id", "bloodgroup_id","educational_qualification_id","marital_status_id",
 "permanent_division_id","permanent_district_id", "permanent_upazila_id", "permanent_address",
 "joining_govt_service_date","present_place_joing_date", "present_post_joining_date",

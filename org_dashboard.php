@@ -25,9 +25,10 @@ $sanctionedposts = find_posts_by_organization($org_id);
               <table class="table table-bordered">
                 <thead>
                   <tr>
-                    <th>Sanctioned Post</th>
-                    <th>Employee</th>
-                    <th>Status</th>
+                    <th>অনুমোদিত পদ</th>
+                    <th>কর্মকর্তা</th>
+                      <th>মোবাইল</th>
+                    <th>স্ট্যাটাস</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -36,7 +37,16 @@ $sanctionedposts = find_posts_by_organization($org_id);
                       <tr style="font-size:12px;">
                         <td class="text-center"><?php echo $sanctionedpost['designation_name']; ?></td>
                         <td class="text-center"><?php echo $sanctionedpost['employee_name']; ?></td>
-                        <td class="text-left"><?php echo $sanctionedpost['mobile_no']; ?></td>
+                          <td class="text-center"><?php echo $sanctionedpost['mobile_no']; ?></td>
+                        <td class="text-left">
+                            <?php
+                            if($sanctionedpost['status'] == 'vacant')
+                            {
+                                echo $sanctionedpost['status'];
+                                echo "<a href='posting.php'>Move In</a>";
+                            }
+                            ?>
+                        </td>
                       </tr>
                     <?php endforeach; ?>
                   <?php

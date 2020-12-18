@@ -255,7 +255,8 @@ function find_posts_by_organization($organization_id){
   $sql  = "SELECT
 	sanctionedposts.designation_name AS designation_name,
 	employees.name_BN AS employee_name,
-	employees.mobile_no AS mobile_no
+    employees.mobile_no as mobile_no,
+	sanctionedposts.status AS status
 FROM
 	sanctionedposts
 LEFT JOIN posting ON sanctionedposts.id = posting.employee_id
