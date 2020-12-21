@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2020-12-18 15:48:01
+Date: 2020-12-21 22:18:55
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -299,7 +299,6 @@ INSERT INTO `educational_qualifications` VALUES ('2', 'মাস্টার্�
 DROP TABLE IF EXISTS `employees`;
 CREATE TABLE `employees` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  `code` int(10) DEFAULT NULL,
   `name_BN` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `name_EN` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `father_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -343,14 +342,13 @@ CREATE TABLE `employees` (
   `agency_id` int(10) DEFAULT NULL,
   `agency_name` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   `alternate_mobile_no` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `employee_image` varchar(255) COLLATE utf8_unicode_ci DEFAULT '',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of employees
 -- ----------------------------
-INSERT INTO `employees` VALUES ('1', '1033252', 'আসমা খাতুন', 'Aasma Khatun', 'Jalil Uddin', 'জরিনা খাতুন', '823774745', '01911445858', 'email@email.com', '0', null, '0', null, '0', null, '0', null, '1984-01-04', '2029-01-03', '5', null, '45', null, '324', null, '', '0', null, '2001-01-05', '2007-05-05', '2007-01-01', '1', null, '2007-01-01', '', null, null, null, null, '1', '0', null, '2', null, '01675000148', 'http://localhost/mowca_hrm/libs/script/uploads/1608275954_Enamul_haq11.jpg');
+INSERT INTO `employees` VALUES ('1', 'আসমা খাতুন', 'Aasma Khatun', 'Jalil Uddin', 'জরিনা খাতুন', '823774745', '01911445858', 'email@email.com', '0', null, '0', null, '0', null, '0', null, '1984-01-04', '2029-01-03', '5', null, '45', null, '324', null, '', '0', null, '2001-01-05', '2007-05-05', '2007-01-01', '1', null, '2007-01-01', '', null, null, null, null, '1', '0', null, '2', null, '01675000148');
 
 -- ----------------------------
 -- Table structure for grade
@@ -2255,7 +2253,7 @@ CREATE TABLE `users` (
 -- ----------------------------
 -- Records of users
 -- ----------------------------
-INSERT INTO `users` VALUES ('1', 'Ministry Admin', 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', '1', 'w19i5my51.png', null, '1', '2020-12-18 11:09:08');
+INSERT INTO `users` VALUES ('1', 'Ministry Admin', 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', '1', 'w19i5my51.png', null, '1', '2020-12-21 21:34:33');
 INSERT INTO `users` VALUES ('2', 'বাংলাদেশ শিশু একডেমী', 'bsa', '942078ca2d04f25545a316c123a392c4d5d339fd', '2', 'no_image.jpg', '1', '1', '2018-02-02 11:53:54');
 INSERT INTO `users` VALUES ('3', 'মহিলা ও শিশু বিষয়ক মন্ত্রণালয়', 'mowca', '12dea96fec20593566ab75692c9949596833adc9', '2', 'no_image.jpg', '4', '1', '2018-01-25 16:42:21');
 INSERT INTO `users` VALUES ('4', 'জাতীয় মহিলা সংস্থা', 'Jms', '8cb2237d0679ca88db6464eac60da96345513964', '2', 'fn44z3oj4.jpg', '1', '1', '2020-09-23 11:54:43');

@@ -6,14 +6,13 @@
   include_once('layouts/header.php');
   page_require_level(2);
 
-$pdocrud = new PDOCrud(false, "pure", "pure");
+$pdocrud = new PDOCrud();
 $pdocrud->addPlugin("select2");//to add plugin
-//$pdocrud->multiTableRelationDisplay("tab", "প্রোফাইল");
 
-$pEmployeePosting = new PDOCrud(false, "pure", "pure");
-$pEmployeePosting->dbTable("posting");
 
-$pEmployeePosting->formFields(array("sanctionedpost_id","type_of_posting","employee_id", "start_date", "end_date", "current"));
+$pEmployeePosting = new PDOCrud(true);
+$pEmployeePosting->addPlugin("select2");
+//$pEmployeePosting->formFields(array("sanctionedpost_id","type_of_posting","employee_id", "start_date", "end_date", "current"));
 $pEmployeePosting->crudTableCol(array(
   "sanctionedpost_id",
   "employee_id",
@@ -21,6 +20,7 @@ $pEmployeePosting->crudTableCol(array(
   "end_date",
   "current"
 ));
+$pEmployeePosting->fieldNotMandatory("end_date");
 
 $pEmployeePosting->crudTableCol(array("sanctionedpost_id","type_of_posting","start_date","end_date","current"));
 $pEmployeePosting->fieldRenameLable("sanctionedpost_id", "পদবী");
@@ -35,8 +35,27 @@ $pEmployeePosting->colRename("start_date", "শুরু");
 $pEmployeePosting->colRename("end_date", "শেষ");
 $pEmployeePosting->colRename("current", "কর্মরত কিনা?");
 
+
+$pEmployeePosting->fieldTypes("division_id", "select"); //change type to select
+$pEmployeePosting->fieldDataBinding("division_id", "divisions", "id", "name_BN", "db");
+
+$pEmployeePosting->fieldTypes("district_id", "select"); //change type to select
+$pEmployeePosting->fieldDataBinding("district_id", "districts", "id", "name_BN", "db");
+
+$pEmployeePosting->fieldTypes("upazila_id", "select"); //change type to select
+$pEmployeePosting->fieldDataBinding("upazila_id", "upazilas", "id", "name_BN", "db");
+
+$pEmployeePosting->fieldTypes("organization_id", "select"); //change type to select
+$pEmployeePosting->fieldDataBinding("organization_id", "organizations", "id", "name", "db");
+
 $pEmployeePosting->fieldTypes("sanctionedpost_id", "select"); //change type to select
-$pEmployeePosting->fieldDataBinding("sanctionedpost_id", "sanctionedposts", "id", array("designation_name", "organization_name"), "db", " --> ");
+$pEmployeePosting->fieldDataBinding("sanctionedpost_id", "sanctionedposts", "id", "designation_name", "db");
+
+$pEmployeePosting->fieldDependent("district_id", "division_id", "division_id");
+$pEmployeePosting->fieldDependent("upazila_id", "district_id", "district_id");
+$pEmployeePosting->fieldDependent("organization_id", "upazila_id", "upazila_id");
+$pEmployeePosting->fieldDependent("sanctionedpost_id", "organization_id", "organization_id");
+
 $pEmployeePosting->fieldTypes("type_of_posting", "select"); //change type to select
 $pEmployeePosting->fieldDataBinding("type_of_posting", "type_of_posting", "id", "name_BN", "db"); //load select data
 $pEmployeePosting->fieldTypes("reason_of_posting", "select"); //change type to select
@@ -50,15 +69,14 @@ $pEmployeePosting->fieldDataAttr("created_at", array("style"=>"display:none"));
 $pEmployeePosting->fieldDataAttr("created_at", array("disabled"=>"disabled"));
 
 $pdocrud->multiTableRelation("id", "employee_id", $pEmployeePosting);
-//$pEmployeePosting->multiTableRelationDisplay("tab", "পোস্টিং");
 
+$pEmployeePosting->dbTable("posting");
 
-$pEmployeePromotion = new PDOCrud(false, "pure", "pure");
+$pEmployeePromotion = new PDOCrud(true);
 $pEmployeePromotion->dbTable("promotion");
-
+$pEmployeePromotion->addPlugin("select2");//to add plugin
 
 $pdocrud->multiTableRelation("id", "employee_id", $pEmployeePromotion);
-//$pEmployeePromotion->multiTableRelationDisplay("tab", "প্রোমোশন");
 
 if (isset($user['agency_id'])) {
   $pdocrud->where("agency_id", $user['agency_id'], "=");
@@ -82,9 +100,6 @@ else{
 }
 
 $pdocrud->tableHeading("কর্মকর্তা/কর্মচারী ডাটাবেজ");
-
-$pdocrud->fieldTypes("employee_image", "image");//change type to image
-//$pdocrud->formFields (array("employee_image"));
 
 $pdocrud->fieldTypes("agency_id", "select"); //change type to select
 $pdocrud->fieldDataBinding("agency_id", $agency_query, "id", "name_BN", "sql");
@@ -129,7 +144,6 @@ $pdocrud->colRename("mobile_no", "মোবাইল");
 $pdocrud->colRename("email", "ইমেইল");
 $pdocrud->colRename("updated_at", "তথ্য পরিবর্তনের তারিখ");
 
-$pdocrud->fieldRenameLable("code", "কোড");//Rename label
 $pdocrud->fieldRenameLable("agency_id", "দপ্তর");//Rename label
 $pdocrud->fieldRenameLable("name_BN", "নাম (বাংলা)");//Rename label
 $pdocrud->fieldRenameLable("name_EN", "নাম (ইংরেজি)");//Rename label
@@ -214,7 +228,7 @@ $pdocrud->fieldHideLable("last_promoted_post_name");
 $pdocrud->fieldDataAttr("last_promoted_post_name", array("style"=>"display:none"));
 $pdocrud->fieldDataAttr("last_promoted_post_name", array("disabled"=>"disabled"));
 
-$pdocrud->fieldDisplayOrder(array("agency_id","code","name_BN","name_EN","mother_name", "father_name","dob","prl_date","national_id", "mobile_no",
+$pdocrud->fieldDisplayOrder(array("agency_id","name_BN","name_EN","mother_name", "father_name","dob","prl_date","national_id", "mobile_no",
 "alternate_mobile_no", "email", "quota_id","sex_id", "religion_id", "bloodgroup_id","educational_qualification_id","marital_status_id",
 "permanent_division_id","permanent_district_id", "permanent_upazila_id", "permanent_address",
 "joining_govt_service_date","present_place_joing_date", "present_post_joining_date",
@@ -235,25 +249,19 @@ $pdocrud->fieldNotMandatory("educational_qualification_id");
 $pdocrud->fieldNotMandatory("last_promoted_post_id");
 $pdocrud->fieldNotMandatory("last_promotion_date");
 
-$pdocrud->fieldGroups("agency",array("agency_id", "code"));
-$pdocrud->fieldGroups("Naming",array("name_BN","name_EN"));
-$pdocrud->fieldGroups("family_info",array("father_name","mother_name"));
-$pdocrud->fieldGroups("Date",array("dob", "prl_date","national_id"));
-$pdocrud->fieldGroups("id_contact",array("mobile_no","alternate_mobile_no", "email"));
-$pdocrud->fieldGroups("attribute",array("quota_id","sex_id", "religion_id"));
-$pdocrud->fieldGroups("attribute_second",array("bloodgroup_id","educational_qualification_id","marital_status_id"));
-$pdocrud->fieldGroups("Permanent_Address",array("permanent_division_id","permanent_district_id", "permanent_upazila_id"));
-$pdocrud->fieldGroups("service_dates",array("joining_govt_service_date","present_place_joing_date", "present_post_joining_date"));
-$pdocrud->fieldGroups("last_promotion",array("last_promoted_post_id", "last_promotion_date"));
-$pdocrud->fieldGroups("create_info",array("created_at", "created_by"));
-$pdocrud->fieldGroups("update_info",array("updated_at", "updated_by"));
-
-
+// $pdocrud->fieldGroups("agency",array("agency_id","national_id"));
+ $pdocrud->fieldGroups("Naming",array("name_BN","name_EN"));
+ $pdocrud->fieldGroups("parent_info",array("mother_name","father_name"));
+ $pdocrud->fieldGroups("Date",array("dob", "prl_date","national_id"));
+ $pdocrud->fieldGroups("id_contact",array("mobile_no","alternate_mobile_no", "email"));
+ $pdocrud->fieldGroups("attribute",array("quota_id","sex_id", "religion_id"));
+ $pdocrud->fieldGroups("attribute_second",array("bloodgroup_id","educational_qualification_id","marital_status_id"));
+ $pdocrud->fieldGroups("Permanent_Address",array("permanent_division_id","permanent_district_id", "permanent_upazila_id"));
+ $pdocrud->fieldGroups("service_dates",array("joining_govt_service_date","present_place_joing_date", "present_post_joining_date"));
+ $pdocrud->fieldGroups("last_promotion",array("last_promoted_post_id", "last_promotion_date"));
+ $pdocrud->fieldGroups("create_info",array("created_at", "created_by","updated_at", "updated_by"));
 
 $pdocrud->addCallback("before_update", "beforeEmployeeUpdateCallBack");
-
-
-$pdocrud->fieldCssClass("details", array("ckeditor"));
 echo $pdocrud->dbTable("employees")->render();
-echo $pdocrud->loadPluginJsCode("select2","select");//to add plugin call on select elements
+echo $pdocrud->loadPluginJsCode("select2","select");
 ?>

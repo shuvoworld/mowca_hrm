@@ -2,50 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e66aad88-6fa8-4f52-b4eb-19168f6eff83" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/libs/script/uploads/1608275954_Enamul_haq11.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/add_employee.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/add_group.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/add_organization.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/add_partner.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/add_product.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/add_project.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/add_project_report.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/add_sale.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/add_training_report.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/daily_sales.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/delete_categorie.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/delete_minformation.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/delete_partner.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/delete_product.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/delete_project.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/delete_projectreport.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/delete_sale.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/edit_account.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/edit_categorie.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/edit_partner.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/edit_product.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/edit_project.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/edit_projectreport.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/edit_sale.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/edit_trainingreport.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/employee.php" beforeDir="false" afterPath="$PROJECT_DIR$/employee.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/includes/functions.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/functions.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/includes/sql.php" beforeDir="false" afterPath="$PROJECT_DIR$/includes/sql.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/libs/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/libs/css/main.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/org_dashboard.php" beforeDir="false" afterPath="$PROJECT_DIR$/org_dashboard.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/organization.php" beforeDir="false" afterPath="$PROJECT_DIR$/organization.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/partner.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/posting.php" beforeDir="false" afterPath="$PROJECT_DIR$/posting.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/project.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/projectreports.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/report.php" beforeDir="false" afterPath="$PROJECT_DIR$/report.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sale_report_process.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sales.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sanctionedpost.php" beforeDir="false" afterPath="$PROJECT_DIR$/sanctionedpost.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -139,7 +96,8 @@
       <workItem from="1608229291657" duration="993000" />
       <workItem from="1608267278698" duration="64000" />
       <workItem from="1608267371516" duration="571000" />
-      <workItem from="1608267968521" duration="6296000" />
+      <workItem from="1608267968521" duration="7131000" />
+      <workItem from="1608389227715" duration="146000" />
     </task>
     <servers />
   </component>
