@@ -72,62 +72,62 @@ function beforeInsertSanctionedPost($data, $obj) {
 }
 
 function beforeInsertPosting($data, $obj) {
-    // $pdomodel = $obj->getPDOModelObj();
-    // $sanctionedpost_id = $data['movein']['sanctionedpost_id'];
-    // $pdomodel->where("id",$sanctionedpost_id,"=");
-    // $sanctionedpost =  $pdomodel->select("sanctionedposts");
-    
-    // $data['posting']['designation_id'] = $sanctionedpost[0]['designation_id'];
-    // $data['posting']['designation_name'] = $sanctionedpost[0]['designation_name'];
-    // $data['posting']['organization_id'] = $sanctionedpost[0]['organization_id'];
-    // $data['posting']['organization_name'] = $sanctionedpost[0]['organization_name'];
+    // $pdocrud = new PDOCrud(); 
+    // $pdomodel = $pdocrud->getPDOModelObj();
     $data['posting']['created_at'] = date('Y/m/d h:i:s a', time());
+    $data['posting']['updated_at'] = date('Y/m/d h:i:s a', time());
+    // $status = 'Vacant';
+    // if($data['posting']['current'] == 'Yes' && $data['posting']['type_of_posting'] == 1){
+    //     $status = 'Filled';
+    // }
+    // $updateData = array(
+    //     'status' => $status
+    // );
+    // $pdomodel->where("id", $data['posting']['sanctionedpost_id']);
+    // $pdomodel->update("sanctionedposts", $updateData);
     return $data;
 
 }
 
-function beforeInsertMovein($data, $obj) {
-    //http://demo.digitaldreamstech.com/PDOModel/documentation/pdo/insert.php
-    
-        $pdomodel = $obj->getPDOModelObj();
-        $sanctionedpost_id = $data['movein']['sanctionedpost_id'];
-        $pdomodel->where("id",$sanctionedpost_id,"=");
-        $sanctionedpost =  $pdomodel->select("sanctionedposts");
-        
-        $data['movein']['created_at'] = date('Y/m/d h:i:s a', time());
-    
-        $pdocrud = new PDOCrud(); 
-        $insertData = array(
-            "sanctionedpost_id" => $data['movein']['sanctionedpost_id'],
-            "designation_id" => $sanctionedpost[0]['designation_id'], 
-            "designation_name" =>  $sanctionedpost[0]['designation_name'], 
-            "organization_id" => $sanctionedpost[0]['organization_id'],
-            "organization_name" => $sanctionedpost[0]['organization_name'],
-            "employee_id" => $data['movein']['employee_id'],
-            "start_date" => $data['movein']['join_date'],
-            "type_of_posting" => $data['movein']['type_of_posting'],
-            "reason_of_posting" => $data['movein']['reason_of_posting'],
-            "created_at" => date('Y/m/d h:i:s a', time()),
-            "current" => "Yes"
-        );
-        $pdocrud->getPDOModelObj()->insert("posting", $insertData);
-        $updateData = array(
-            "employee_id" => $data['movein']['employee_id'],
-            'status' => 'Filled'
-        );
-        $pdocrud->where("id", $data['movein']['sanctionedpost_id']);
-        $pdocrud->getPDOModelObj()->update("sanctionedposts", $updateData);
-        
-        return $data;
-     
-    }
+function beforeUpdatePosting($data, $obj) {
+    //$pdocrud = new PDOCrud(); 
+    //$pdomodel = $pdocrud->getPDOModelObj();
+    $data['posting']['updated_at'] = date('Y/m/d h:i:s a', time());
+    // $status = 'Vacant';
+    // if($data['posting']['current'] == 'Yes' && $data['posting']['type_of_posting'] == 1){
+    //     $status = 'Filled';
+    // }
+    // $updateData = array(
+    //     'status' => $status
+    // );
+    // $pdomodel->where("id", $data['posting']['sanctionedpost_id']);
+    // $pdomodel->update("sanctionedposts", $updateData);
+    return $data;
 
+}
 
-    function beforeEmployeeUpdateCallBack($data, $obj) {
+    
+    function beforeEmployeeInsertCallBack($data, $obj) {
         $data['employees']['updated_by'] = $_SESSION['user_id'];
         $data['employees']['updated_at'] = date('Y/m/d h:i:s a', time());
         return $data;
     }
+
+    function beforeEmployeeUpdateCallBack($data, $obj) {
+        $data['employees']['updated_by'] = $_SESSION['user_id'];
+        $data['employees']['updated_at'] = date('Y/m/d h:i:s a', time());
+        
+        $pdomodel = $obj->getPDOModelObj();
+        $updateData = array(
+            $status = 'Vacant'
+        );
+        
+        $pdomodel->where("id", $data['employees']['posting_sanctionedpost_id']);
+        $pdomodel->update("sanctionedposts", $updateData);
+        return $data;
+    }
+
+
     
     function beforeInsertContactCallBack($data, $obj) {
         $pdomodel = $obj->getPDOModelObj();

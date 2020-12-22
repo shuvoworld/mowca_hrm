@@ -46,8 +46,9 @@ $pdocrud->relatedData('employee_id','employees','id', "name_BN");
 
 $pdocrud->fieldTypes("current", "select");
 $pdocrud->fieldDataBinding("current", array("Yes"=>"Yes","No"=>"No"), "", "","array");//add data binding using array
-
-//$pdocrud->addCallback("before_insert","beforeInsertPosting");
+$pdocrud->fieldNotMandatory("end_date");
+$pdocrud->addCallback("before_insert","beforeInsertPosting");
+$pdocrud->addCallback("before_update", "beforeUpdatePosting");  
 
 $pdocrud->formFieldValue("created_at", date('Y/m/d h:i:s a', time()), true);
 $pdocrud->fieldDataAttr("created_at", array("disabled"=>"disabled"));

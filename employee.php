@@ -35,6 +35,8 @@ $pEmployeePosting->colRename("start_date", "শুরু");
 $pEmployeePosting->colRename("end_date", "শেষ");
 $pEmployeePosting->colRename("current", "কর্মরত কিনা?");
 
+$pEmployeePosting->fieldGroups("Permanent_Address",array("division_id","district_id", "upazila_id", "organization_id"));
+$pEmployeePosting->fieldGroups("Date",array("start_date","end_date"));
 
 $pEmployeePosting->fieldTypes("division_id", "select"); //change type to select
 $pEmployeePosting->fieldDataBinding("division_id", "divisions", "id", "name_BN", "db");
@@ -67,7 +69,8 @@ $pEmployeePosting->fieldDataAttr("employee_id", array("style"=>"display:none"));
 $pEmployeePosting->fieldHideLable("created_at");
 $pEmployeePosting->fieldDataAttr("created_at", array("style"=>"display:none"));
 $pEmployeePosting->fieldDataAttr("created_at", array("disabled"=>"disabled"));
-
+$pEmployeePosting->addCallback("before_insert","beforeInsertPosting");
+$pEmployeePosting->addCallback("before_update", "beforeUpdatePosting"); 
 $pdocrud->multiTableRelation("id", "employee_id", $pEmployeePosting);
 
 $pEmployeePosting->dbTable("posting");
@@ -100,7 +103,6 @@ else{
 }
 
 $pdocrud->tableHeading("কর্মকর্তা/কর্মচারী ডাটাবেজ");
-
 $pdocrud->fieldTypes("agency_id", "select"); //change type to select
 $pdocrud->fieldDataBinding("agency_id", $agency_query, "id", "name_BN", "sql");
 
@@ -137,6 +139,27 @@ $pdocrud->fieldDataBinding("permanent_upazila_id", "upazilas", "id", "name_BN", 
 $pdocrud->fieldDependent("permanent_district_id", "permanent_division_id", "division_id");
 $pdocrud->fieldDependent("permanent_upazila_id", "permanent_district_id", "district_id");
 
+
+$pdocrud->fieldTypes("posting_division_id", "select"); //change type to select
+$pdocrud->fieldDataBinding("posting_division_id", "divisions", "id", "name_BN", "db");
+
+$pdocrud->fieldTypes("posting_district_id", "select"); //change type to select
+$pdocrud->fieldDataBinding("posting_district_id", "districts", "id", "name_BN", "db");
+
+$pdocrud->fieldTypes("posting_upazila_id", "select"); //change type to select
+$pdocrud->fieldDataBinding("posting_upazila_id", "upazilas", "id", "name_BN", "db");
+
+$pdocrud->fieldTypes("posting_organization_id", "select"); //change type to select
+$pdocrud->fieldDataBinding("posting_organization_id", "organizations", "id", "name", "db");
+
+$pdocrud->fieldTypes("posting_sanctionedpost_id", "select"); //change type to select
+$pdocrud->fieldDataBinding("posting_sanctionedpost_id", "sanctionedposts", "id", "designation_name", "db");
+
+$pdocrud->fieldDependent("posting_district_id", "posting_division_id", "division_id");
+$pdocrud->fieldDependent("posting_upazila_id", "posting_district_id", "district_id");
+$pdocrud->fieldDependent("posting_organization_id", "posting_upazila_id", "upazila_id");
+$pdocrud->fieldDependent("posting_sanctionedpost_id", "posting_organization_id", "organization_id");
+
 $pdocrud->crudTableCol(array("name_BN","national_id", "mobile_no", "email", "updated_at"));
 
 $pdocrud->colRename("name_BN", "নাম");
@@ -172,7 +195,11 @@ $pdocrud->fieldRenameLable("present_place_joing_date", "বর্তমান �
 $pdocrud->fieldRenameLable("present_post_joining_date", "বর্তমান পদে যোগদানের তারিখ");
 $pdocrud->fieldRenameLable("last_promoted_post_id", "সর্বশেষ পদোন্নতি প্রাপ্ত পদ");
 $pdocrud->fieldRenameLable("last_promotion_date", "সর্বশেষ পদোন্নতির তারিখ");
-
+$pdocrud->fieldRenameLable("posting_division_id", "পদায়িত বিভাগ");
+$pdocrud->fieldRenameLable("posting_district_id", "পদায়িত জেলা");
+$pdocrud->fieldRenameLable("posting_upazila_id", "পদায়িত উপজেলা");
+$pdocrud->fieldRenameLable("posting_organization_id", "পদায়িত প্রতিষ্ঠান");
+$pdocrud->fieldRenameLable("posting_sanctionedpost_id", "পদ (নিয়মিত)");
 $pdocrud->fieldDataAttr("created_at", array("disabled"=>"disabled"));
 
 $pdocrud->addCallback("before_insert", "beforeInsertCallBack");
@@ -232,7 +259,12 @@ $pdocrud->fieldDisplayOrder(array("agency_id","name_BN","name_EN","mother_name",
 "alternate_mobile_no", "email", "quota_id","sex_id", "religion_id", "bloodgroup_id","educational_qualification_id","marital_status_id",
 "permanent_division_id","permanent_district_id", "permanent_upazila_id", "permanent_address",
 "joining_govt_service_date","present_place_joing_date", "present_post_joining_date",
-"last_promoted_post_id", "last_promotion_date", "details",
+"last_promoted_post_id", "last_promotion_date",
+"posting_division_id",
+"posting_district_id",
+"posting_upazila_id",
+"posting_organization_id",
+"posting_sanctionedpost_id",
 "created_at", "created_by", "updated_at", "updated_by"
 ));
 $pdocrud->fieldNotMandatory("alternate_mobile_no");
@@ -258,6 +290,8 @@ $pdocrud->fieldNotMandatory("last_promotion_date");
  $pdocrud->fieldGroups("attribute_second",array("bloodgroup_id","educational_qualification_id","marital_status_id"));
  $pdocrud->fieldGroups("Permanent_Address",array("permanent_division_id","permanent_district_id", "permanent_upazila_id"));
  $pdocrud->fieldGroups("service_dates",array("joining_govt_service_date","present_place_joing_date", "present_post_joining_date"));
+ $pdocrud->fieldGroups("present_posting",array("posting_division_id","posting_district_id", "posting_upazila_id"));
+ $pdocrud->fieldGroups("present_posting_second",array("posting_organization_id", "posting_sanctionedpost_id"));
  $pdocrud->fieldGroups("last_promotion",array("last_promoted_post_id", "last_promotion_date"));
  $pdocrud->fieldGroups("create_info",array("created_at", "created_by","updated_at", "updated_by"));
 
