@@ -17,23 +17,20 @@ $pEmployeePosting->crudTableCol(array(
   "sanctionedpost_id",
   "employee_id",
   "start_date",
-  "end_date",
-  "current"
+  "end_date"
 ));
 $pEmployeePosting->fieldNotMandatory("end_date");
 
-$pEmployeePosting->crudTableCol(array("sanctionedpost_id","type_of_posting","start_date","end_date","current"));
+$pEmployeePosting->crudTableCol(array("sanctionedpost_id","type_of_posting","start_date","end_date"));
 $pEmployeePosting->fieldRenameLable("sanctionedpost_id", "পদবী");
 $pEmployeePosting->fieldRenameLable("type_of_posting", "টাইপ");
 $pEmployeePosting->fieldRenameLable("start_date", "শুরু");
 $pEmployeePosting->fieldRenameLable("end_date", "শেষ");
-$pEmployeePosting->fieldRenameLable("current", "কর্মরত কিনা?");
 
 $pEmployeePosting->colRename("sanctionedpost_id", "পদবী");
 $pEmployeePosting->colRename("type_of_posting", "টাইপ");
 $pEmployeePosting->colRename("start_date", "শুরু");
 $pEmployeePosting->colRename("end_date", "শেষ");
-$pEmployeePosting->colRename("current", "কর্মরত কিনা?");
 
 $pEmployeePosting->fieldGroups("Permanent_Address",array("division_id","district_id", "upazila_id", "organization_id"));
 $pEmployeePosting->fieldGroups("Date",array("start_date","end_date"));
@@ -101,6 +98,7 @@ if (isset($user['agency_id'])) {
 else{
   $agency_query = "select id, name, name_BN from `agencies` WHERE 1";
 }
+
 
 $pdocrud->tableHeading("কর্মকর্তা/কর্মচারী ডাটাবেজ");
 $pdocrud->fieldTypes("agency_id", "select"); //change type to select
@@ -183,8 +181,7 @@ $pdocrud->colRename("marital_status_id", "বৈবাহিক অবস্থ�
 $pdocrud->fieldRenameLable("bloodgroup_id", "রক্তের গ্রুপ");
 $pdocrud->fieldRenameLable("dob", "জন্ম তারিখ");
 $pdocrud->fieldRenameLable("prl_date", "পিআরএল তারিখ");
-$pdocrud->fieldRenameLable("permanent_address", "স্থায়ী ঠিকানা");
-$pdocrud->fieldRenameLable("details", "অন্যান্য তথ্য");
+$pdocrud->fieldRenameLable("permanent_address", "মেইলিং ঠিকানা");
 
 $pdocrud->fieldRenameLable("permanent_division_id", "স্থায়ী বিভাগ");
 $pdocrud->fieldRenameLable("permanent_district_id", "স্থায়ী জেলা");
@@ -281,7 +278,12 @@ $pdocrud->fieldNotMandatory("educational_qualification_id");
 $pdocrud->fieldNotMandatory("last_promoted_post_id");
 $pdocrud->fieldNotMandatory("last_promotion_date");
 
-// $pdocrud->fieldGroups("agency",array("agency_id","national_id"));
+$pdocrud->fieldNotMandatory("posting_division_id");
+$pdocrud->fieldNotMandatory("posting_district_id");
+$pdocrud->fieldNotMandatory("posting_upazila_id");
+$pdocrud->fieldNotMandatory("posting_organization_id");
+$pdocrud->fieldNotMandatory("posting_sanctionedpost_id");
+
  $pdocrud->fieldGroups("Naming",array("name_BN","name_EN"));
  $pdocrud->fieldGroups("parent_info",array("mother_name","father_name"));
  $pdocrud->fieldGroups("Date",array("dob", "prl_date","national_id"));
@@ -294,8 +296,8 @@ $pdocrud->fieldNotMandatory("last_promotion_date");
  $pdocrud->fieldGroups("present_posting_second",array("posting_organization_id", "posting_sanctionedpost_id"));
  $pdocrud->fieldGroups("last_promotion",array("last_promoted_post_id", "last_promotion_date"));
  $pdocrud->fieldGroups("create_info",array("created_at", "created_by","updated_at", "updated_by"));
-
-$pdocrud->addCallback("before_update", "beforeEmployeeUpdateCallBack");
-echo $pdocrud->dbTable("employees")->render();
-echo $pdocrud->loadPluginJsCode("select2","select");
+ $pdocrud->checkDuplicateRecord(array("mobile_no", "national_id", "posting_sanctionedpost_id"));
+ $pdocrud->addCallback("before_update", "beforeEmployeeUpdateCallBack");
+ echo $pdocrud->dbTable("employees")->render();
+ echo $pdocrud->loadPluginJsCode("select2","select");
 ?>
