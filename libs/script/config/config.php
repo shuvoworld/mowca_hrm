@@ -150,9 +150,9 @@ $config["dateformat"] = "yy-mm-dd";
 //time format
 $config["timeformat"] = "HH:mm:ss";
 //change month option in datepicker
-$config["changeMonth"] = false;
+$config["changeMonth"] = true;
 //change year option in datepicker
-$config["changeYear"] = false;
+$config["changeYear"] = true;
 //no. of months
 $config["numberOfMonths"] = 1;
 //show button panel or not

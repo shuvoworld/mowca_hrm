@@ -67,7 +67,7 @@ $pEmployeePosting->fieldHideLable("created_at");
 $pEmployeePosting->fieldDataAttr("created_at", array("style"=>"display:none"));
 $pEmployeePosting->fieldDataAttr("created_at", array("disabled"=>"disabled"));
 $pEmployeePosting->addCallback("before_insert","beforeInsertPosting");
-$pEmployeePosting->addCallback("before_update", "beforeUpdatePosting"); 
+$pEmployeePosting->addCallback("before_update", "beforeUpdatePosting");
 $pdocrud->multiTableRelation("id", "employee_id", $pEmployeePosting);
 
 $pEmployeePosting->dbTable("posting");
@@ -298,6 +298,7 @@ $pdocrud->fieldGroups("present_posting_second",array("posting_organization_id", 
 $pdocrud->fieldGroups("last_promotion",array("last_promoted_post_id", "last_promotion_date"));
 $pdocrud->fieldGroups("create_info",array("created_at", "created_by","updated_at", "updated_by"));
 $pdocrud->checkDuplicateRecord(array("mobile_no", "national_id", "posting_sanctionedpost_id"));
+$pdocrud->addCallback("before_insert", "beforeEmployeeInsertCallBack");
 $pdocrud->addCallback("before_update", "beforeEmployeeUpdateCallBack");
 echo $pdocrud->dbTable("employees")->render();
 echo $pdocrud->loadPluginJsCode("select2","select");
