@@ -20,7 +20,7 @@ $pEmployeePosting->crudTableCol(array(
   "end_date"
 ));
 $pEmployeePosting->fieldNotMandatory("end_date");
-
+$pEmployeePosting->formDisplayInPopup();
 $pEmployeePosting->crudTableCol(array("sanctionedpost_id","type_of_posting","start_date","end_date"));
 $pEmployeePosting->fieldRenameLable("sanctionedpost_id", "পদবী");
 $pEmployeePosting->fieldRenameLable("type_of_posting", "টাইপ");
@@ -74,6 +74,7 @@ $pEmployeePosting->dbTable("posting");
 
 $pEmployeePromotion = new PDOCrud(true);
 $pEmployeePromotion->dbTable("promotion");
+$pEmployeePromotion->formDisplayInPopup();
 $pEmployeePromotion->addPlugin("select2");//to add plugin
 
 $pdocrud->multiTableRelation("id", "employee_id", $pEmployeePromotion);
@@ -284,20 +285,20 @@ $pdocrud->fieldNotMandatory("posting_upazila_id");
 $pdocrud->fieldNotMandatory("posting_organization_id");
 $pdocrud->fieldNotMandatory("posting_sanctionedpost_id");
 
- $pdocrud->fieldGroups("Naming",array("name_BN","name_EN"));
- $pdocrud->fieldGroups("parent_info",array("mother_name","father_name"));
- $pdocrud->fieldGroups("Date",array("dob", "prl_date","national_id"));
- $pdocrud->fieldGroups("id_contact",array("mobile_no","alternate_mobile_no", "email"));
- $pdocrud->fieldGroups("attribute",array("quota_id","sex_id", "religion_id"));
- $pdocrud->fieldGroups("attribute_second",array("bloodgroup_id","educational_qualification_id","marital_status_id"));
- $pdocrud->fieldGroups("Permanent_Address",array("permanent_division_id","permanent_district_id", "permanent_upazila_id"));
- $pdocrud->fieldGroups("service_dates",array("joining_govt_service_date","present_place_joing_date", "present_post_joining_date"));
- $pdocrud->fieldGroups("present_posting",array("posting_division_id","posting_district_id", "posting_upazila_id"));
- $pdocrud->fieldGroups("present_posting_second",array("posting_organization_id", "posting_sanctionedpost_id"));
- $pdocrud->fieldGroups("last_promotion",array("last_promoted_post_id", "last_promotion_date"));
- $pdocrud->fieldGroups("create_info",array("created_at", "created_by","updated_at", "updated_by"));
- $pdocrud->checkDuplicateRecord(array("mobile_no", "national_id", "posting_sanctionedpost_id"));
- $pdocrud->addCallback("before_update", "beforeEmployeeUpdateCallBack");
- echo $pdocrud->dbTable("employees")->render();
- echo $pdocrud->loadPluginJsCode("select2","select");
+$pdocrud->fieldGroups("Naming",array("name_BN","name_EN"));
+$pdocrud->fieldGroups("parent_info",array("mother_name","father_name"));
+$pdocrud->fieldGroups("Date",array("dob", "prl_date","national_id"));
+$pdocrud->fieldGroups("id_contact",array("mobile_no","alternate_mobile_no", "email"));
+$pdocrud->fieldGroups("attribute",array("quota_id","sex_id", "religion_id"));
+$pdocrud->fieldGroups("attribute_second",array("bloodgroup_id","educational_qualification_id","marital_status_id"));
+$pdocrud->fieldGroups("Permanent_Address",array("permanent_division_id","permanent_district_id", "permanent_upazila_id"));
+$pdocrud->fieldGroups("service_dates",array("joining_govt_service_date","present_place_joing_date", "present_post_joining_date"));
+$pdocrud->fieldGroups("present_posting",array("posting_division_id","posting_district_id", "posting_upazila_id"));
+$pdocrud->fieldGroups("present_posting_second",array("posting_organization_id", "posting_sanctionedpost_id"));
+$pdocrud->fieldGroups("last_promotion",array("last_promoted_post_id", "last_promotion_date"));
+$pdocrud->fieldGroups("create_info",array("created_at", "created_by","updated_at", "updated_by"));
+$pdocrud->checkDuplicateRecord(array("mobile_no", "national_id", "posting_sanctionedpost_id"));
+$pdocrud->addCallback("before_update", "beforeEmployeeUpdateCallBack");
+echo $pdocrud->dbTable("employees")->render();
+echo $pdocrud->loadPluginJsCode("select2","select");
 ?>
