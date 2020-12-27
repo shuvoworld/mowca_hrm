@@ -87,7 +87,7 @@ function beforeUpdatePosting($data, $obj) {
     
     function beforeEmployeeInsertCallBack($data, $obj) {
         $data['employees']['updated_by'] = $_SESSION['user_id'];
-        $data['employees']['updated_at'] = date('Y/m/d h:i:s a', time());
+        $data['employees']['updated_at'] = date('Y-m-d h:i:s', time());
         $pdocrud = new PDOCrud(); 
         $pdomodel = $obj->getPDOModelObj();
         $updateData = array(
@@ -101,7 +101,7 @@ function beforeUpdatePosting($data, $obj) {
 
     function beforeEmployeeUpdateCallBack($data, $obj) {
         $data['employees']['updated_by'] = $_SESSION['user_id'];
-        $data['employees']['updated_at'] = date('Y/m/d h:i:s a', time());
+        $data['employees']['updated_at'] = date('Y-m-d h:i:s', time());
         $pdocrud = new PDOCrud(); 
         $pdomodel = $obj->getPDOModelObj();
         $updateData = array(
