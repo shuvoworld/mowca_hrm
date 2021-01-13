@@ -65,21 +65,21 @@ function beforeInsertSanctionedPost($data, $obj) {
  
  $data['sanctionedposts']['designation_name'] = $designation[0]['name'];
  $data['sanctionedposts']['organization_name'] = $organization[0]['name'];
- $data['sanctionedposts']['created_at'] = date('Y/m/d h:i:s a', time());
+ $data['sanctionedposts']['created_at'] = date('Y-m-d h:i:s', time());
  $data['sanctionedposts']['status'] = "Vacant";
  return $data;
 
 }
 
 function beforeInsertPosting($data, $obj) {
-    $data['posting']['created_at'] = date('Y/m/d h:i:s a', time());
-    $data['posting']['updated_at'] = date('Y/m/d h:i:s a', time());
+    $data['posting']['created_at'] = date('Y-m-d h:i:s', time());
+    $data['posting']['updated_at'] = date('Y-m-d h:i:s', time());
     return $data;
 
 }
 
 function beforeUpdatePosting($data, $obj) {
-    $data['posting']['updated_at'] = date('Y/m/d h:i:s a', time());
+    $data['posting']['updated_at'] = date('Y-m-d h:i:s', time());
     return $data;
 
 }

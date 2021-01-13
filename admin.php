@@ -1,7 +1,7 @@
 <?php
   $page_title = 'Admin Home Page';
     require_once('includes/load.php');
-   page_require_level(1);
+   page_require_level(2);
    include_once('layouts/header.php');
    require_once ('libs/script/pdocrud.php');
    
@@ -20,10 +20,16 @@
     $pdocrud = new PDOCrud();
     
     $pdocrud->tableHeading("সার্বিক অবস্থা");
+    
+    $pdocrud->addFilter("agency_filter", "দপ্তর/সংস্থা", "agency", "dropdown");
+    $pdocrud->setFilterSource("agency_filter", "agencies", "name_BN", "name_BN as agency", "db");
+    
     $pdocrud->addFilter("status_filter", "পদের স্ট্যাটাস", "status", "radio");
     $pdocrud->setFilterSource("status_filter", array("Vacant" => "Vacant", "Filled" => "Filled"), "", "", "array");
+    
     $pdocrud->addFilter("DistrictFilter", "জেলা", "district", "dropdown");
     $pdocrud->setFilterSource("DistrictFilter", "districts", "name_BN", "name_BN as district", "db");
+    
     $pdocrud->setSettings("addbtn", false);
     $pdocrud->setSettings("editbtn", false);
     $pdocrud->setSettings("viewbtn", false);

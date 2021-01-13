@@ -5,7 +5,7 @@
   //require_once('includes/load.php');
   require_once ('libs/script/pdocrud.php');
   include_once('layouts/header.php');
-  page_require_level(1);
+  page_require_level(2);
   // Checkin What level user has permission to view this page
   // page_require_level(2);
 
@@ -16,6 +16,7 @@ $pdocrud = new PDOCrud(false, "pure", "pure");
 $pdocrud->addPlugin("select2");//to add plugin 
 
 $pdocrud->crudTableCol(array("designation_name","organization_name", "division_id","district_id", "upazila_id", "status"));
+$pdocrud->fieldRenameLable("agency_id", "দপ্তর/সংস্থা");
 $pdocrud->fieldRenameLable("designation_id", "পদবী");
 $pdocrud->fieldRenameLable("organization_id", "প্রতিষ্ঠান");
 $pdocrud->fieldRenameLable("status", "শুন্য/পূরনকৃত?");
@@ -26,6 +27,20 @@ $pdocrud->colRename("status", "শুন্য/পূরনকৃত?");
 $pdocrud->colRename("division_id", "বিভাগ");
 $pdocrud->colRename("district_id", "জেলা");
 $pdocrud->colRename("upazila_id", "উপজেলা");
+
+if (isset($user['agency_id'])) {
+  $pdocrud->where("agency_id", $user['agency_id'], "=");
+  
+  $agency_query = "select name, name_BN from agencies where id = {$user['agency_id']} ";
+}
+else{
+  $agency_query = "select name, name_BN from `agencies` WHERE 1";
+}
+
+$pdocrud->fieldDataBinding("agency_id", $agency_query, "id", "name_BN", "sql");
+$pdocrud->fieldTypes("agency_id", "select"); //change type to select
+
+$pdocrud->fieldDataBinding("agency_id", $agency_query, "id", "name_BN", "sql");
 
 $pdocrud->fieldTypes("designation_id", "select"); //change type to select
 $pdocrud->fieldDataBinding("designation_id", "designations", "id", "name", "db"); //load select data

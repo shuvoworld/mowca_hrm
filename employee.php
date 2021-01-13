@@ -93,14 +93,6 @@ $pdocrud->fieldDataBinding("agency_id", $agency_query, "id", "name_BN", "sql");
 
 $pdocrud->addPlugin("ckeditor");
 
-if (isset($user['agency_id'])) {
-  $agency_query = "select id, name, name_BN from agencies where id = {$user['agency_id']} ";
-}
-else{
-  $agency_query = "select id, name, name_BN from `agencies` WHERE 1";
-}
-
-
 $pdocrud->tableHeading("কর্মকর্তা/কর্মচারী ডাটাবেজ");
 $pdocrud->fieldTypes("agency_id", "select"); //change type to select
 $pdocrud->fieldDataBinding("agency_id", $agency_query, "id", "name_BN", "sql");

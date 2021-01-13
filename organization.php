@@ -60,6 +60,7 @@ $pdocrud->crudTableCol(array("name","division_id","district_id","upazila_id","or
 
 $pdocrud->fieldNotMandatory("email");
 $pdocrud->fieldNotMandatory("organization_level_id");
+$pdocrud->fieldNotMandatory("contact_no");
 $pdocrud->fieldNotMandatory("address");
 
 $pdocrud->fieldRenameLable("agency_id", "দপ্তর/সংস্থা");//Rename label
