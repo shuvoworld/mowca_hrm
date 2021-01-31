@@ -2,7 +2,6 @@
   //https://pdocrud.com/demo/pages/related-data
   $page_title = 'All Posts';
   require_once('includes/load.php');
-  //require_once('includes/load.php');
   require_once ('libs/script/pdocrud.php');
   include_once('layouts/header.php');
   page_require_level(2);
