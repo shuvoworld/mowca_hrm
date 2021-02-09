@@ -11,7 +11,7 @@
  Target Server Version : 100411
  File Encoding         : 65001
 
- Date: 31/01/2021 13:54:16
+ Date: 09/02/2021 16:18:01
 */
 
 SET NAMES utf8mb4;
@@ -1610,7 +1610,7 @@ CREATE TABLE `sanctionedposts`  (
   `status` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT '',
   `created_at` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 494 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 495 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sanctionedposts
@@ -2108,6 +2108,7 @@ INSERT INTO `sanctionedposts` VALUES (490, 2, 1, 'উপপরিচালক', 
 INSERT INTO `sanctionedposts` VALUES (491, 2, 1, 'উপপরিচালক', 'উপপরিচালকের কার্যালয়', 5, 48, 343, 491, 'Vacant', '2020-12-18 12:45:00');
 INSERT INTO `sanctionedposts` VALUES (492, 2, 1, 'উপপরিচালক', 'উপপরিচালকের কার্যালয়', 1, 14, 294, 492, 'Vacant', '2020-12-18 12:45:00');
 INSERT INTO `sanctionedposts` VALUES (493, 2, 4, 'প্রোগ্রাম অফিসার', 'উপজেলা মহিলা বিষয়ক কর্মকর্তার কার্যালয়,মুকসুদপুর, গোপালগঞ্জ', 1, 4, 221, 71, 'Vacant', '2020-12-18 08:48:20');
+INSERT INTO `sanctionedposts` VALUES (494, 0, 1, 'উপপরিচালক', 'উপপরিচালকের কার্যালয়', 1, 1, 154, 431, 'Vacant', '2021-01-31 08:58:23');
 
 -- ----------------------------
 -- Table structure for sex
@@ -2771,17 +2772,17 @@ CREATE TABLE `users`  (
 -- ----------------------------
 -- Records of users
 -- ----------------------------
-INSERT INTO `users` VALUES (1, 'Ministry Admin', 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', 1, 'w19i5my51.png', NULL, 1, '2021-01-14 01:13:22');
+INSERT INTO `users` VALUES (1, 'Ministry Admin', 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', 1, 'w19i5my51.png', NULL, 1, '2021-02-01 09:41:42');
 INSERT INTO `users` VALUES (2, 'বাংলাদেশ শিশু একডেমী', 'bsa', '942078ca2d04f25545a316c123a392c4d5d339fd', 2, 'no_image.jpg', 1, 1, '2018-02-02 11:53:54');
 INSERT INTO `users` VALUES (3, 'মহিলা ও শিশু বিষয়ক মন্ত্রণালয়', 'mowca', '12dea96fec20593566ab75692c9949596833adc9', 2, 'no_image.jpg', 4, 1, '2018-01-25 16:42:21');
 INSERT INTO `users` VALUES (4, 'জাতীয় মহিলা সংস্থা', 'Jms', '8cb2237d0679ca88db6464eac60da96345513964', 2, 'fn44z3oj4.jpg', 1, 1, '2021-01-14 01:22:07');
 INSERT INTO `users` VALUES (5, 'মহিলা বিষয়ক অধিদপ্তর', 'Dwa', '8cb2237d0679ca88db6464eac60da96345513964', 2, 'no_image.jpg', 2, 1, '2021-01-31 13:43:19');
 
 -- ----------------------------
--- View structure for v_poststatus
+-- View structure for v_organization
 -- ----------------------------
-DROP VIEW IF EXISTS `v_poststatus`;
-CREATE ALGORITHM = UNDEFINED DEFINER = `root`@`localhost` SQL SECURITY DEFINER VIEW `v_poststatus` AS SELECT
+DROP VIEW IF EXISTS `v_organization`;
+CREATE ALGORITHM = UNDEFINED DEFINER = `root`@`localhost` SQL SECURITY DEFINER VIEW `v_organization` AS SELECT
   ag.name_BN as agency,
 	s.organization_name AS organization,
 	s.designation_name AS designation,
@@ -2794,6 +2795,32 @@ CREATE ALGORITHM = UNDEFINED DEFINER = `root`@`localhost` SQL SECURITY DEFINER V
 FROM
 	`sanctionedposts` AS s
 	LEFT JOIN organizations AS o ON s.organization_id = o.id
+	LEFT JOIN agencies AS ag ON o.agency_id = ag.id
+	LEFT JOIN employees AS e ON s.id = e.posting_sanctionedpost_id
+	LEFT JOIN divisions ON s.division_id = divisions.id
+	LEFT JOIN districts ON s.district_id = districts.id
+	LEFT JOIN upazilas ON s.upazila_id = upazilas.id
+ORDER BY divisions.id, districts.id, upazilas.id ;
+
+-- ----------------------------
+-- View structure for v_poststatus
+-- ----------------------------
+DROP VIEW IF EXISTS `v_poststatus`;
+CREATE ALGORITHM = UNDEFINED DEFINER = `root`@`localhost` SQL SECURITY DEFINER VIEW `v_poststatus` AS SELECT
+  ag.name_BN as agency,
+	ot.name_BN as organization_type,
+	s.organization_name AS organization,
+	s.designation_name AS designation,
+	divisions.name_BN AS division,
+	districts.name_BN AS district,
+	upazilas.name_BN AS upazila,
+	e.name_BN AS employee,
+	e.mobile_no AS mobile,
+	s.`status` AS STATUS 
+FROM
+	`sanctionedposts` AS s
+	LEFT JOIN organizations AS o ON s.organization_id = o.id
+	LEFT JOIN organization_types AS ot ON ot.id = o.organization_type_id
 	LEFT JOIN agencies AS ag ON o.agency_id = ag.id
 	LEFT JOIN employees AS e ON s.id = e.posting_sanctionedpost_id
 	LEFT JOIN divisions ON s.division_id = divisions.id

@@ -68,6 +68,9 @@
                 $pdocrud->addFilter("agency_filter", "দপ্তর/সংস্থা", "agency", "dropdown");
                 $pdocrud->setFilterSource("agency_filter", "agencies", "name_BN", "name_BN as agency", "db");
 
+                $pdocrud->addFilter("type_filter", "ধরণ", "organization_type", "dropdown");
+                $pdocrud->setFilterSource("type_filter", "organization_types", "name_BN", "name_BN as organization_type", "db");
+
                 $pdocrud->addFilter("status_filter", "পদের স্ট্যাটাস", "status", "radio");
                 $pdocrud->setFilterSource("status_filter", array("Vacant" => "Vacant", "Filled" => "Filled"), "", "", "array");
 
