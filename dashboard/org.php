@@ -71,9 +71,6 @@
                 $pdocrud->addFilter("type_filter", "ধরণ", "organization_type", "dropdown");
                 $pdocrud->setFilterSource("type_filter", "organization_types", "name_BN", "name_BN as organization_type", "db");
 
-                $pdocrud->addFilter("status_filter", "পদের স্ট্যাটাস", "status", "radio");
-                $pdocrud->setFilterSource("status_filter", array("Vacant" => "Vacant", "Filled" => "Filled"), "", "", "array");
-
                 $pdocrud->addFilter("DistrictFilter", "জেলা", "district", "dropdown");
                 $pdocrud->setFilterSource("DistrictFilter", "districts", "name_BN", "name_BN as district", "db");
 
@@ -82,7 +79,7 @@
                 $pdocrud->setSettings("viewbtn", false);
                 $pdocrud->setSettings("delbtn", false);
                 $pdocrud->setSettings("actionbtn", false);
-                echo $pdocrud->dbTable("v_poststatus")->render();
+                echo $pdocrud->dbTable("v_organization")->render();
             ?>
         </main>
     </div>

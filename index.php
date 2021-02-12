@@ -5,6 +5,7 @@
 ?>
 <?php include_once('layouts/header.php'); ?>
 
+
 <div class="login-page">
     <div class="text-center">
       <img src="layouts/images/bangladesh-govt.png" width="100" /> <h3>মহিলা ও শিশু বিষয়ক মন্ত্রণালয় </h3> <h4>প্রতিষ্ঠান ডাইরেক্টরি</h4>
@@ -24,13 +25,14 @@
         </div>
     </form>
     
-
-
     <div style="font-size:14px; text-decoration: underline; text-align: center; margin-top: 10px;">সমস্যা ও কারিগরী সাহায্য পাওয়ার জন্য</div>
     <div style="font-size:12px; text-decoration: none; text-align: center">ফোন করুনঃ +৮৮০১৭৩৪৬৪৬৮০২</div>
     <div style="font-size:12px; text-decoration: none; text-align: center">ইমেইল করুনঃ programmer@mowca.gov.bd</div>
-    
+    <br/></br>
+<div style="color: #000; text-align: center">
+  <a href="dashboard/" target="_blank"> ড্যাশবোর্ড দেখতে এখানে ক্লিক করুন </a>
+</div>
 <?php include_once('layouts/footer.php'); ?>
 
 </div>
-</div>
+

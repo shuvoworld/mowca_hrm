@@ -6,9 +6,12 @@
   include_once('layouts/header.php');
   page_require_level(2);
 
-$pdocrud = new PDOCrud();
-$pdocrud->addPlugin("select2");//to add plugin
-
+  $pdocrud = new PDOCrud(false, "pure", "pure");
+  $pdocrud->addPlugin("select2");//to add plugin
+  $action = "employee_pds.php?id={pk}";
+  $text = '<span class="glyphicon glyphicon-user" style="font-size:24px" title="Show PDS"></span>';
+  $attr = array("title"=>"Redirect URL");
+  $pdocrud->enqueueBtnActions("url", $action, "url",$text,"Short PDS", $attr);
 
 $pEmployeePosting = new PDOCrud(true);
 $pEmployeePosting->addPlugin("select2");
@@ -82,10 +85,10 @@ $pdocrud->multiTableRelation("id", "employee_id", $pEmployeePromotion);
 if (isset($user['agency_id'])) {
   $pdocrud->where("agency_id", $user['agency_id'], "=");
   
-  $agency_query = "select name, name_BN from agencies where id = {$user['agency_id']} ";
+  $agency_query = "select * from agencies where id = {$user['agency_id']} ";
 }
 else{
-  $agency_query = "select name, name_BN from `agencies` WHERE 1";
+  $agency_query = "select * from `agencies` WHERE 1";
 }
 
 

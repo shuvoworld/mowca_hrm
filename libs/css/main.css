@@ -6,13 +6,16 @@ body{
   /*background-image: url("../../layouts/images/images.jpg");*/
   height: 100%;
   width: 100%;
+
 }a{
   color: #777;
   text-decoration: none;
 }.padding-top{
   padding-top: 20px;
-}.login-page{
-  width: 400px;
+}
+.login-page{
+  background-color:peachpuff;
+  width: 560px;
   padding: 10px 20px;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   color: #35404d;

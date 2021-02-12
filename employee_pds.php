@@ -1,65 +1,238 @@
 <?php
+require_once 'vendor/autoload.php';
+
+$defaultConfig = (new Mpdf\Config\ConfigVariables())->getDefaults();
+$fontDirs = $defaultConfig['fontDir'];
+
+$defaultFontConfig = (new Mpdf\Config\FontVariables())->getDefaults();
+$fontData = $defaultFontConfig['fontdata'];
+
+$mpdf = new \Mpdf\Mpdf([
+    'fontdata' => $fontData + [
+        'nikosh' => [
+            'R' => 'Nikosh.ttf',
+            'useOTL' => 0xFF
+        ]
+    ],
+    'default_font' => 'nikosh'
+]);
+
+
+
 $page_title = 'Short PDS';
 require_once 'includes/load.php';
-// Checkin What level user has permission to view this page
-page_require_level(2);
-$org_id = $_REQUEST['id'];
-$sanctionedposts = find_posts_by_organization($org_id);
+$id =  $_GET['id'];
+$employeeinfo = employeeSingleInfo($id);
+
+$html='<!DOCTYPE html>
+<html>
+<head>
+<title>Page Title</title>
+</head>
+<body>
+
+<table border="1" width="100%" style="overflow: hidden; font-size: 16px;">
+    <tr width="100%">
+      <td>
+        নাম (বাংলায়)
+      </td>
+      <td colspan="3">';
+      $html = $html. $employeeinfo[0]['name_BN'];
+        $html = $html. '</td>
+      </tr>
+    <tr>
+      <td>
+        নাম (ইংরেজী)
+      </td>
+      <td colspan="3">';
+      $html = $html. $employeeinfo[0]['name_EN'];
+    $html = $html. '</td>
+    </tr>
+    <tr>
+      <td>
+      জাতীয় পরিচয়পত্র নং
+      </td>
+      <td colspan="3">';
+      $html = $html. $employeeinfo[0]['national_id'];
+        $html = $html. '</td>
+    </tr>
+    <tr>
+    <td>
+    মাতার নাম
+    </td>
+    <td colspan="3">';
+      $html = $html. $employeeinfo[0]['mother_name'];
+      $html = $html. '</td>
+    </tr>
+    <tr>
+      <td>
+      পিতার নাম
+      </td>
+      <td colspan="3">';
+      $html = $html. $employeeinfo[0]['national_id'];
+        $html = $html. '</td>
+    </tr>
+    <tr>
+      <td>
+      মোবাইল নং (ব্যক্তিগত)
+      </td>
+      <td colspan="3">';
+      $html = $html. $employeeinfo[0]['mobile_no'];
+        $html = $html. '</td>
+    </tr>
+    <tr>
+      <td>
+      বিকল্প মোবাইল নং
+      </td>
+      <td colspan="3">';
+      $html = $html. $employeeinfo[0]['alternate_mobile_no'];
+      $html = $html. '</td>
+    </tr>
+    <tr>
+      <td>
+      ইমেইল এড্রেস (ব্যক্তিগত)
+      </td>
+      <td colspan="3">';
+      $html = $html. $employeeinfo[0]['email'];
+      $html = $html. '</td>
+    </tr>
+    <tr>
+      <td>
+      জন্ম তারিখঃ
+      </td>
+      <td>';
+      $html = $html. $employeeinfo[0]['dob'];
+      $html = $html. '</td>
+      <td>
+      PRL এ গমনের তারিখঃ
+      </td>
+      <td>';
+      $html = $html. $employeeinfo[0]['prl_date'];
+      $html = $html. '</td>
+    </tr>
+    <tr>
+      <td>
+      স্থায়ী ঠিকানা
+      </td>
+      <td>';
+      $html = $html. $employeeinfo[0]['permanent_division_id'];
+      $html = $html. '</td>
+      <td>';
+      $html = $html. $employeeinfo[0]['permanent_district_id'];
+      $html = $html. '</td>
+      <td>';
+      $html = $html. $employeeinfo[0]['permanent_upazila_id'];
+      $html = $html. '</td>
+    </tr>
+    <tr>
+      <td>
+      মেইলিং ঠিকানা
+      </td>
+      <td colspan="3">';
+      $html = $html. $employeeinfo[0]['permanent_address'];
+      $html = $html. '</td>;
+    </tr>
+    <tr>
+      <td>
+      কোটাঃ
+      </td>
+      <td>';
+      $html = $html. $employeeinfo[0]['dob'];
+      $html = $html. '</td>
+      <td>
+      লিঙ্গঃ
+      </td>
+      <td>';
+      $html = $html. $employeeinfo[0]['prl_date'];
+      $html = $html. '</td>
+    </tr>
+    <tr>
+      <td>
+      বৈবাহিক অবস্থাঃ
+      </td>
+      <td>';
+      $html = $html. $employeeinfo[0]['dob'];
+      $html = $html. '</td>
+      <td>
+      ধর্মঃ
+      </td>
+      <td>';
+      $html = $html. $employeeinfo[0]['prl_date'];
+      $html = $html. '</td>
+    </tr>
+    <tr>
+    <td>
+    রক্তের গ্রুপঃ
+    </td>
+    <td>';
+    $html = $html. $employeeinfo[0]['dob'];
+    $html = $html. '</td>
+    <td>
+    সর্বশেষ শিক্ষাগত যোগ্যতা
+    </td>
+    <td>';
+    $html = $html. $employeeinfo[0]['prl_date'];
+    $html = $html. '</td>
+  </tr>
+  <tr>
+    <td>
+    সরকারী চাকুরীতে প্রথম যোগদানের তারিখঃ
+    </td>
+    <td>';
+    $html = $html. $employeeinfo[0]['dob'];
+    $html = $html. '</td>
+    <td>
+    বর্তমান পদে যোগদানের তারিখঃ
+    </td>
+    <td>';
+    $html = $html. $employeeinfo[0]['prl_date'];
+    $html = $html. '</td>
+  </tr>
+  <tr>
+    <td>
+    সর্বশেষ পদোন্নতি প্রাপ্ত পদঃ
+    </td>
+    <td>';
+    $html = $html. $employeeinfo[0]['dob'];
+    $html = $html. '</td>
+    <td>
+    সর্বশেষ পদোন্নতি\'র তারিখঃ
+    </td>
+    <td>';
+    $html = $html. $employeeinfo[0]['prl_date'];
+    $html = $html. '</td>
+  </tr>
+  <tr>
+    <td>
+    প্রতিষ্ঠান
+    </td>
+    <td>';
+    $html = $html. $employeeinfo[0]['dob'];
+    $html = $html. '</td>
+    <td>
+    পদবী
+    </td>
+    <td>';
+    $html = $html. $employeeinfo[0]['prl_date'];
+    $html = $html. '</td>
+    <tr>
+      <td>
+      বর্তমান পদায়ন
+      </td>
+      <td>';
+      $html = $html. $employeeinfo[0]['posting_division_id'];
+      $html = $html. '</td>
+      <td>';
+      $html = $html. $employeeinfo[0]['posting_district_id'];
+      $html = $html. '</td>
+      <td>';
+      $html = $html. $employeeinfo[0]['posting_upazila_id'];
+      $html = $html. '</td>
+    </tr>
+  </tr>
+    </table>
+</body>
+</html>';
+$mpdf->WriteHTML($html);
+$mpdf->Output();
 ?>
-<?php include_once 'layouts/header.php'; ?>
-
-
-<div class="row">
-  <div class="col-md-12">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <strong>
-          <span class="glyphicon glyphicon-th"></span>
-          <span>প্রতিষ্ঠানের পদের তথ্য</span>
-        </strong>
-      </div>
-      <div class="panel-body">
-        <div class="col-md-12">
-          <div class="row">
-            <div class="col-md-12">
-              <table class="table table-bordered">
-                <thead>
-                  <tr>
-                    <th>অনুমোদিত পদ</th>
-                    <th>কর্মকর্তা</th>
-                    <th>মোবাইল</th>
-                    <th>স্ট্যাটাস</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php if ($sanctionedposts) : ?>
-                    <?php foreach ($sanctionedposts as $sanctionedpost) : ?>
-                      <tr style="font-size:12px;">
-                        <td class="text-center"><?php echo $sanctionedpost['designation_name']; ?></td>
-                        <td class="text-center"><?php echo $sanctionedpost['employee_name']; ?></td>
-                          <td class="text-center"><?php echo $sanctionedpost['mobile_no']; ?></td>
-                      </tr>
-                    <?php endforeach; ?>
-                  <?php
-                  else :
-                  ?>
-                    <tr style="font-size:14px;">
-                      <td class="text-center" colspan=6><?php echo "তথ্য খুঁজে পাওয়া যাইনি" ?></td>
-                    </tr>
-                  <?php
-                  endif;
-                  ?>
-                </tbody>
-              </table>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <?php include_once 'layouts/footer.php'; ?>
-
-    <script type="text/javascript">
-
-    </script>
