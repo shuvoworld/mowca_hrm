@@ -16,8 +16,8 @@
   $pdocrud->fieldRenameLable("organization_id", "প্রতিষ্ঠান");
   $pdocrud->fieldRenameLable("status", "শুন্য/পূরনকৃত?");
 
-  $pdocrud->colRename("designation_id", "পদবী");
-  $pdocrud->colRename("organization_id", "প্রতিষ্ঠান");
+  $pdocrud->colRename("designation_name", "পদবী");
+  $pdocrud->colRename("organization_name", "প্রতিষ্ঠান");
   $pdocrud->colRename("status", "শুন্য/পূরনকৃত?");
   $pdocrud->colRename("division_id", "বিভাগ");
   $pdocrud->colRename("district_id", "জেলা");
@@ -56,6 +56,10 @@ $pdocrud->fieldDataBinding("organization_id", "organizations", "id", "name", "db
 $pdocrud->fieldDependent("district_id", "division_id", "division_id");
 $pdocrud->fieldDependent("upazila_id", "district_id", "district_id");
 $pdocrud->fieldDependent("organization_id", "upazila_id", "upazila_id");
+
+$pdocrud->relatedData('division_id','divisions','id','name_BN');
+$pdocrud->relatedData('district_id','districts','id','name_BN');
+$pdocrud->relatedData('upazila_id','upazilas','id','name_BN');
 
 $pdocrud->addCallback("before_insert","beforeInsertSanctionedPost");
 

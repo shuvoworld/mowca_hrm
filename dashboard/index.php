@@ -62,6 +62,19 @@
             <?php
                 include '../libs/script/pdocrud.php';
                 $pdocrud = new PDOCrud();
+                $pdocrud->setSettings("deleteMultipleBtn", false);
+                $pdocrud->setSettings("recordsPerPageDropdown", false);
+                $pdocrud->setSettings("recordsPerPageDropdown", false);
+                $pdocrud->setSettings("addbtn", false);
+                $pdocrud->setSettings("editbtn", false);
+                $pdocrud->setSettings("viewbtn", false);
+                $pdocrud->setSettings("delbtn", false);
+                $pdocrud->setSettings("actionbtn", false);
+                $pdocrud->setSettings("checkboxCol", false);
+                $pdocrud->setSettings("printBtn", false);
+                $pdocrud->setSettings("pdfBtn", false);
+                $pdocrud->setSettings("csvBtn", false);
+                $pdocrud->setSettings("excelBtn", false);
 
                 $pdocrud->tableHeading("সার্বিক অবস্থা");
 

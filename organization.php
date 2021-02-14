@@ -55,7 +55,7 @@ $pdocrud->fieldDependent("upazila_id", "district_id", "district_id");
 $pdocrud->relatedData('division_id','divisions','id','name_BN');
 $pdocrud->relatedData('district_id','districts','id','name_BN');
 $pdocrud->relatedData('upazila_id','upazilas','id','name_BN');
-
+$pdocrud->relatedData('organization_type_id','organization_types','id','name_BN');
 $pdocrud->crudTableCol(array("name","division_id","district_id","upazila_id","organization_type_id","contact_no","email"));
 
 $pdocrud->fieldNotMandatory("email");
