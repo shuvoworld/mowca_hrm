@@ -30,8 +30,8 @@ $html='<!DOCTYPE html>
 <title>Page Title</title>
 </head>
 <body>
-
-<table border="1" width="100%" style="overflow: hidden; font-size: 16px;">
+<h2 style="text-align: center">মহিলা ও শিশু বিষয়ক মন্ত্রণালয়ের কর্মকর্তা/কর্মচারীদের চাকুরী সংক্রান্ত তথ্য ফর্ম</h2>
+<table border="1" width="100%" style="font-size: 16px; border-collapse: collapse;">
     <tr width="100%">
       <td>
         নাম (বাংলায়)
@@ -53,7 +53,7 @@ $html='<!DOCTYPE html>
       জাতীয় পরিচয়পত্র নং
       </td>
       <td colspan="3">';
-      $html = $html. $employeeinfo[0]['national_id'];
+      $html = $html. convertEnglishDigitToBengali($employeeinfo[0]['national_id']);
         $html = $html. '</td>
     </tr>
     <tr>
@@ -69,7 +69,7 @@ $html='<!DOCTYPE html>
       পিতার নাম
       </td>
       <td colspan="3">';
-      $html = $html. $employeeinfo[0]['national_id'];
+      $html = $html. $employeeinfo[0]['father_name'];
         $html = $html. '</td>
     </tr>
     <tr>
@@ -77,7 +77,7 @@ $html='<!DOCTYPE html>
       মোবাইল নং (ব্যক্তিগত)
       </td>
       <td colspan="3">';
-      $html = $html. $employeeinfo[0]['mobile_no'];
+      $html = $html. convertEnglishDigitToBengali($employeeinfo[0]['mobile_no']);
         $html = $html. '</td>
     </tr>
     <tr>
@@ -85,7 +85,7 @@ $html='<!DOCTYPE html>
       বিকল্প মোবাইল নং
       </td>
       <td colspan="3">';
-      $html = $html. $employeeinfo[0]['alternate_mobile_no'];
+      $html = $html. convertEnglishDigitToBengali($employeeinfo[0]['alternate_mobile_no']);
       $html = $html. '</td>
     </tr>
     <tr>
@@ -101,13 +101,13 @@ $html='<!DOCTYPE html>
       জন্ম তারিখঃ
       </td>
       <td>';
-      $html = $html. $employeeinfo[0]['dob'];
+      $html = $html. convertEnglishDigitToBengali($employeeinfo[0]['dob']);
       $html = $html. '</td>
       <td>
       PRL এ গমনের তারিখঃ
       </td>
       <td>';
-      $html = $html. $employeeinfo[0]['prl_date'];
+      $html = $html. convertEnglishDigitToBengali($employeeinfo[0]['prl_date']);
       $html = $html. '</td>
     </tr>
     <tr>
@@ -115,13 +115,13 @@ $html='<!DOCTYPE html>
       স্থায়ী ঠিকানা
       </td>
       <td>';
-      $html = $html. $employeeinfo[0]['permanent_division_id'];
+      $html = $html. "বিভাগঃ ". name_from_id('divisions', 'name_BN',  $employeeinfo[0]['permanent_division_id']);
       $html = $html. '</td>
       <td>';
-      $html = $html. $employeeinfo[0]['permanent_district_id'];
+      $html = $html. "জেলাঃ ". name_from_id('districts',  'name_BN', $employeeinfo[0]['permanent_district_id']);
       $html = $html. '</td>
       <td>';
-      $html = $html. $employeeinfo[0]['permanent_upazila_id'];
+      $html = $html. "উপজেলাঃ ". name_from_id('upazilas', 'name_BN', $employeeinfo[0]['permanent_upazila_id']);
       $html = $html. '</td>
     </tr>
     <tr>
@@ -137,13 +137,13 @@ $html='<!DOCTYPE html>
       কোটাঃ
       </td>
       <td>';
-      $html = $html. $employeeinfo[0]['dob'];
+      $html = $html. name_from_id('quotas', 'name', $employeeinfo[0]['quota_id']);
       $html = $html. '</td>
       <td>
       লিঙ্গঃ
       </td>
       <td>';
-      $html = $html. $employeeinfo[0]['prl_date'];
+      $html = $html. name_from_id('sex',  'name', $employeeinfo[0]['sex_id']);
       $html = $html. '</td>
     </tr>
     <tr>
@@ -151,13 +151,13 @@ $html='<!DOCTYPE html>
       বৈবাহিক অবস্থাঃ
       </td>
       <td>';
-      $html = $html. $employeeinfo[0]['dob'];
+      $html = $html. name_from_id('marital_statuses',  'name', $employeeinfo[0]['marital_status_id']);
       $html = $html. '</td>
       <td>
       ধর্মঃ
       </td>
       <td>';
-      $html = $html. $employeeinfo[0]['prl_date'];
+      $html = $html = $html. name_from_id('religions',  'name', $employeeinfo[0]['religion_id']);
       $html = $html. '</td>
     </tr>
     <tr>
@@ -165,13 +165,13 @@ $html='<!DOCTYPE html>
     রক্তের গ্রুপঃ
     </td>
     <td>';
-    $html = $html. $employeeinfo[0]['dob'];
+    $html = $html. name_from_id('bloodgroups',  'name', $employeeinfo[0]['bloodgroup_id']);
     $html = $html. '</td>
     <td>
     সর্বশেষ শিক্ষাগত যোগ্যতা
     </td>
     <td>';
-    $html = $html. $employeeinfo[0]['prl_date'];
+    $html = $html. name_from_id('educational_qualifications',  'name', $employeeinfo[0]['educational_qualification_id']);
     $html = $html. '</td>
   </tr>
   <tr>
@@ -179,13 +179,13 @@ $html='<!DOCTYPE html>
     সরকারী চাকুরীতে প্রথম যোগদানের তারিখঃ
     </td>
     <td>';
-    $html = $html. $employeeinfo[0]['dob'];
+    $html = $html. convertEnglishDigitToBengali($employeeinfo[0]['joining_govt_service_date']);
     $html = $html. '</td>
     <td>
     বর্তমান পদে যোগদানের তারিখঃ
     </td>
     <td>';
-    $html = $html. $employeeinfo[0]['prl_date'];
+    $html = $html. convertEnglishDigitToBengali($employeeinfo[0]['present_post_joining_date']);
     $html = $html. '</td>
   </tr>
   <tr>
@@ -193,13 +193,13 @@ $html='<!DOCTYPE html>
     সর্বশেষ পদোন্নতি প্রাপ্ত পদঃ
     </td>
     <td>';
-    $html = $html. $employeeinfo[0]['dob'];
+    $html = $html. name_from_id('designations',  'name', $employeeinfo[0]['last_promoted_post_id']);
     $html = $html. '</td>
     <td>
     সর্বশেষ পদোন্নতি\'র তারিখঃ
     </td>
     <td>';
-    $html = $html. $employeeinfo[0]['prl_date'];
+    $html = $html. convertEnglishDigitToBengali($employeeinfo[0]['last_promotion_date']);
     $html = $html. '</td>
   </tr>
   <tr>
@@ -207,26 +207,26 @@ $html='<!DOCTYPE html>
     প্রতিষ্ঠান
     </td>
     <td>';
-    $html = $html. $employeeinfo[0]['dob'];
+    $html = $html. name_from_id('organizations',  'name_BN', $employeeinfo[0]['posting_organization_id']);
     $html = $html. '</td>
     <td>
     পদবী
     </td>
     <td>';
-    $html = $html. $employeeinfo[0]['prl_date'];
+    $html = $html. name_from_id('sanctionedposts',  'designation_name', $employeeinfo[0]['posting_sanctionedpost_id']);
     $html = $html. '</td>
     <tr>
       <td>
       বর্তমান পদায়ন
       </td>
       <td>';
-      $html = $html. $employeeinfo[0]['posting_division_id'];
+      $html = $html. "বিভাগঃ ". name_from_id('divisions',  'name_BN', $employeeinfo[0]['posting_division_id']);
       $html = $html. '</td>
       <td>';
-      $html = $html. $employeeinfo[0]['posting_district_id'];
+      $html = $html. "জেলা ". name_from_id('districts',  'name_BN', $employeeinfo[0]['posting_district_id']);
       $html = $html. '</td>
       <td>';
-      $html = $html. $employeeinfo[0]['posting_upazila_id'];
+      $html = $html. "উপজেলাঃ ".name_from_id('upazilas',  'name_BN', $employeeinfo[0]['posting_upazila_id']);
       $html = $html. '</td>
     </tr>
   </tr>

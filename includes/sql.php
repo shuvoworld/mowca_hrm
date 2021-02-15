@@ -35,6 +35,18 @@ function find_by_id($table,$id)
             return null;
      }
 }
+
+function name_from_id($table, $nameColumn, $id)
+{
+  global $db;
+  $sql = "SELECT ". $nameColumn ." from ". $table. " WHERE id = " . $id;
+  $sql = $db->query($sql);
+  if($result = $db->fetch_assoc($sql))
+      return $result[$nameColumn];
+  else
+      return null;
+
+}
 /*--------------------------------------------------------------*/
 /* Function for Delete data from table by id
 /*--------------------------------------------------------------*/
