@@ -1,12 +1,10 @@
 <?php
 include('database_connection.php');
 $district = '';
-$query = "SELECT id, name_BN FROM districts";
-$statement = $connect->prepare($query);
-$statement->execute();
-$result = $statement->fetchAll();
-foreach ($result as $row) {
-    $district .= '<option value="' . $row['id'] . '">' . $row['name_BN'] . '</option>';
+$sql = "SELECT id, name_BN FROM districts";
+$query = mysqli_query($DBconnect, $sql);
+while (($data = mysqli_fetch_assoc($query))) {
+    $district .= '<option value="' . $data['id'] . '">' . $data['name_BN'] . '</option>';
 }
 ?>
 
@@ -33,14 +31,13 @@ foreach ($result as $row) {
                     <!-- small box -->
                     <div class="small-box bg-info">
                         <div class="inner">
-                            <h3>৬৪</h3>
-
-                            <p>উপপরিচালক</p>
+                            <h4>উপপরিচালক</h4>
+                            <p>মহিলা বিষয়ক অধিদপ্তর</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-bag"></i>
                         </div>
-                        <a href="dd.php" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="dd.php" class="small-box-footer">তালিকা দেখুন <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <!-- ./col -->
@@ -48,14 +45,14 @@ foreach ($result as $row) {
                     <!-- small box -->
                     <div class="small-box bg-success">
                         <div class="inner">
-                            <h3>৪২৬</h3>
+                            <h4>উপজেলা মহিলা বিষয়ক কর্মকর্তা</h4>
 
-                            <p>উপজেলা মহিলা বিষয়ক কর্মকর্তা</p>
+                            <p>মহিলা বিষয়ক অধিদপ্তর</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-stats-bars"></i>
                         </div>
-                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="#" class="small-box-footer">তালিকা দেখুন <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <!-- ./col -->
@@ -63,14 +60,14 @@ foreach ($result as $row) {
                     <!-- small box -->
                     <div class="small-box bg-warning">
                         <div class="inner">
-                            <h3>৬৪</h3>
+                            <h4>জেলা কর্মকর্তা</h4>
 
-                            <p>জাতীয় মহিলা সংস্থা'র জেলা কর্মকর্তা</p>
+                            <p>জাতীয় মহিলা সংস্থা</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-person-add"></i>
                         </div>
-                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="#" class="small-box-footer">তালিকা দেখুন <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <!-- ./col -->
@@ -78,14 +75,14 @@ foreach ($result as $row) {
                     <!-- small box -->
                     <div class="small-box bg-danger">
                         <div class="inner">
-                            <h3>৬৪</h3>
+                            <h4>জেলা শিশু কর্মকর্তা</h4>
 
-                            <p>জেলা শিশু কর্মকর্তা</p>
+                            <p>বাংলাদেশ শিশু একাডেমি</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-pie-graph"></i>
                         </div>
-                        <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="#" class="small-box-footer">তালিকা দেখুন <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <!-- ./col -->

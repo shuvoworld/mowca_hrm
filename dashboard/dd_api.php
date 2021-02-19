@@ -1,8 +1,4 @@
 <?php
-/*
-You can follow this tutorial for datatable and php server side implementation: https://shanecunningham.me/blog/2018/03/20/datatables-with-pagination-using-ajax-php-mysql-calling-a-php-functions/
- */
-
 include 'database_connection.php';
 $columns = array(
 // datatable column index  => database column name
@@ -12,41 +8,45 @@ $columns = array(
     3 => 'email'
 );
 
-$filter_district = $_POST['filter_district'];
-$query = '';
+$requestData = $_REQUEST;
 
-$output = array();
-$query .= "SELECT * FROM v_poststatus WHERE designation_id = 1 ";
+$filter_district = $requestData['filter_district'];
 
-//if (isset($_POST["search"]["value"])) {
-//    $query .= ' AND (v_poststatus.mobile LIKE "%' . $_POST["search"]["value"] . '%" ';
-//    $query .= 'OR v_poststatus.employee LIKE "%' . $_POST["search"]["value"] . '%" ';
-//    $query .= 'OR v_poststatus.district_name LIKE "%' . $_POST["search"]["value"] . '%" ';
-//    $query .= 'OR v_poststatus.upazila_name LIKE "%' . $_POST["search"]["value"] . '%" )';
-//}
+$sql = "SELECT * FROM v_poststatus";
+
+$query = mysqli_query($DBconnect, $sql);
+$totalData = mysqli_num_rows($query);
+$totalFiltered = $totalData;
+
+$sql = "SELECT * FROM v_poststatus WHERE 1 ";
 
 if ($filter_district != '') {
-    $query .= " AND (v_poststatus.district_id='" . $filter_district . "') ";
+    $sql .= " AND (v_poststatus.district_id='" . $filter_district . "') ";
+}
+if (!empty($requestData['search']['value'])) {
+    $sql .= ' AND (v_poststatus.mobile LIKE "%' . $requestData["search"]["value"] . '%" ';
+    $sql .= 'OR v_poststatus.employee LIKE "%' . $requestData["search"]["value"] . '%" ';
+    $sql .= 'OR v_poststatus.district LIKE "%' . $requestData["search"]["value"] . '%" ';
+    $sql .= 'OR v_poststatus.designation LIKE "%' . $requestData["search"]["value"] . '%" ';
+    $sql .= 'OR v_poststatus.upazila LIKE "%' . $requestData["search"]["value"] . '%" )';
 }
 
-$query .= ' ORDER BY ' . $columns[$_POST['order']['0']['column']] . ' ' . $_POST['order']['0']['dir'] . ' ';
 
-if ($_POST["length"] != -1) {
-    $query .= 'LIMIT ' . $_POST['start'] . ', ' . $_POST['length'];
+$query = mysqli_query($DBconnect, $sql);
+
+$totalFiltered = mysqli_num_rows($query);
+
+$sql .= ' ORDER BY ' . $columns[$requestData['order']['0']['column']] . ' ' . $requestData['order']['0']['dir'] . ' ';
+
+if ($requestData["length"] != -1) {
+    $sql .= 'LIMIT ' . $requestData['start'] . ', ' . $requestData['length'];
 }
 
-//echo $query;die();
-$statement = $connect->prepare($query);
-//print_r($statement->debugDumpParams());
-$statement->execute();
-
-$result = $statement->fetchAll();
-
+$query = mysqli_query($DBconnect, $sql);
 $data = array();
 
-$filtered_rows = $statement->rowCount();
 
-foreach ($result as $row) {
+while ($row = mysqli_fetch_array($query)) {
     $sub_array = array();
     $sub_array[] = $row['district'];
     $sub_array[] = $row['employee'];
@@ -55,17 +55,11 @@ foreach ($result as $row) {
     $data[] = $sub_array;
 }
 
-function get_total_all_records($connect)
-{
-    $statement = $connect->prepare('SELECT * FROM v_poststatus WHERE designation_id = 1');
-    $statement->execute();
-    return $statement->rowCount();
-}
 
 $output = array(
-    "draw" => intval($_POST["draw"]),
-    "recordsTotal" => $filtered_rows,
-    "recordsFiltered" => get_total_all_records($connect),
+    "draw" => intval($requestData["draw"]),
+    "recordsTotal" => intval($totalData),
+    "recordsFiltered" => intval($totalFiltered),
     "data" => $data,
 );
 

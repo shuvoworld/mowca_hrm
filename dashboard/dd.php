@@ -1,12 +1,10 @@
 <?php
 include('database_connection.php');
 $district = '';
-$query = "SELECT id, name_BN FROM districts";
-$statement = $connect->prepare($query);
-$statement->execute();
-$result = $statement->fetchAll();
-foreach ($result as $row) {
-    $district .= '<option value="' . $row['id'] . '">' . $row['name_BN'] . '</option>';
+$sql = "SELECT id, name_BN FROM districts";
+$query = mysqli_query($DBconnect, $sql);
+while (($data = mysqli_fetch_assoc($query))) {
+    $district .= '<option value="' . $data['id'] . '">' . $data['name_BN'] . '</option>';
 }
 ?>
 
