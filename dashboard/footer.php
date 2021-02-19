@@ -1,8 +1,8 @@
 <footer class="main-footer">
     <div class="float-right d-none d-sm-block">
-      <b>Version</b> 3.0.2
+      <b>Version</b> 1.0
     </div>
-    <strong>Copyright &copy; 2020 <a href="http://adminlte.io">Ministry of Women and Children Affairs</a>.</strong> All rights
+    <strong>Copyright &copy; 2020 <a href="www.mowca.gov.bd">Ministry of Women and Children Affairs</a>.</strong> All rights
     reserved.
   </footer>
 
