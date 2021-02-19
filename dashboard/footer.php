@@ -2,7 +2,7 @@
     <div class="float-right d-none d-sm-block">
       <b>Version</b> 1.0
     </div>
-    <strong>Copyright &copy; 2020 <a href="www.mowca.gov.bd">Ministry of Women and Children Affairs</a>.</strong> All rights
+    <strong>Copyright &copy; 2020 <a href="http://www.mowca.gov.bd">Ministry of Women and Children Affairs</a>.</strong> All rights
     reserved.
   </footer>
 
