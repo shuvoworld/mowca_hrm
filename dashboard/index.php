@@ -67,7 +67,7 @@ while (($data = mysqli_fetch_assoc($query))) {
                         <div class="icon">
                             <i class="ion ion-person-add"></i>
                         </div>
-                        <a href="#" class="small-box-footer">তালিকা দেখুন <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="district_officer_jms.php" class="small-box-footer">তালিকা দেখুন <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <!-- ./col -->

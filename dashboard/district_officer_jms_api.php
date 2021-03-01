@@ -12,22 +12,22 @@ $requestData = $_REQUEST;
 
 $filter_district = $requestData['filter_district'];
 
-$sql = "SELECT * FROM v_dd";
+$sql = "SELECT * FROM v_district_officer_jms";
 
 $query = mysqli_query($DBconnect, $sql);
 $totalData = mysqli_num_rows($query);
 $totalFiltered = $totalData;
 
-$sql = "SELECT * FROM v_dd WHERE 1 ";
+$sql = "SELECT * FROM v_district_officer_jms WHERE 1 ";
 
 if ($filter_district != '') {
-    $sql .= " AND (v_dd.district_id='" . $filter_district . "') ";
+    $sql .= " AND (v_district_officer_jms.district_id='" . $filter_district . "') ";
 }
 if (!empty($requestData['search']['value'])) {
-    $sql .= ' AND (v_dd.mobile LIKE "%' . $requestData["search"]["value"] . '%" ';
-    $sql .= 'OR v_dd.employee LIKE "%' . $requestData["search"]["value"] . '%" ';
-    $sql .= 'OR v_dd.district LIKE "%' . $requestData["search"]["value"] . '%" ';
-    $sql .= 'OR v_dd.designation LIKE "%' . $requestData["search"]["value"] . '%" ';
+    $sql .= ' AND (v_district_officer_jms.mobile LIKE "%' . $requestData["search"]["value"] . '%" ';
+    $sql .= 'OR v_district_officer_jms.employee LIKE "%' . $requestData["search"]["value"] . '%" ';
+    $sql .= 'OR v_district_officer_jms.district LIKE "%' . $requestData["search"]["value"] . '%" ';
+    $sql .= 'OR v_district_officer_jms.designation LIKE "%' . $requestData["search"]["value"] . '%" ';
 }
 
 

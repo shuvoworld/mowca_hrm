@@ -1,57 +1,40 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : localhost
-Source Server Version : 50505
-Source Host           : 127.0.0.1:3306
+Source Server         : digitalocean
+Source Server Version : 80023
+Source Host           : 104.248.151.193:3306
 Source Database       : mowca_hrm
 
 Target Server Type    : MYSQL
-Target Server Version : 50505
+Target Server Version : 80023
 File Encoding         : 65001
 
-Date: 2021-02-19 16:30:25
+Date: 2021-03-01 23:15:37
 */
 
 SET FOREIGN_KEY_CHECKS=0;
-
--- ----------------------------
--- Table structure for additional_roles
--- ----------------------------
-DROP TABLE IF EXISTS `additional_roles`;
-CREATE TABLE `additional_roles` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
-  `designation_id` int(10) NOT NULL,
-  `employee_id` int(10) NOT NULL,
-  `type_of_posting` int(10) DEFAULT NULL,
-  `created_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC;
-
--- ----------------------------
--- Records of additional_roles
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for agencies
 -- ----------------------------
 DROP TABLE IF EXISTS `agencies`;
 CREATE TABLE `agencies` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `name_BN` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  `head_name` varchar(255) DEFAULT NULL,
-  `head_designation` varchar(255) DEFAULT NULL,
-  `contact_info` varchar(500) DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
+  `name_BN` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '',
+  `head_name` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT '',
+  `head_designation` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT '',
+  `contact_info` varchar(500) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT '',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of agencies
 -- ----------------------------
 INSERT INTO `agencies` VALUES ('1', 'জাতীয় মহিলা সংস্থা', 'জাতীয় মহিলা সংস্থা', null, null, null);
 INSERT INTO `agencies` VALUES ('2', 'মহিলা বিষয়ক অধিদপ্তর', 'মহিলা বিষয়ক অধিদপ্তর', null, null, null);
-INSERT INTO `agencies` VALUES ('3', 'বাংলাদেশ শিশু একাডেমী', 'বাংলাদেশ শিশু একাডেমী', null, null, null);
+INSERT INTO `agencies` VALUES ('3', 'বাংলাদেশ শিশু একাডেমি', 'বাংলাদেশ শিশু একাডেমি', null, null, null);
 INSERT INTO `agencies` VALUES ('4', 'মহিলা ও শিশু বিষয়ক মন্ত্রণালয়', 'মহিলা ও শিশু বিষয়ক মন্ত্রণালয়', null, null, null);
 
 -- ----------------------------
@@ -59,86 +42,30 @@ INSERT INTO `agencies` VALUES ('4', 'মহিলা ও শিশু বিষ�
 -- ----------------------------
 DROP TABLE IF EXISTS `bloodgroups`;
 CREATE TABLE `bloodgroups` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
-  `name` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC;
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Records of bloodgroups
 -- ----------------------------
 INSERT INTO `bloodgroups` VALUES ('1', 'O+');
-INSERT INTO `bloodgroups` VALUES ('2', 'trtr');
-
--- ----------------------------
--- Table structure for contact_directory
--- ----------------------------
-DROP TABLE IF EXISTS `contact_directory`;
-CREATE TABLE `contact_directory` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `agency_id` int(10) DEFAULT NULL,
-  `agency_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `designation_id` int(10) DEFAULT NULL,
-  `designation_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `office_id` int(10) DEFAULT NULL,
-  `office_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `dob` date DEFAULT NULL,
-  `telephone` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `mobile_no` varchar(15) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `alternate_mobile_no` varchar(15) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `division_id` int(10) DEFAULT NULL,
-  `division_name` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `district_id` int(10) DEFAULT NULL,
-  `district_name` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `upazila_id` int(10) DEFAULT NULL,
-  `upazila_name` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `organization_level_id` int(10) DEFAULT NULL,
-  `organization_level_name` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `updated_by` int(10) DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
-  `email` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC;
-
--- ----------------------------
--- Records of contact_directory
--- ----------------------------
-INSERT INTO `contact_directory` VALUES ('1', 'wwewe', '1', 'জাতীয় মহিলা সংস্থা', '2', 'উপজেলা মহিলা বিষয়ক কর্মকর্তা', '3', 'কর্মজীবী মহিলা হোস্টেল', '2020-09-01', '121212', '121212', '1212', '1', 'ঢাকা', '1', 'ঢাকা', '154', 'আদাবর', '3', 'জেলা পর্যায়', null, '2020-09-23 07:43:19', 'dfdf@er.com');
-INSERT INTO `contact_directory` VALUES ('2', 'dfdfd', '0', null, '1', 'উপপরিচালক', '1', 'আবাসিক প্রশিক্ষণ কেন্দ্র', '2020-09-01', '121212', '019454545454', '2120', '1', 'ঢাকা', '1', 'ঢাকা', '154', 'আদাবর', '1', 'জাতীয়', null, '2020-09-23 07:48:43', 'rtmjnj@mail.com');
-INSERT INTO `contact_directory` VALUES ('3', 'dfd', '2', 'মহিলা বিষয়ক অধিদপ্তর', '1', 'উপপরিচালক', '3', 'কর্মজীবী মহিলা হোস্টেল', '2020-09-01', '44545', '4545', '4545', '1', 'ঢাকা', '3', 'গাজীপুর', '216', 'কাপাসিয়া', '3', 'জেলা পর্যায়', null, '2020-09-23 07:52:10', 'we@ew.com');
-INSERT INTO `contact_directory` VALUES ('4', 'fgfgfgfg', '1', 'জাতীয় মহিলা সংস্থা', '2', 'উপজেলা মহিলা বিষয়ক কর্মকর্তা', '3', 'কর্মজীবী মহিলা হোস্টেল', '2020-09-01', '2323', '019454545454', '3434', '2', 'চট্টগ্রাম', '19', 'ব্রাহ্মণবাড়িয়া', '51', 'বাঞ্ছারামপুর', '3', 'জেলা পর্যায়', null, '2020-09-23 07:55:30', 'shu@eer.com');
-INSERT INTO `contact_directory` VALUES ('5', '3343', '1', 'জাতীয় মহিলা সংস্থা', '3', 'জেলা শিশু বিষয়ক কর্মকর্তা', '3', 'কর্মজীবী মহিলা হোস্টেল', '2020-09-01', '34344', 'dfdf', '3434', '1', 'ঢাকা', '2', 'ফরিদপুর', '205', 'ভাংগা', '2', 'বিভাগীয়', null, '2020-09-23 08:11:49', 'we@ew.com');
-
--- ----------------------------
--- Table structure for department
--- ----------------------------
-DROP TABLE IF EXISTS `department`;
-CREATE TABLE `department` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) DEFAULT NULL,
-  `name_BN` varchar(100) DEFAULT NULL,
-  `department_head` varchar(255) DEFAULT NULL,
-  `department_head_designation` varchar(100) DEFAULT NULL,
-  `total_manpower` int(11) DEFAULT NULL,
-  `created_at` datetime DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
-
--- ----------------------------
--- Records of department
--- ----------------------------
+INSERT INTO `bloodgroups` VALUES ('2', 'B+');
+INSERT INTO `bloodgroups` VALUES ('3', 'O-');
+INSERT INTO `bloodgroups` VALUES ('4', 'A+');
+INSERT INTO `bloodgroups` VALUES ('5', 'A-');
+INSERT INTO `bloodgroups` VALUES ('6', 'B-');
 
 -- ----------------------------
 -- Table structure for designations
 -- ----------------------------
 DROP TABLE IF EXISTS `designations`;
 CREATE TABLE `designations` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) CHARACTER SET utf8 DEFAULT '',
-  `grade` int(10) DEFAULT NULL,
-  `rank` int(10) DEFAULT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT '',
+  `grade` int DEFAULT NULL,
+  `rank` int DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC;
 
@@ -147,30 +74,30 @@ CREATE TABLE `designations` (
 -- ----------------------------
 INSERT INTO `designations` VALUES ('1', 'উপপরিচালক', '6', '6');
 INSERT INTO `designations` VALUES ('2', 'উপজেলা মহিলা বিষয়ক কর্মকর্তা', '9', '9');
-INSERT INTO `designations` VALUES ('3', 'জেলা শিশু বিষয়ক কর্মকর্তা', '10', '10');
+INSERT INTO `designations` VALUES ('3', 'জেলা শিশু কর্মকর্তা', '10', '10');
 INSERT INTO `designations` VALUES ('4', 'প্রোগ্রাম অফিসার', '10', '10');
-INSERT INTO `designations` VALUES ('5', 'জেলা কর্মকর্তা, জামস', null, null);
+INSERT INTO `designations` VALUES ('5', 'জেলা কমকর্তা', '10', '10');
 
 -- ----------------------------
 -- Table structure for districts
 -- ----------------------------
 DROP TABLE IF EXISTS `districts`;
 CREATE TABLE `districts` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `name_BN` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `combinedcode` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `name_BN` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `combinedcode` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `latitude` double DEFAULT NULL,
   `longitude` double DEFAULT NULL,
-  `code` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `division_id` int(10) unsigned DEFAULT NULL,
-  `division_code` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `division_name` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `updated_by` int(10) unsigned DEFAULT NULL,
+  `code` varchar(10) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `division_id` int unsigned DEFAULT NULL,
+  `division_code` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `division_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `updated_by` int unsigned DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `is_active` tinyint(1) DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
-  `created_by` bigint(20) DEFAULT NULL,
+  `created_by` bigint DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   KEY `districts_division_id_foreign` (`division_id`) USING BTREE
@@ -249,19 +176,19 @@ INSERT INTO `districts` VALUES ('64', 'Sylhet', 'সিলেট', '6091', '24.8
 -- ----------------------------
 DROP TABLE IF EXISTS `divisions`;
 CREATE TABLE `divisions` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
-  `uuid` varchar(36) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `name` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `name_BN` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `combinedcode` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `uuid` varchar(36) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `name` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `name_BN` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `combinedcode` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `latitude` double DEFAULT NULL,
   `longitude` double DEFAULT NULL,
-  `code` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `updated_by` int(11) DEFAULT NULL,
+  `code` varchar(10) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `updated_by` int DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `is_active` tinyint(1) DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
-  `created_by` bigint(20) DEFAULT NULL,
+  `created_by` bigint DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=COMPACT;
@@ -283,8 +210,8 @@ INSERT INTO `divisions` VALUES ('8', 'e8e724fc-3f68-46a0-8aa1-56912d255698', 'My
 -- ----------------------------
 DROP TABLE IF EXISTS `educational_qualifications`;
 CREATE TABLE `educational_qualifications` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC;
 
@@ -299,76 +226,70 @@ INSERT INTO `educational_qualifications` VALUES ('2', 'মাস্টার্�
 -- ----------------------------
 DROP TABLE IF EXISTS `employees`;
 CREATE TABLE `employees` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
-  `name_BN` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `name_EN` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `father_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `mother_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `national_id` varchar(20) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `mobile_no` varchar(12) COLLATE utf8_unicode_ci NOT NULL,
-  `email` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `quota_id` int(10) DEFAULT NULL,
-  `quota_name` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `sex_id` int(10) DEFAULT NULL,
-  `sex_name` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `religion_id` int(10) DEFAULT NULL,
-  `religion_name` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `bloodgroup_id` int(10) DEFAULT NULL,
-  `bloodgroup_name` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name_BN` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `name_EN` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `father_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `mother_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `national_id` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `mobile_no` varchar(12) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `quota_id` int DEFAULT NULL,
+  `quota_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `sex_id` int DEFAULT NULL,
+  `sex_name` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `religion_id` int DEFAULT NULL,
+  `religion_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `bloodgroup_id` int DEFAULT NULL,
+  `bloodgroup_name` varchar(10) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `dob` date NOT NULL,
   `prl_date` date DEFAULT NULL,
-  `permanent_division_id` int(10) DEFAULT NULL,
-  `permanent_division_name` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `permanent_district_id` int(10) DEFAULT NULL,
-  `permanent_district_name` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `permanent_upazila_id` int(10) DEFAULT NULL,
-  `permanent_upazila_name` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `permanent_address` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `educational_qualification_id` int(10) DEFAULT NULL,
-  `educational_qualification_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `permanent_division_id` int DEFAULT NULL,
+  `permanent_division_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `permanent_district_id` int DEFAULT NULL,
+  `permanent_district_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `permanent_upazila_id` int DEFAULT NULL,
+  `permanent_upazila_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `permanent_address` varchar(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `educational_qualification_id` int DEFAULT NULL,
+  `educational_qualification_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `joining_govt_service_date` date DEFAULT NULL,
   `present_place_joing_date` date DEFAULT NULL,
   `present_post_joining_date` date DEFAULT NULL,
-  `last_promoted_post_id` int(10) DEFAULT NULL,
-  `last_promoted_post_name` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `last_promoted_post_id` int DEFAULT NULL,
+  `last_promoted_post_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `last_promotion_date` date DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
-  `created_by` tinyint(10) DEFAULT NULL,
-  `updated_at` datetime DEFAULT NULL ON UPDATE current_timestamp(),
-  `updated_by` int(10) DEFAULT NULL,
-  `is_active` tinyint(4) DEFAULT NULL,
-  `marital_status_id` int(10) DEFAULT NULL,
-  `marital_status_name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `agency_id` int(10) DEFAULT NULL,
-  `agency_name` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `alternate_mobile_no` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `posting_division_id` int(10) DEFAULT NULL,
-  `posting_district_id` int(10) DEFAULT NULL,
-  `posting_upazila_id` int(10) DEFAULT NULL,
-  `posting_organization_id` int(10) DEFAULT NULL,
-  `posting_sanctionedpost_id` int(10) DEFAULT NULL,
+  `created_by` tinyint DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `updated_by` int DEFAULT NULL,
+  `is_active` tinyint DEFAULT NULL,
+  `marital_status_id` int DEFAULT NULL,
+  `marital_status_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `agency_id` int DEFAULT NULL,
+  `agency_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `alternate_mobile_no` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `posting_division_id` int DEFAULT NULL,
+  `posting_district_id` int DEFAULT NULL,
+  `posting_upazila_id` int DEFAULT NULL,
+  `posting_organization_id` int DEFAULT NULL,
+  `posting_sanctionedpost_id` int DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of employees
 -- ----------------------------
-INSERT INTO `employees` VALUES ('1', 'আসমা খাতুন', 'Aasma Khatun', 'Jalil Uddin', 'জরিনা খাতুন', '823774745', '015656565656', 'email@email.com', '1', null, '0', null, '1', null, '1', null, '1984-01-04', '2029-01-03', '5', null, '45', null, '324', null, '', '2', null, '2001-01-05', '2007-05-05', '2007-01-01', '1', null, '2007-01-01', null, null, '2021-02-15 23:07:02', '1', '1', '1', null, '2', null, '015656565656', '1', '6', '232', '35', '35');
-INSERT INTO `employees` VALUES ('3', 'আসমা খাতুন', '', 'wetyty', 'জরিনা খাতুন', '53255', '015656565656', 'ss@yahoo.com', '1', null, '0', null, '1', null, '1', null, '2020-12-01', '2020-12-01', '2', null, '20', null, '61', null, 'sse', '2', null, '2020-12-01', '2020-12-01', '2020-12-01', '2', null, '2020-12-01', null, null, '2021-02-15 23:06:42', '1', '1', '1', null, '2', null, '', '1', '2', '205', '57', '57');
-INSERT INTO `employees` VALUES ('4', 'আসমা খাতুন', 'wewe', 'ewe', 'জরিনা খাতুন', '4343', '015656565656', 'ss@yahoo.com', '1', null, '1', null, '1', null, '1', null, '2020-12-02', '2020-12-01', '4', null, '34', null, '480', null, 'wrwer', '2', null, '2020-12-01', '2020-12-01', '2020-12-01', '2', null, '0000-00-00', null, null, '2021-02-15 23:07:02', '4', '1', '1', null, '1', null, '015656565656', '1', '1', '154', '494', '496');
-INSERT INTO `employees` VALUES ('5', 'আসমা খাতুন', 'wew', 'wewe', 'জরিনা খাতুন', '823774745', '015656565656', 'email@email.com', '1', null, '0', null, '1', null, '1', null, '2020-12-01', '2020-12-31', '4', null, '32', null, '471', null, '', '2', null, '2020-12-01', '2020-12-01', '2020-12-08', '2', null, '2020-12-08', null, null, '2021-02-15 23:07:02', '1', '1', '1', null, '2', null, '2323', '4', '34', '479', '329', '329');
-INSERT INTO `employees` VALUES ('6', 'আসমা খাতুন', 'asa', 'a', 'জরিনা খাতুন', '232323', '5454454', 'ee@ere.com', '1', null, '1', null, '1', null, '1', null, '2020-12-01', '2020-12-31', '3', null, '33', null, '399', null, '', '2', null, '2020-12-01', '2020-12-02', '2020-12-01', '1', null, '2020-12-09', null, null, '2021-02-15 23:06:42', '4', '1', '1', null, '1', null, '4554545', '4', '34', '479', '329', '329');
-INSERT INTO `employees` VALUES ('7', 'আসমা খাতুন', 'ewe', 'wewe', 'জরিনা খাতুন', '823774745', '015656565656', 'ee@ere.com', '1', null, '0', null, '1', null, '1', null, '1980-01-01', '2027-12-30', '2', null, '19', null, '52', null, 'sds', '2', null, '2000-09-01', '2010-12-01', '2013-12-02', '2', null, '2013-12-01', null, null, '2021-02-15 23:07:02', null, '1', '1', null, '2', null, '015656565656', '3', '33', '400', '280', '280');
 
 -- ----------------------------
 -- Table structure for grade
 -- ----------------------------
 DROP TABLE IF EXISTS `grade`;
 CREATE TABLE `grade` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of grade
@@ -378,14 +299,21 @@ INSERT INTO `grade` VALUES ('2', '2');
 INSERT INTO `grade` VALUES ('3', '3');
 INSERT INTO `grade` VALUES ('4', '4');
 INSERT INTO `grade` VALUES ('5', '5');
+INSERT INTO `grade` VALUES ('6', '6');
+INSERT INTO `grade` VALUES ('7', '7');
+INSERT INTO `grade` VALUES ('8', '8');
+INSERT INTO `grade` VALUES ('9', '9');
+INSERT INTO `grade` VALUES ('10', '10');
+INSERT INTO `grade` VALUES ('11', '11');
+INSERT INTO `grade` VALUES ('12', '12');
 
 -- ----------------------------
 -- Table structure for marital_statuses
 -- ----------------------------
 DROP TABLE IF EXISTS `marital_statuses`;
 CREATE TABLE `marital_statuses` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC;
 
@@ -400,7 +328,7 @@ INSERT INTO `marital_statuses` VALUES ('2', 'অবিবাহিত');
 -- ----------------------------
 DROP TABLE IF EXISTS `media`;
 CREATE TABLE `media` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `file_name` varchar(255) NOT NULL,
   `file_type` varchar(100) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
@@ -418,13 +346,13 @@ INSERT INTO `media` VALUES ('2', 'Enamul_Haque.JPG', 'image/jpeg');
 -- ----------------------------
 DROP TABLE IF EXISTS `movein`;
 CREATE TABLE `movein` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `sanctionedpost_id` int(11) NOT NULL,
-  `employee_id` int(11) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `sanctionedpost_id` int NOT NULL,
+  `employee_id` int NOT NULL,
   `created_at` datetime DEFAULT NULL,
-  `created_by` int(11) DEFAULT NULL,
-  `type_of_posting` int(10) DEFAULT NULL,
-  `reason_of_posting` int(10) DEFAULT NULL,
+  `created_by` int DEFAULT NULL,
+  `type_of_posting` int DEFAULT NULL,
+  `reason_of_posting` int DEFAULT NULL,
   `join_date` date DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC;
@@ -438,11 +366,11 @@ CREATE TABLE `movein` (
 -- ----------------------------
 DROP TABLE IF EXISTS `moveout`;
 CREATE TABLE `moveout` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `sanctionedpost_id` int(11) NOT NULL,
-  `employee_id` int(11) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `sanctionedpost_id` int NOT NULL,
+  `employee_id` int NOT NULL,
   `created_at` datetime DEFAULT NULL,
-  `created_by` int(11) DEFAULT NULL,
+  `created_by` int DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC;
 
@@ -451,29 +379,72 @@ CREATE TABLE `moveout` (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for organization_levels
+-- ----------------------------
+DROP TABLE IF EXISTS `organization_levels`;
+CREATE TABLE `organization_levels` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `name_BN` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=COMPACT;
+
+-- ----------------------------
+-- Records of organization_levels
+-- ----------------------------
+INSERT INTO `organization_levels` VALUES ('1', 'National', 'জাতীয়');
+INSERT INTO `organization_levels` VALUES ('2', 'Divsional', 'বিভাগীয়');
+INSERT INTO `organization_levels` VALUES ('3', 'District', 'জেলা পর্যায়');
+INSERT INTO `organization_levels` VALUES ('4', 'Upazila', 'উপজেলা পর্যায়');
+
+-- ----------------------------
+-- Table structure for organization_types
+-- ----------------------------
+DROP TABLE IF EXISTS `organization_types`;
+CREATE TABLE `organization_types` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `name_BN` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `is_active` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=COMPACT;
+
+-- ----------------------------
+-- Records of organization_types
+-- ----------------------------
+INSERT INTO `organization_types` VALUES ('1', 'আবাসিক প্রশিক্ষণ কেন্দ্র', 'আবাসিক প্রশিক্ষণ কেন্দ্র', '1');
+INSERT INTO `organization_types` VALUES ('2', 'অনাবাসিক প্রশিক্ষণ কেন্দ্র', 'অনাবাসিক প্রশিক্ষণ কেন্দ্র', '1');
+INSERT INTO `organization_types` VALUES ('3', 'কর্মজীবী মহিলা হোস্টেল', 'কর্মজীবী মহিলা হোস্টেল', '1');
+INSERT INTO `organization_types` VALUES ('4', 'শিশু দিবাযত্ন কেন্দ্র', 'শিশু দিবাযত্ন কেন্দ্র', '1');
+INSERT INTO `organization_types` VALUES ('5', 'উপপরিচালকের কার্যালয়', 'উপপরিচালকের কার্যালয়', '1');
+INSERT INTO `organization_types` VALUES ('6', 'উপজেলা মহিলা বিষয়ক কর্মকর্তার কার্যালয়', 'উপজেলা মহিলা বিষয়ক কর্মকর্তার কার্যালয়', '1');
+INSERT INTO `organization_types` VALUES ('7', 'হেড অফিস', 'হেড অফিস', '1');
+INSERT INTO `organization_types` VALUES ('8', 'জাতীয় মহিলা সংস্থা\'র জেলা কার্যালয়', 'জাতীয় মহিলা সংস্থা\'র জেলা কার্যালয়', '1');
+
+-- ----------------------------
 -- Table structure for organizations
 -- ----------------------------
 DROP TABLE IF EXISTS `organizations`;
 CREATE TABLE `organizations` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `name_BN` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `agency_id` int(11) DEFAULT NULL,
-  `organization_type_id` int(11) DEFAULT NULL,
-  `organization_level_id` int(11) DEFAULT NULL,
-  `address` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `division_id` int(11) DEFAULT NULL,
-  `district_id` int(11) DEFAULT NULL,
-  `upazila_id` int(11) DEFAULT NULL,
-  `email` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `contact_no` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `name_BN` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `agency_id` int DEFAULT NULL,
+  `organization_type_id` int DEFAULT NULL,
+  `organization_level_id` int DEFAULT NULL,
+  `address` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `division_id` int DEFAULT NULL,
+  `district_id` int DEFAULT NULL,
+  `upazila_id` int DEFAULT NULL,
+  `email` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `contact_no` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
-  `created_by` int(10) DEFAULT NULL,
+  `created_by` int DEFAULT NULL,
   `is_active` tinyint(1) DEFAULT NULL,
-  `updated_by` int(10) DEFAULT NULL,
+  `updated_by` int DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=495 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=560 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=COMPACT;
 
 -- ----------------------------
 -- Records of organizations
@@ -970,70 +941,89 @@ INSERT INTO `organizations` VALUES ('489', 'উপপরিচালকের �
 INSERT INTO `organizations` VALUES ('490', 'উপপরিচালকের কার্যালয়', 'উপপরিচালকের কার্যালয়', '2', '5', '3', null, null, '46', '331', null, null, '2020-12-18 12:25:29', null, '1', null, '2020-12-18 12:25:29');
 INSERT INTO `organizations` VALUES ('491', 'উপপরিচালকের কার্যালয়', 'উপপরিচালকের কার্যালয়', '2', '5', '3', null, null, '48', '343', null, null, '2020-12-18 12:25:29', null, '1', null, '2020-12-18 12:25:29');
 INSERT INTO `organizations` VALUES ('492', 'উপপরিচালকের কার্যালয়', 'উপপরিচালকের কার্যালয়', '2', '5', '3', null, null, '14', '294', null, null, '2020-12-18 12:25:29', null, '1', null, '2020-12-18 12:25:29');
-INSERT INTO `organizations` VALUES ('494', 'jms tangail', 'jms tangail', '1', '8', '3', '', '1', '1', '154', '', '', null, '4', '1', '4', null);
-
--- ----------------------------
--- Table structure for organization_levels
--- ----------------------------
-DROP TABLE IF EXISTS `organization_levels`;
-CREATE TABLE `organization_levels` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `name_BN` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=COMPACT;
-
--- ----------------------------
--- Records of organization_levels
--- ----------------------------
-INSERT INTO `organization_levels` VALUES ('1', 'National', 'জাতীয়');
-INSERT INTO `organization_levels` VALUES ('2', 'Divsional', 'বিভাগীয়');
-INSERT INTO `organization_levels` VALUES ('3', 'District', 'জেলা পর্যায়');
-INSERT INTO `organization_levels` VALUES ('4', 'Upazila', 'উপজেলা পর্যায়');
-
--- ----------------------------
--- Table structure for organization_types
--- ----------------------------
-DROP TABLE IF EXISTS `organization_types`;
-CREATE TABLE `organization_types` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `name_BN` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `is_active` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=COMPACT;
-
--- ----------------------------
--- Records of organization_types
--- ----------------------------
-INSERT INTO `organization_types` VALUES ('1', 'আবাসিক প্রশিক্ষণ কেন্দ্র', 'আবাসিক প্রশিক্ষণ কেন্দ্র', '1');
-INSERT INTO `organization_types` VALUES ('2', 'অনাবাসিক প্রশিক্ষণ কেন্দ্র', 'অনাবাসিক প্রশিক্ষণ কেন্দ্র', '1');
-INSERT INTO `organization_types` VALUES ('3', 'কর্মজীবী মহিলা হোস্টেল', 'কর্মজীবী মহিলা হোস্টেল', '1');
-INSERT INTO `organization_types` VALUES ('4', 'শিশু দিবাযত্ন কেন্দ্র', 'শিশু দিবাযত্ন কেন্দ্র', '1');
-INSERT INTO `organization_types` VALUES ('5', 'উপপরিচালকের কার্যালয়', 'উপপরিচালকের কার্যালয়', '1');
-INSERT INTO `organization_types` VALUES ('6', 'উপজেলা মহিলা বিষয়ক কর্মকর্তার কার্যালয়', 'উপজেলা মহিলা বিষয়ক কর্মকর্তার কার্যালয়', '1');
-INSERT INTO `organization_types` VALUES ('7', 'হেড অফিস', 'হেড অফিস', '1');
-INSERT INTO `organization_types` VALUES ('8', 'জামস জেলা কার্যালয়', 'জামস জেলা কার্যালয়', '1');
+INSERT INTO `organizations` VALUES ('494', 'জামস ঢাকা জেলা কার্যালয়', 'JMS Dhaka District Office', '1', '8', '3', '&lt;p&gt;১৪৭/ই গ্রীন রোড (২য় তলা), ঢাকা।&lt;/p&gt;\n', '1', '1', '197', 'jmsdhakadistrict@gmail.com', '০২-৯১০৩৭৬৫, ০১৫৫২৩৩৯৭৩০', null, '4', '1', '4', null);
+INSERT INTO `organizations` VALUES ('495', 'জামস টাংগাইল জেলা কার্যালয়', 'JMS Tangail District Office', '1', '8', '3', '&lt;p&gt;জেলা পরিষদের সামনে, টাংগাইল-১৯০০।&lt;/p&gt;\n', '1', '17', '321', 'jmstangail10@gmail.com', '০৯২১-৬৩২৬৩, ০১৭১০৬২১২৬৬', null, '4', '1', '4', null);
+INSERT INTO `organizations` VALUES ('496', 'জামস গোপালগ জেলা কার্যালয়', 'JMS Gopalganj District Office', '1', '8', '3', '&lt;p&gt;৩৬৩/৩ আশ্রম&amp;nbsp;রোড, মোহাম্মদ পাড়া-গোপালগঞ্জ।&lt;/p&gt;\n', '1', '4', '218', 'jms.gopalgonj@gmail.com', '০২৬৬৮-২২৭৮, ০১৭১৪৭০৮৭৭৫', null, '4', '1', '4', null);
+INSERT INTO `organizations` VALUES ('497', 'জামস রাজবাড়ী জেলা কার্যালয়', 'JMS Rajbari District Office', '1', '8', '3', '&lt;p&gt;ওয়াজেদ চৌধুরী প্লাজা প্রধান সড়ক, রাজবাড়ী-৭৭০০।&lt;/p&gt;\n', '1', '14', '298', 'jmsrajbari@gmail.com', '০১৭৭০৬৪৪০৬৮', null, '4', '1', '4', null);
+INSERT INTO `organizations` VALUES ('498', 'জামস মানিকগঞ্জ জেলা কার্যালয়', 'JMS Manikganj District Office', '1', '8', '3', '&lt;p&gt;পশ্চিম দাশড়া,জরিনা কলেজের উত্তর পুর্ব পাশে সিংগাইর রোড, মানিকগঞ্জ-১৮০০।&lt;/p&gt;\n', '1', '8', '250', 'jms.manikganj@gmail.com', '০৬৫১-৬১০৬৬, ০১৭১১৯৪৬৫০৪', null, '4', '1', '4', null);
+INSERT INTO `organizations` VALUES ('499', 'জামস গাজীপুর জেলা কার্যালয়', 'JMS Gazipur District Office', '1', '8', '3', '&lt;p&gt;শিউলি কুঞ্জ,ডি-৭০/১ কলেজ রোড মধ্য ছায়াবীথি, গাজীপুর-১৭০০।&lt;/p&gt;\n', '1', '3', '213', 'jms.gazi.dist@gmail.com', '০২-৯২৫২৯৭৫, ০১৭১০৮১১৯২৬', null, '4', '1', '4', null);
+INSERT INTO `organizations` VALUES ('500', 'জামস নরসিংদী জেলা কার্যালয়', 'JMS Narsingdi District Office', '1', '8', '3', '&lt;p&gt;সদর উপজেলা কমপ্লেক্স বিলাসী, নরসিংদী-১৬০০।&lt;/p&gt;\n', '1', '12', '280', 'jmsnarsingdi1@gmail.com', '০২৯৪৫১৪১৬, ০১৭২১১১০৭২৫', null, '4', '1', '4', null);
+INSERT INTO `organizations` VALUES ('501', 'জামস নারায়নগঞ্জ জেলা কার্যালয়', 'JMS Narayanganj District Office', '1', '8', '3', '&lt;p&gt;২৬৮/১ ইকবাল রোড, চাষাড়া, নাঃগঞ্জ-১৪০০।&lt;/p&gt;\n', '1', '11', '276', 'jmsnarayangonj@gmail.com', '০২-৭৬৪৭১৪৪, ০১৭২৭৩৩১২০২', null, '4', '1', '4', null);
+INSERT INTO `organizations` VALUES ('502', 'জামস মুন্সিগঞ্জ জেলা কার্যালয়', 'JMS Munshiganj District Office', '1', '8', '3', '&lt;p&gt;দেওভোগ বাজার সংলগ্ন শীল মন্ধি জেলা পরিষদের পিছনের রাস্তা দিয়ে একটু সামনে, মুন্সিগঞ্জ-১৫০০।&lt;/p&gt;\n', '1', '9', '256', 'jmsmunshiganj@gmail.com', '০১৭২৭৩৬৮৩৫৫', null, '4', '1', '4', null);
+INSERT INTO `organizations` VALUES ('503', 'জামস ফরিদপুর জেলা কার্যালয়', 'JMS Faridpur District Office', '1', '8', '3', '&lt;p&gt;উওর আলীপুর (রাজ্জাকের মোড়) , ফরিদপুর-৭৮০০।&lt;/p&gt;\n', '1', '2', '208', 'jmsfaridpurdistrict@gmail.com', '০৬৩১-৬১৪০৪, ০১৭৪২৪৮০৪৫৬', null, '4', '1', '4', null);
+INSERT INTO `organizations` VALUES ('504', 'জামস মাদারীপুর জেলা কার্যালয়', 'JMS Madaripur District Office', '1', '8', '3', '&lt;p&gt;লেক ভিউ সড়ক, মাদারীপুর-৭৯০০।&lt;/p&gt;\n', '1', '7', '244', 'jmsmadaripur@gmail.com', '০১৬৬১-৬১১৬৯, ০১৭২৬৩৯৪০২৮', null, '4', '1', '4', null);
+INSERT INTO `organizations` VALUES ('505', 'জামস শরিয়তপুর জেলা কার্যালয়', 'JMS Shariatpur District Office', '1', '8', '3', '&lt;p&gt;হাসপাতাল রোড, শরিয়তপুর-৮০০০।&lt;/p&gt;\n', '1', '15', '303', 'jms.shariatpur@gmail.com', '০৬০১-৫১২৬৮,  ০১৭১৫৩৫৯৫৭১', null, '4', '1', '4', null);
+INSERT INTO `organizations` VALUES ('507', 'জামস কিশোরগঞ্জ জেলা কার্যালয়', 'JMS Kishorganj District Office', '1', '8', '3', '&lt;p&gt;হয়বতনগর, কিশোরগঞ্জ-২৩০০।&lt;/p&gt;\n', '1', '6', '237', 'jmskishoreganj@gmail.com', '০৯৪১-৬১০১০, ০১৭১২১৭৫৪৯২, ০১৯৮৪৯৯৬৮৫০', null, '4', '1', '4', null);
+INSERT INTO `organizations` VALUES ('508', 'জামস ময়মনসিংহ জেলা কার্যালয়', 'JMS Mymensing District Office', '1', '8', '3', '&lt;p&gt;৬৫ পন্ডিত পাড়া (পানি উন্নয়ন বোর্ড অফিসের বিপরীতে) গাঙ্গাদাস গুই রোড, ময়মনসিংহ-২২০০।&lt;/p&gt;\n', '8', '10', '267', 'jms.mymensin@gmail.com', '০৯১-৬৩৪২৩, ০১৭৩৮৯৮৮৬৩০', null, '4', '1', '4', null);
+INSERT INTO `organizations` VALUES ('509', 'জামস নেত্রকোনা জেলা কার্যালয়', 'JMS Netrakona District Office', '1', '8', '3', '&lt;p&gt;অজহর রোড, নেত্রকোনা-২৪০০।&lt;/p&gt;\n', '8', '13', '292', 'jmsnetrakona@gmail.com', '০১৭২৭৩৫০৭৭২', null, '4', '1', '4', null);
+INSERT INTO `organizations` VALUES ('510', 'জামস শেরপুর জেলা কার্যালয়', 'JMS Sherpur District Office', '1', '8', '3', '&lt;p&gt;নারায়নপুর, শেরপুর-২১০০।&lt;/p&gt;\n', '8', '16', '308', 'jmssherpur@gmail.com', '০৯৩১-৬১৮১৫, ০১৫৫৬৩০০৮৮৪', null, '4', '1', '4', null);
+INSERT INTO `organizations` VALUES ('511', 'জামস জামালপুর জেলা কার্যালয়', 'JMS Jamalpur District Office', '1', '8', '3', '&lt;p&gt;সিএন্ডবি রোড,বসাক পাড়া মোড় , জামালপুর-২০০০।&lt;/p&gt;\n', '8', '5', '226', 'jmsjamalpur@gmail.com', '০৯৮১-৬২২৯৫, ০১৭১৬৪৪৩৯৩৮', null, '4', '1', '4', null);
+INSERT INTO `organizations` VALUES ('512', 'জামস চট্রগ্রাম জেলা কার্যালয়', 'জামস চট্রগ্রাম জেলা কার্যালয়', '1', '8', '3', '&lt;p&gt;৩০/বি, আশ্রয় ভবন, হাইলেভেল রোড়, লালখানবাজর, খুলশী, চট্রগ্রাম-৪০০০।&lt;/p&gt;\n', '2', '21', '79', 'jmsctg2016@gmail.com', '০৩১-৬২৫৪৩৩, ০১৮৭৯৪৫৯৫২', null, '4', '1', '4', null);
+INSERT INTO `organizations` VALUES ('514', 'জামস রাঙ্গামাটি জেলা কার্যালয়', 'জামস রাঙ্গামাটি জেলা কার্যালয়', '1', '8', '3', '&lt;p&gt;টি এন্ড টি এলাকা পোঃ রাঙ্গামাটি সদর, রাঙ্গামাটি-৪৫০০।&lt;/p&gt;\n', '2', '28', '153', 'jms.rangamati@yahoo.com', '০১৫৫৬৫৭৪৮১৯', null, '4', '1', '4', null);
+INSERT INTO `organizations` VALUES ('515', 'জামস ফেণী জেলা কার্যালয়', 'জামস ফেণী জেলা কার্যালয়', '1', '8', '3', '&lt;p&gt;কোট মসজিদ রোড, দিঘীর পাড়, ফেণী-৩৯০০।&lt;/p&gt;\n', '2', '24', '118', 'jms.feni@gmail.com', '০৩৩১- ৬৩৪৭৭, ০১৭১২৩৯১২২২', null, '4', '1', '4', null);
+INSERT INTO `organizations` VALUES ('516', 'জামস বান্দরবান জেলা কার্যালয়', 'জামস বান্দরবান জেলা কার্যালয়', '1', '8', '3', '&lt;p&gt;উজানীপাড়া বান্দরবান সদর, বান্দরবান-৪৬০০।&lt;/p&gt;\n', '2', '18', '44', 'jmsbandarban@gmail.com', '০১৭২৬২৩০০৭৩', null, '4', '1', '4', null);
+INSERT INTO `organizations` VALUES ('517', 'জামস খাগড়াছড়ি জেলা কার্যালয়', 'জামস খাগড়াছড়ি জেলা কার্যালয়', '1', '8', '3', '&lt;p&gt;কেন্দ্রীয় মারমা উন্নয়ন সংসদ ভবন মিলনপুর, খাগড়াছড়ি-৪৪০০।&lt;/p&gt;\n', '2', '25', '123', 'jmskhagra@gmail.com', '০৩৭১-৬১৩৫৫, ০১৫৫০৬০৫০১০', null, '4', '1', '4', null);
+INSERT INTO `organizations` VALUES ('518', 'জামস কক্সবাজার জেলা কার্যালয়', 'জামস কক্সবাজার জেলা কার্যালয়', '1', '8', '3', '&lt;p&gt;ফাইছেল ভবন (২য় তলা) বৌদ্ধ মন্দির সড়ক, কক্সবাজার-৪৭০০।&lt;/p&gt;\n\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n', '2', '23', '109', 'jmscox0341@gmail.com', '০৩৪১-৬২৬৭৩, ০১৮১১১০৬৫৬২', null, '4', '1', '4', null);
+INSERT INTO `organizations` VALUES ('519', 'জামস বি-বাড়িয়া জেলা কার্যালয়', 'জামস বি-বাড়িয়া জেলা কার্যালয়', '1', '8', '3', '&lt;p&gt;পশ্চিম পাইকপাড়া, বি-বাড়িয়া-৩৪০০।&lt;/p&gt;\n', '2', '19', '53', 'jms.brahmanbaria@gmail.com', '০৮৫১-৬২০১১, ০১৯২১৩৯৪৩৬৫', null, '4', '1', '4', null);
+INSERT INTO `organizations` VALUES ('520', 'জামস লহ্মীপুর জেলা কার্যালয়', 'জামস লহ্মীপুর জেলা কার্যালয়', '1', '8', '3', '&lt;p&gt;বাগবাড়ী, লহ্মীপুর-৩৭০০।&lt;/p&gt;\n', '2', '26', '131', 'jmslakshmipur@gmail.com', '০৩৮১-৬১০৩৮, ০১৮১৬৫৫৬৭৯৭', null, '4', '1', '4', null);
+INSERT INTO `organizations` VALUES ('521', 'জামস নোয়াখালী জেলা কার্যালয়', 'জামস নোয়াখালী জেলা কার্যালয়', '1', '8', '3', '&lt;p&gt;মাইজদী কোট, নোয়াখালী-৩৮০০।&lt;/p&gt;\n', '2', '27', '143', 'dbwctp64.noakhali@gmail.com', '০৩২১- ৬২৫৭২, ০১৮১৬০৬১৮১০', null, '4', '1', '4', null);
+INSERT INTO `organizations` VALUES ('522', 'জামস চাঁদপুর জেলা কার্যালয়', 'জামস চাঁদপুর জেলা কার্যালয়', '1', '8', '3', '&lt;p&gt;খান সুপার মার্কেট (৩য় তলা)কুমিল্লা রোড,হাসান আলী হাইস্কুলের পশ্চিম দিকে, চাঁদপুর-৩৬০০।&lt;/p&gt;\n', '2', '20', '59', 'jmschandpur64@gmail.com', '০১৮৪১-৬৬৪৮৫, ০১৯১৫২১৮৪৪৩', null, '4', '1', '4', null);
+INSERT INTO `organizations` VALUES ('523', 'জামস কুমিল্লা জেলা কার্যালয়', 'জামস কুমিল্লা জেলা কার্যালয়', '1', '8', '3', '&lt;p&gt;প্রফেসার পাড়া, অশোক তলা, কুমিল্লা-৩৫০০।&lt;/p&gt;\n\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n', '2', '22', '97', 'jms.comilla@gmail.com', '০৪১-৬২৪০০, ০১৯২৩১১৩৯০৪', null, '4', '1', '4', null);
+INSERT INTO `organizations` VALUES ('524', 'জামস সিলেট জেলা কার্যালয়', 'জামস সিলেট জেলা কার্যালয়', '1', '8', '3', '&lt;p&gt;জান্নাত মহল বাসা নং২০৬,রোড নং ৬, ব্লক-ই,শাহ জালাল উপশহর,২২ নং ওয়ার্ড সিলেট সিটিকর্পোরেশন, সিলেট-৩১০০।&lt;/p&gt;\n', '7', '64', '551', 'jmssylhetgovbd@gmail.com', '০১৭৭২২৮১৯৮০', null, '4', '1', '4', null);
+INSERT INTO `organizations` VALUES ('525', 'জামস সুনামগঞ্জ জেলা কার্যালয়', 'জামস সুনামগঞ্জ জেলা কার্যালয়', '1', '8', '3', '&lt;p&gt;মুক্তাপাড়া, সুনামগঞ্জ-৩০০০।&lt;/p&gt;\n', '7', '63', '539', 'jms.sunamganj@gmail.com', '০৮৭১-৬২৪৬৪, ০১৭১৬৩৯৪১১৩', null, '4', '1', '4', null);
+INSERT INTO `organizations` VALUES ('526', 'জামস মৌলভীবাজার জেলা কার্যালয়', 'জামস মৌলভীবাজার জেলা কার্যালয়', '1', '8', '3', '&lt;p&gt;শাহ্ মোস্তফা সড়ক, মৌলভীবাজার-৩২০০।&lt;/p&gt;\n', '7', '62', '527', 'jms.moul.gov@gmail.com', '০৮৬১-৬৪৫৪১, ০১৫৫৮৩২৭৩০৯, ০১৭৭২২৮১৯৮০', null, '4', '1', '4', null);
+INSERT INTO `organizations` VALUES ('527', 'জামস হবিগঞ্জ জেলা কার্যালয়', 'জামস হবিগঞ্জ জেলা কার্যালয়', '1', '8', '3', '&lt;p&gt;হোসেন প্যালেস সার্কিট হাউজ রোড,সায়েস্তানগর , হবিগঞ্জ&lt;/p&gt;\n', '7', '61', '519', 'jmshabiganj3300@gmail.com', '০৮৩১-৫২০৭২, ০১৭১৯৩৫৩৪৩৮', null, '4', '1', '4', null);
+INSERT INTO `organizations` VALUES ('528', 'জামস খুলনা জেলা কার্যালয়', 'জামস খুলনা জেলা কার্যালয়', '1', '8', '3', '&lt;p&gt;৬ শেরে বাংলা রোড, খুলনা - ৯০০০।&lt;/p&gt;\n', '5', '49', '356', 'jmskhulna9@gmail.com', '০৪১-৮১০৭০৬, ০১৭১৬৯১১৩৮২', null, '4', '1', '4', null);
+INSERT INTO `organizations` VALUES ('529', 'জামস সাতক্ষীরা জেলা কার্যালয়', 'জামস সাতক্ষীরা জেলা কার্যালয়', '1', '8', '3', '&lt;p&gt;সরকারী কলেজ রোড, সাতক্ষীরা - ৭৯০০।&lt;/p&gt;\n', '5', '54', '383', 'satkhirajms@gmail.com', '০৪৭১- ৬৪৯১৩, ০১৭২০২৬২৫৮২', null, '4', '1', '4', null);
+INSERT INTO `organizations` VALUES ('530', 'জামস বাগেরহাট জেলা কার্যালয়', 'জামস বাগেরহাট জেলা কার্যালয়', '1', '8', '3', '&lt;p&gt;আলিয়া মাদ্রাসা রোড, বাগেরহাট - ৯৩০০।&lt;/p&gt;\n\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n', '5', '45', '322', 'jms.bagerhat.bd@gmail.com', '০৪৬৮-৬৩৫৮৮, ০১৭১৬৯১১৩৮২', null, '4', '1', '4', null);
+INSERT INTO `organizations` VALUES ('531', 'জামস যশোর জেলা কার্যালয়', 'জামস যশোর জেলা কার্যালয়', '1', '8', '3', '&lt;p&gt;মজিব সড়ক বাইলেন পিটি আই রোড, বাড়ি এ/১০, হোঃ নং- ৭৭২, যশোর - ৭৪০০।&lt;/p&gt;\n', '5', '47', '340', 'jms.jessore7400@gmail.com', '০৪২১-৬১৫৬৬৪, ০১৭২৪৫৫৬৪৫৫', null, '4', '1', '4', null);
+INSERT INTO `organizations` VALUES ('532', 'জামস ঝিনাইদহ জেলা কার্যালয়', 'জামস ঝিনাইদহ জেলা কার্যালয়', '1', '8', '3', '&lt;p&gt;কবি শুকান্ত সড়ক, ঝিনাইদহ- ৭৩০০।&lt;/p&gt;\n', '5', '48', '344', 'jms.jhd.gov@gmail.com', '০৪৫১-৬২৫০৮, ০১৯১২৩৮২২৪১', null, '4', '1', '4', null);
+INSERT INTO `organizations` VALUES ('533', 'জামস নড়াইল জেলা কার্যালয়', 'জামস নড়াইল জেলা কার্যালয়', '1', '8', '3', '&lt;p&gt;মহিশখোলা, নড়াইল - ৭৫০০।&lt;/p&gt;\n', '5', '53', '378', 'jms.narail@gmail.com', '০৪৮১-৬২৮৫১, ০১৭২৪৫৫৬৪৫৫', null, '4', '1', '4', null);
+INSERT INTO `organizations` VALUES ('534', 'জামস মাগুরা জেলা কার্যালয়', 'জামস মাগুরা জেলা কার্যালয়', '1', '8', '3', '&lt;p&gt;রোড নং-৩ বাড়ি নং-১৬৯, হাজী আব্দুল হামিদ সড়ক, কলেজ পাড়া, মাগুরা - ৯৬০০।&lt;/p&gt;\n', '5', '51', '369', 'jmsmagura1@gmail.com', '০৪৮৮-৫১০৯০, ০১৭১২৯৪৮৬৯০', null, '4', '1', '4', null);
+INSERT INTO `organizations` VALUES ('535', 'জামস কুষ্টিয়া জেলা কার্যালয়', 'জামস কুষ্টিয়া জেলা কার্যালয়', '1', '8', '3', '&lt;p&gt;১০, কেরামত মাস্তান বাইবেল, নতুন কোর্ট পাড়া, কুষ্টিয়া-৭০০০।&lt;/p&gt;\n', '5', '50', '367', 'jmskushtia@gmail.com', '০৭১-৬১৬৭২, ০১৭১৬২১৪২৮৬', null, '4', '1', '4', null);
+INSERT INTO `organizations` VALUES ('536', 'জামস মেহেরপুর জেলা কার্যালয়', 'জামস মেহেরপুর জেলা কার্যালয়', '1', '8', '3', '&lt;p&gt;বামন পাড়া, মেহেরপুর - ৭১০০।&lt;/p&gt;\n\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n', '5', '52', '375', 'jms.meherpur2015@gmail.com', '০৭৯১-৬২৮৫২, ০১৭১২১৭৯৬৭১', null, '4', '1', '4', null);
+INSERT INTO `organizations` VALUES ('538', 'জামস চুয়াডাঙ্গা জেলা কার্যালয়', 'জামস চুয়াডাঙ্গা জেলা কার্যালয়', '1', '8', '3', '&lt;p&gt;কেদারগঞ্জ সিএন্ড বি পাড়া, চুয়াডাঙ্গা - ৭২০০।&lt;/p&gt;\n', '5', '46', '332', 'jms.chuadanga@gmail.com', '০৭৬১-৬৩০৩৭, ০১৭১২১৭৯৬৭১', null, '4', '1', '4', null);
+INSERT INTO `organizations` VALUES ('539', 'জামস চাঁপাইনবাবগঞ্জ জেলা কার্যালয়', 'জামস চাঁপাইনবাবগঞ্জ জেলা কার্যালয়', '1', '8', '3', '&lt;p&gt;লাখেরাজ পাড়া,জেলা তথ্য অফিস (২য় তলা), চাঁপাইনবাবগঞ্জ-৬৩০০।&lt;/p&gt;\n', '3', '30', '424', 'jmschapainawabganj@gmail.com', '০৭৮১-৫৫৬০৫, ০১৭১৮৬৭৬৪২৬', null, '4', '1', '4', null);
+INSERT INTO `organizations` VALUES ('540', 'জামস বগুড়া জেলা কার্যালয়', 'জামস বগুড়া জেলা কার্যালয়', '1', '8', '3', '&lt;p&gt;সদর উপজেলা পরিষদ,পুরাতন কমপ্লেক্স ভবন (২য় তলা) কৈগাড়ি, বগুড়া-৫১০০।&lt;/p&gt;\n', '3', '29', '387', 'jmsbogra@yahoo.com', '০৫১-৭৮৫৭০, ০১৭১৬৫০৮২৬০', null, '4', '1', '4', null);
+INSERT INTO `organizations` VALUES ('541', 'জামস জয়পুরহাট জেলা কার্যালয়', 'জামস জয়পুরহাট জেলা কার্যালয়', '1', '8', '3', '&lt;p&gt;সবুজ নগর-৫, জয়পুরহাট-৫৯০০।&lt;/p&gt;\n', '3', '33', '399', 'jms.joypurhat@gmail.com', '০৫৭১-৬১৪৭৭, ০১৭১৮২৮০৭১৮', null, '4', '1', '4', null);
+INSERT INTO `organizations` VALUES ('542', 'জামস নওগাঁ জেলা কার্যালয়', 'জামস নওগাঁ জেলা কার্যালয়', '1', '8', '3', '&lt;p&gt;পোঃ-সান্তাহার, নওগাঁ-৬৫০০।&lt;/p&gt;\n', '3', '36', '408', 'jms.naogaon@gmail.com', '০৭৪১-৬১৭৯০, ০১৭১৬৫০৮২৬০', null, '4', '1', '4', null);
+INSERT INTO `organizations` VALUES ('543', 'জামস নাটোর জেলা কার্যালয়', 'জামস নাটোর জেলা কার্যালয়', '1', '8', '3', '&lt;p&gt;কানাইখালী, নাটোর-৬৪০০।&lt;/p&gt;\n', '3', '37', '419', 'jmsnatore@gmail.com', '০৭৭১-৬১১৭৬, ০১৭১৮২৩১৬৫১', null, '4', '1', '4', null);
+INSERT INTO `organizations` VALUES ('544', 'জামস সিরাজগঞ্জ জেলা কার্যালয়', 'জামস সিরাজগঞ্জ জেলা কার্যালয়', '1', '8', '3', '&lt;p&gt;একঢালা, সিরাজগঞ্জ-&amp;nbsp;&amp;nbsp;৬৭০০।&lt;/p&gt;\n\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n', '3', '43', '454', 'jms.sirajganj@gmail.com', '০৭৫১- ৬৩৯০৩, ০১৮৩৯৯০০৪১৩', null, '4', '1', '4', null);
+INSERT INTO `organizations` VALUES ('545', 'জামস পাবনা জেলা কার্যালয়', 'জামস পাবনা জেলা কার্যালয়', '1', '8', '3', '&lt;p&gt;কাচারী পাড়া, কদমতলা, পাবনা-৬৬০০।&lt;/p&gt;\n', '3', '39', '432', 'jmspabna@gmail.com', '০৭৩১-৬৬০৪২, ০১৭১৮১৮৫২৮২', null, '4', '1', '4', null);
+INSERT INTO `organizations` VALUES ('546', 'জামস লালমনিরহাট জেলা কার্যালয়', 'জামস লালমনিরহাট জেলা কার্যালয়', '1', '8', '3', '&lt;p&gt;নর্থ বেংগল ওয়ার্কশপ রোড, লালমনিরহাট-৫৫০০।&lt;/p&gt;\n', '4', '35', '489', 'jms.lalmonirhat@gmail.com', '০৫৯১-৬১২৭৪, ০১৭১০৯২০২১২', null, '4', '1', '4', null);
+INSERT INTO `organizations` VALUES ('547', 'জামস রংপুর জেলা কার্যালয়', 'জামস রংপুর জেলা কার্যালয়', '1', '8', '3', '&lt;p&gt;বাসার নাম অভিলাষ, বাসা নং ২০/১, রোড নং-২, গোমাস্তপাড়া, থানা রোড, রংপুর-৫,৪০০।&lt;/p&gt;\n\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n', '4', '42', '505', 'jmsrangpur@gmail.com', '০৫২১-৫৩৪৫৫, ০১৭২৬৪৩৪৩৪২', null, '4', '1', '4', null);
+INSERT INTO `organizations` VALUES ('548', 'জামস দিনাজপুর জেলা কার্যালয়', 'জামস দিনাজপুর জেলা কার্যালয়', '1', '8', '3', '&lt;p&gt;জেলা কমপ্লেক্স, মুন্সিপাড়া, দিনাজপুর&amp;nbsp; ৫২০০।&lt;/p&gt;\n', '4', '31', '467', 'jms.dinajpur@gmail.com', '০৫৩১-৬৩৫৯৮, ০১৭৭০৬৬২৬১৯', null, '4', '1', '4', null);
+INSERT INTO `organizations` VALUES ('549', 'জামস নীলফামারী জেলা কার্যালয়', 'জামস নীলফামারী জেলা কার্যালয়', '1', '8', '3', '&lt;p&gt;কবরস্থান সড়ক,কলেজপাড়া, নীলফামারী-৫৩০০।&lt;/p&gt;\n\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n', '4', '38', '495', 'jmsnilphamari026@gmail.com', '০৫৫১-৬১৭৬৩, ০১৭১৭২৯১০২৬', null, '4', '1', '4', null);
+INSERT INTO `organizations` VALUES ('550', 'জামস গাইবান্ধা জেলা কার্যালয়', 'জামস গাইবান্ধা জেলা কার্যালয়', '1', '8', '3', '&lt;p&gt;ডিবি রোড,মডার্ণ ডায়াগনষ্টিক সেন্টারের (৩য় তলা) সিঙ্গার এর পিবরীতে গাইবান্ধা-৫৭০০।&lt;/p&gt;\n', '4', '32', '471', 'jms.gaibandha.bd@gmail.com', '০৫৪১-৫২৩৫৭, ০১৭২৬৩৪৬১১৭', null, '4', '1', '4', null);
+INSERT INTO `organizations` VALUES ('551', 'জামস ঠাকুরগাঁও জেলা কার্যালয়', 'জামস ঠাকুরগাঁও জেলা কার্যালয়', '1', '8', '3', '&lt;p&gt;হাজীপাড়া, ঠাকুরগাঁও-৫১০০।&lt;/p&gt;\n', '4', '44', '514', 'jmsthakurgaon15@gmail.com', '০৫৬১- ৫২২০৬, ০১৭১২৯০৯৭৭২', null, '4', '1', '4', null);
+INSERT INTO `organizations` VALUES ('552', 'জামস পঞ্চগড় জেলা কার্যালয়', 'জামস পঞ্চগড় জেলা কার্যালয়', '1', '8', '3', '&lt;p&gt;ডাক - ডোকরো পাড়া, পঞ্চগড় - ৫০০০।&lt;/p&gt;\n', '4', '40', '500', 'jmspanchagarh@gmail.com', '০৫৬৮-৬১৫৯৯৬, ০১৭১২৯০৯৭৭২', null, '4', '1', '4', null);
+INSERT INTO `organizations` VALUES ('553', 'জামস কুড়িগ্রাম জেলা কার্যালয়', 'জামস কুড়িগ্রাম জেলা কার্যালয়', '1', '8', '3', '&lt;p&gt;দাদামোড় সংলগ্ন সর্দার পাড়া, কুড়িগ্রাম-৫৬০০।&lt;/p&gt;\n', '4', '34', '481', 'kurigramjms@gmail.com', '০৫৮১-৬১৯৫৫, ০১৭৬৫৯৭৮৩০৪', null, '4', '1', '4', null);
+INSERT INTO `organizations` VALUES ('554', 'জামস বরিশাল জেলা কার্যালয়', 'জামস বরিশাল জেলা কার্যালয়', '1', '8', '3', '&lt;p&gt;জর্ডন, রোড, বরিশাল - ৮২০০।&lt;/p&gt;\n', '6', '56', '13', 'nurjmsbarisal@gmail.com', '০৪৩১-২১৭৩৭১৬, ০১৭১৬৪০৫৯৯৯', null, '4', '1', '4', null);
+INSERT INTO `organizations` VALUES ('555', 'জামস ঝালকাঠি জেলা কার্যালয়', 'জামস ঝালকাঠি জেলা কার্যালয়', '1', '8', '3', '&lt;p&gt;১২ নং বাহের রোড, ঝালকাঠি- ৮৪০০।&lt;/p&gt;\n', '6', '58', '24', 'jmsjhalokati@gmail.com', '০৪৯৮-৬২৩৬৬ ০১৭১৮৯৯০৪৩৩', null, '4', '1', '4', null);
+INSERT INTO `organizations` VALUES ('556', 'জামস পটুয়াখালী জেলা কার্যালয়', 'জামস পটুয়াখালী জেলা কার্যালয়', '1', '8', '3', '&lt;p&gt;পুরাতন জেলগেইটের সামনে, পটুয়াখালী - ৮৬০০।&lt;/p&gt;\n', '6', '59', '34', 'jmspatuakhali@gmail.com', '০৪৪১-৬২৯৪৮, ০১৭১৯৫০৬৭৯০', null, '4', '1', '4', null);
+INSERT INTO `organizations` VALUES ('557', 'জামস ভোলা জেলা কার্যালয়', 'জামস ভোলা জেলা কার্যালয়', '1', '8', '3', '&lt;p&gt;সদর উপজেলা চত্তর, হেলিপোট রোড, ভোলা - ৮৩০০।&lt;/p&gt;\n', '6', '57', '17', 'jmsbholasadar@gmail.com', '০৪৯১-৬১২২৮, ০১৭১২১১৭৭৩২', null, '4', '1', '4', null);
+INSERT INTO `organizations` VALUES ('558', 'জামস পিরোজপুর জেলা কার্যালয়', 'জামস পিরোজপুর জেলা কার্যালয়', '1', '8', '3', '&lt;p&gt;কুমারখালি, পিটিআই এর পিছনে, পিরোজপুর - ৮৫০০।&lt;/p&gt;\n', '6', '60', '40', 'dojmspirojpur@gmail.com', '০৪৬১-৬২৮৫০, ০১৭১৬৭৭৯৭৫৮', null, '4', '1', '4', null);
+INSERT INTO `organizations` VALUES ('559', 'জামস বরগুনা জেলা কার্যালয়', 'জামস বরগুনা জেলা কার্যালয়', '1', '8', '3', '&lt;p&gt;ডিকেপি রোড, বরগুনা - ৮৭০০।&lt;/p&gt;\n', '6', '55', '3', 'bargunajms64@gmail.com', '০৪৪৮- ৬২৮০২, 01767123593', null, '4', '1', '4', null);
 
 -- ----------------------------
 -- Table structure for posting
 -- ----------------------------
 DROP TABLE IF EXISTS `posting`;
 CREATE TABLE `posting` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
-  `division_id` int(11) DEFAULT NULL,
-  `district_id` int(11) DEFAULT NULL,
-  `upazila_id` int(11) DEFAULT NULL,
-  `organization_id` int(10) DEFAULT NULL,
-  `sanctionedpost_id` int(10) DEFAULT NULL,
-  `employee_id` int(10) NOT NULL,
-  `type_of_posting` int(10) DEFAULT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `division_id` int DEFAULT NULL,
+  `district_id` int DEFAULT NULL,
+  `upazila_id` int DEFAULT NULL,
+  `organization_id` int DEFAULT NULL,
+  `sanctionedpost_id` int DEFAULT NULL,
+  `employee_id` int NOT NULL,
+  `type_of_posting` int DEFAULT NULL,
   `start_date` date DEFAULT NULL,
   `end_date` date DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of posting
@@ -1044,14 +1034,14 @@ CREATE TABLE `posting` (
 -- ----------------------------
 DROP TABLE IF EXISTS `poststatus`;
 CREATE TABLE `poststatus` (
-  `organization` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `designation` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `division` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `district` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `upazila` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `employee` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `mobile` varchar(12) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `STATUS` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL
+  `organization` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `designation` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `division` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `district` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `upazila` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `employee` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `mobile` varchar(12) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `STATUS` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
@@ -1556,12 +1546,12 @@ INSERT INTO `poststatus` VALUES ('উপজেলা মহিলা বিষ�
 -- ----------------------------
 DROP TABLE IF EXISTS `promotion`;
 CREATE TABLE `promotion` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
-  `designation_id` int(10) NOT NULL,
-  `grade` int(10) DEFAULT NULL,
-  `go_no` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `designation_id` int NOT NULL,
+  `grade` int DEFAULT NULL,
+  `go_no` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `go_date` date DEFAULT NULL,
-  `employee_id` int(10) DEFAULT NULL,
+  `employee_id` int DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC;
 
@@ -1574,8 +1564,8 @@ CREATE TABLE `promotion` (
 -- ----------------------------
 DROP TABLE IF EXISTS `quotas`;
 CREATE TABLE `quotas` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC;
 
@@ -1590,8 +1580,8 @@ INSERT INTO `quotas` VALUES ('2', 'প্রতিবন্ধী');
 -- ----------------------------
 DROP TABLE IF EXISTS `reason_of_postings`;
 CREATE TABLE `reason_of_postings` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC;
 
@@ -1606,8 +1596,8 @@ INSERT INTO `reason_of_postings` VALUES ('2', 'পদোন্নতি');
 -- ----------------------------
 DROP TABLE IF EXISTS `religions`;
 CREATE TABLE `religions` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC;
 
@@ -1623,19 +1613,19 @@ INSERT INTO `religions` VALUES ('3', 'খ্রিস্টান');
 -- ----------------------------
 DROP TABLE IF EXISTS `sanctionedposts`;
 CREATE TABLE `sanctionedposts` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `agency_id` int(10) NOT NULL,
-  `designation_id` int(10) DEFAULT NULL,
-  `designation_name` varchar(100) COLLATE utf8_unicode_ci DEFAULT '',
-  `organization_name` varchar(100) COLLATE utf8_unicode_ci DEFAULT '',
-  `division_id` int(11) DEFAULT NULL,
-  `district_id` int(11) DEFAULT NULL,
-  `upazila_id` int(11) DEFAULT NULL,
-  `organization_id` int(10) DEFAULT NULL,
-  `status` varchar(20) COLLATE utf8_unicode_ci DEFAULT '',
+  `id` int NOT NULL AUTO_INCREMENT,
+  `agency_id` int NOT NULL,
+  `designation_id` int DEFAULT NULL,
+  `designation_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '',
+  `organization_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '',
+  `division_id` int DEFAULT NULL,
+  `district_id` int DEFAULT NULL,
+  `upazila_id` int DEFAULT NULL,
+  `organization_id` int DEFAULT NULL,
+  `status` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '',
   `created_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=497 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=560 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of sanctionedposts
@@ -1674,7 +1664,7 @@ INSERT INTO `sanctionedposts` VALUES ('31', '2', '2', 'উপজেলা মহ
 INSERT INTO `sanctionedposts` VALUES ('32', '2', '2', 'উপজেলা মহিলা বিষয়ক কর্মকর্তা', 'উপজেলা মহিলা বিষয়ক কর্মকর্তার কার্যালয়,নিকলী, কিশোরগঞ্জ', '1', '6', '240', '32', 'Vacant', '2020-12-18 12:45:00');
 INSERT INTO `sanctionedposts` VALUES ('33', '2', '2', 'উপজেলা মহিলা বিষয়ক কর্মকর্তা', 'উপজেলা মহিলা বিষয়ক কর্মকর্তার কার্যালয়,ইটনা, কিশোরগঞ্জ', '1', '6', '234', '33', 'Vacant', '2020-12-18 12:45:00');
 INSERT INTO `sanctionedposts` VALUES ('34', '2', '2', 'উপজেলা মহিলা বিষয়ক কর্মকর্তা', 'উপজেলা মহিলা বিষয়ক কর্মকর্তার কার্যালয়,পাকুন্দিয়া, কিশোরগঞ্জ', '1', '6', '241', '34', 'Vacant', '2020-12-18 12:45:00');
-INSERT INTO `sanctionedposts` VALUES ('35', '2', '2', 'উপজেলা মহিলা বিষয়ক কর্মকর্তা', 'উপজেলা মহিলা বিষয়ক কর্মকর্তার কার্যালয়,ভৈরব, কিশোরগঞ্জ', '1', '6', '232', '35', 'Filled', '2020-12-18 12:45:00');
+INSERT INTO `sanctionedposts` VALUES ('35', '2', '2', 'উপজেলা মহিলা বিষয়ক কর্মকর্তা', 'উপজেলা মহিলা বিষয়ক কর্মকর্তার কার্যালয়,ভৈরব, কিশোরগঞ্জ', '1', '6', '232', '35', 'Vacant', '2020-12-18 12:45:00');
 INSERT INTO `sanctionedposts` VALUES ('36', '2', '2', 'উপজেলা মহিলা বিষয়ক কর্মকর্তা', 'উপজেলা মহিলা বিষয়ক কর্মকর্তার কার্যালয়,কুলিয়ারচর, কিশোরগঞ্জ', '1', '6', '238', '36', 'Vacant', '2020-12-18 12:45:00');
 INSERT INTO `sanctionedposts` VALUES ('37', '2', '2', 'উপজেলা মহিলা বিষয়ক কর্মকর্তা', 'উপজেলা মহিলা বিষয়ক কর্মকর্তার কার্যালয়,হোসেনপুর, কিশোরগঞ্জ', '1', '6', '233', '37', 'Vacant', '2020-12-18 12:45:00');
 INSERT INTO `sanctionedposts` VALUES ('38', '2', '2', 'উপজেলা মহিলা বিষয়ক কর্মকর্তা', 'উপজেলা মহিলা বিষয়ক কর্মকর্তার কার্যালয়,কটিয়াদি, কিশোরগঞ্জ', '1', '6', '236', '38', 'Vacant', '2020-12-18 12:45:00');
@@ -1696,7 +1686,7 @@ INSERT INTO `sanctionedposts` VALUES ('53', '2', '2', 'উপজেলা মহ
 INSERT INTO `sanctionedposts` VALUES ('54', '2', '2', 'উপজেলা মহিলা বিষয়ক কর্মকর্তা', 'উপজেলা মহিলা বিষয়ক কর্মকর্তার কার্যালয়,নগরকান্দা, ফরিদপুর', '1', '2', '210', '54', 'Vacant', '2020-12-18 12:45:00');
 INSERT INTO `sanctionedposts` VALUES ('55', '2', '2', 'উপজেলা মহিলা বিষয়ক কর্মকর্তা', 'উপজেলা মহিলা বিষয়ক কর্মকর্তার কার্যালয়,আলফাডাঙ্গা,ফরিদপুর,আলফাডাঙ্গা, ফরিদপুর।', '1', '2', '204', '55', 'Vacant', '2020-12-18 12:45:00');
 INSERT INTO `sanctionedposts` VALUES ('56', '2', '2', 'উপজেলা মহিলা বিষয়ক কর্মকর্তা', 'উপজেলা মহিলা বিষয়ক কর্মকর্তার কার্যালয়,বোয়ালমারী, ফরিদপুর', '1', '2', '206', '56', 'Vacant', '2020-12-18 12:45:00');
-INSERT INTO `sanctionedposts` VALUES ('57', '2', '2', 'উপজেলা মহিলা বিষয়ক কর্মকর্তা', 'উপজেলা মহিলা বিষয়ক কর্মকর্তার কার্যালয়,ভাঙ্গা, ফরিদপুর', '1', '2', '205', '57', 'Filled', '2020-12-18 12:45:00');
+INSERT INTO `sanctionedposts` VALUES ('57', '2', '2', 'উপজেলা মহিলা বিষয়ক কর্মকর্তা', 'উপজেলা মহিলা বিষয়ক কর্মকর্তার কার্যালয়,ভাঙ্গা, ফরিদপুর', '1', '2', '205', '57', 'Vacant', '2020-12-18 12:45:00');
 INSERT INTO `sanctionedposts` VALUES ('58', '2', '2', 'উপজেলা মহিলা বিষয়ক কর্মকর্তা', 'উপজেলা মহিলা বিষয়ক কর্মকর্তার কার্যালয়,মধুখালী, ফরিদপুর', '1', '2', '209', '58', 'Vacant', '2020-12-18 12:45:00');
 INSERT INTO `sanctionedposts` VALUES ('59', '2', '2', 'উপজেলা মহিলা বিষয়ক কর্মকর্তা', 'উপজেলা মহিলা বিষয়ক কর্মকর্তার কার্যালয়,চরভ্রদাসন, ফরিদপুর', '1', '2', '207', '59', 'Vacant', '2020-12-18 12:45:00');
 INSERT INTO `sanctionedposts` VALUES ('60', '2', '2', 'উপজেলা মহিলা বিষয়ক কর্মকর্তা', 'উপজেলা মহিলা বিষয়ক কর্মকর্তার কার্যালয়,সালথা, ফরিদপুর', '1', '2', '212', '60', 'Vacant', '2020-12-18 12:45:00');
@@ -1759,7 +1749,7 @@ INSERT INTO `sanctionedposts` VALUES ('116', '2', '2', 'উপজেলা ম�
 INSERT INTO `sanctionedposts` VALUES ('117', '2', '2', 'উপজেলা মহিলা বিষয়ক কর্মকর্তা', 'উপজেলা মহিলা বিষয়ক কর্মকর্তার কার্যালয়,বেতাগী, বরগুনা', '6', '55', '4', '117', 'Vacant', '2020-12-18 12:45:00');
 INSERT INTO `sanctionedposts` VALUES ('118', '2', '2', 'উপজেলা মহিলা বিষয়ক কর্মকর্তা', 'উপজেলা মহিলা বিষয়ক কর্মকর্তার কার্যালয়,পাথরঘাটা, বরগুনা', '6', '55', '5', '118', 'Vacant', '2020-12-18 12:45:00');
 INSERT INTO `sanctionedposts` VALUES ('119', '2', '2', 'উপজেলা মহিলা বিষয়ক কর্মকর্তা', 'উপজেলা মহিলা বিষয়ক কর্মকর্তার কার্যালয়,ভান্ডারিয়া, পিরোজপুর', '6', '60', '36', '119', 'Vacant', '2020-12-18 12:45:00');
-INSERT INTO `sanctionedposts` VALUES ('120', '2', '2', 'উপজেলা মহিলা বিষয়ক কর্মকর্তা', 'উপজেলা মহিলা বিষয়ক কর্মকর্তার কার্যালয়,নাজিরপুর, পিরোজপুর', '6', '60', '39', '120', 'Filled', '2020-12-18 12:45:00');
+INSERT INTO `sanctionedposts` VALUES ('120', '2', '2', 'উপজেলা মহিলা বিষয়ক কর্মকর্তা', 'উপজেলা মহিলা বিষয়ক কর্মকর্তার কার্যালয়,নাজিরপুর, পিরোজপুর', '6', '60', '39', '120', 'Vacant', '2020-12-18 12:45:00');
 INSERT INTO `sanctionedposts` VALUES ('121', '2', '2', 'উপজেলা মহিলা বিষয়ক কর্মকর্তা', 'উপজেলা মহিলা বিষয়ক কর্মকর্তার কার্যালয়,মঠবাড়ীয়া, পিরোজপুর', '6', '60', '38', '121', 'Vacant', '2020-12-18 12:45:00');
 INSERT INTO `sanctionedposts` VALUES ('122', '2', '2', 'উপজেলা মহিলা বিষয়ক কর্মকর্তা', 'উপজেলা মহিলা বিষয়ক কর্মকর্তার কার্যালয়,ইন্দুরকানি, পিরোজপুর', '6', '60', '42', '122', 'Vacant', '2020-12-18 12:45:00');
 INSERT INTO `sanctionedposts` VALUES ('123', '2', '2', 'উপজেলা মহিলা বিষয়ক কর্মকর্তা', 'উপজেলা মহিলা বিষয়ক কর্মকর্তার কার্যালয়,কাউখালি, পিরোজপুর', '6', '60', '37', '123', 'Vacant', '2020-12-18 12:45:00');
@@ -1968,7 +1958,7 @@ INSERT INTO `sanctionedposts` VALUES ('325', '2', '2', 'উপজেলা ম�
 INSERT INTO `sanctionedposts` VALUES ('326', '2', '2', 'উপজেলা মহিলা বিষয়ক কর্মকর্তা', 'উপজেলা মহিলা বিষয়ক কর্মকর্তার কার্যালয়,সাদুল্লাপুর, গাইবান্ধা', '4', '32', '474', '326', 'Vacant', '2020-12-18 12:45:00');
 INSERT INTO `sanctionedposts` VALUES ('327', '2', '2', 'উপজেলা মহিলা বিষয়ক কর্মকর্তা', 'উপজেলা মহিলা বিষয়ক কর্মকর্তার কার্যালয়,গোবিন্দগঞ্জ, গাইবান্ধা', '4', '32', '472', '327', 'Vacant', '2020-12-18 12:45:00');
 INSERT INTO `sanctionedposts` VALUES ('328', '2', '2', 'উপজেলা মহিলা বিষয়ক কর্মকর্তা', 'উপজেলা মহিলা বিষয়ক কর্মকর্তার কার্যালয়,ফুলছড়ি, গাইবান্ধা', '4', '32', '470', '328', 'Vacant', '2020-12-18 12:45:00');
-INSERT INTO `sanctionedposts` VALUES ('329', '2', '2', 'উপজেলা মহিলা বিষয়ক কর্মকর্তা', 'উপজেলা মহিলা বিষয়ক কর্মকর্তার কার্যালয়,চিলমারী, কুড়িগ্রাম', '4', '34', '479', '329', 'Filled', '2020-12-18 12:45:00');
+INSERT INTO `sanctionedposts` VALUES ('329', '2', '2', 'উপজেলা মহিলা বিষয়ক কর্মকর্তা', 'উপজেলা মহিলা বিষয়ক কর্মকর্তার কার্যালয়,চিলমারী, কুড়িগ্রাম', '4', '34', '479', '329', 'Vacant', '2020-12-18 12:45:00');
 INSERT INTO `sanctionedposts` VALUES ('330', '2', '2', 'উপজেলা মহিলা বিষয়ক কর্মকর্তা', 'উপজেলা মহিলা বিষয়ক কর্মকর্তার কার্যালয়,রাজারহাট, কুড়িগ্রাম', '4', '34', '483', '330', 'Vacant', '2020-12-18 12:45:00');
 INSERT INTO `sanctionedposts` VALUES ('331', '2', '2', 'উপজেলা মহিলা বিষয়ক কর্মকর্তা', 'উপজেলা মহিলা বিষয়ক কর্মকর্তার কার্যালয়,উলিপুর, কুড়িগ্রাম', '4', '34', '485', '331', 'Vacant', '2020-12-18 12:45:00');
 INSERT INTO `sanctionedposts` VALUES ('332', '2', '2', 'উপজেলা মহিলা বিষয়ক কর্মকর্তা', 'উপজেলা মহিলা বিষয়ক কর্মকর্তার কার্যালয়,ভুরুঙ্গমারী, কুড়িগ্রাম', '4', '34', '477', '332', 'Vacant', '2020-12-18 12:45:00');
@@ -2133,15 +2123,77 @@ INSERT INTO `sanctionedposts` VALUES ('490', '2', '1', 'উপপরিচাল
 INSERT INTO `sanctionedposts` VALUES ('491', '2', '1', 'উপপরিচালক', 'উপপরিচালকের কার্যালয়', '5', '48', '343', '491', 'Vacant', '2020-12-18 12:45:00');
 INSERT INTO `sanctionedposts` VALUES ('492', '2', '1', 'উপপরিচালক', 'উপপরিচালকের কার্যালয়', '1', '14', '294', '492', 'Vacant', '2020-12-18 12:45:00');
 INSERT INTO `sanctionedposts` VALUES ('493', '2', '4', 'প্রোগ্রাম অফিসার', 'উপজেলা মহিলা বিষয়ক কর্মকর্তার কার্যালয়,মুকসুদপুর, গোপালগঞ্জ', '1', '4', '221', '71', 'Vacant', '2020-12-18 08:48:20');
-INSERT INTO `sanctionedposts` VALUES ('496', '1', '5', 'জেলা কর্মকর্তা, জামস', 'jms tangail', '1', '1', '154', '494', 'Filled', '2021-02-12 02:40:20');
+INSERT INTO `sanctionedposts` VALUES ('495', '1', '5', 'জেলা কমকর্তা', 'জামস টাংগাইল জেলা কার্যালয়', '1', '17', '321', '495', 'Vacant', '2021-02-14 07:32:13');
+INSERT INTO `sanctionedposts` VALUES ('496', '1', '5', 'জেলা কমকর্তা', 'জামস ঢাকা জেলা কার্যালয়', '1', '1', '197', '494', 'Filled', '2021-02-14 08:01:37');
+INSERT INTO `sanctionedposts` VALUES ('497', '1', '5', 'জেলা কমকর্তা', 'জামস গোপালগ জেলা কার্যালয়', '1', '4', '218', '496', 'Vacant', '2021-02-14 08:02:15');
+INSERT INTO `sanctionedposts` VALUES ('498', '1', '5', 'জেলা কমকর্তা', 'জামস কিশোরগঞ্জ জেলা কার্যালয়', '1', '6', '237', '507', 'Vacant', '2021-02-18 04:51:58');
+INSERT INTO `sanctionedposts` VALUES ('499', '1', '5', 'জেলা কমকর্তা', 'জামস মাদারীপুর জেলা কার্যালয়', '1', '7', '244', '504', 'Vacant', '2021-02-18 04:52:41');
+INSERT INTO `sanctionedposts` VALUES ('500', '1', '5', 'জেলা কমকর্তা', 'জামস মানিকগঞ্জ জেলা কার্যালয়', '1', '8', '250', '498', 'Vacant', '2021-02-18 04:53:06');
+INSERT INTO `sanctionedposts` VALUES ('501', '1', '5', 'জেলা কমকর্তা', 'জামস মুন্সিগঞ্জ জেলা কার্যালয়', '1', '9', '256', '502', 'Vacant', '2021-02-18 04:53:51');
+INSERT INTO `sanctionedposts` VALUES ('502', '1', '5', 'জেলা কমকর্তা', 'জামস নারায়নগঞ্জ জেলা কার্যালয়', '1', '11', '276', '501', 'Vacant', '2021-02-18 04:54:23');
+INSERT INTO `sanctionedposts` VALUES ('503', '1', '5', 'জেলা কমকর্তা', 'জামস নরসিংদী জেলা কার্যালয়', '1', '12', '280', '500', 'Vacant', '2021-02-18 04:54:55');
+INSERT INTO `sanctionedposts` VALUES ('504', '1', '5', 'জেলা কমকর্তা', 'জামস রাজবাড়ী জেলা কার্যালয়', '1', '14', '298', '497', 'Vacant', '2021-02-18 04:55:39');
+INSERT INTO `sanctionedposts` VALUES ('505', '1', '5', 'জেলা কমকর্তা', 'জামস শরিয়তপুর জেলা কার্যালয়', '1', '15', '303', '505', 'Vacant', '2021-02-18 04:56:07');
+INSERT INTO `sanctionedposts` VALUES ('506', '1', '5', 'জেলা কমকর্তা', 'জামস শরিয়তপুর জেলা কার্যালয়', '1', '15', '303', '505', 'Vacant', '2021-02-18 04:56:47');
+INSERT INTO `sanctionedposts` VALUES ('507', '1', '5', 'জেলা কমকর্তা', 'জামস টাংগাইল জেলা কার্যালয়', '1', '17', '321', '495', 'Vacant', '2021-02-18 04:57:31');
+INSERT INTO `sanctionedposts` VALUES ('508', '1', '5', 'জেলা কমকর্তা', 'জামস জামালপুর জেলা কার্যালয়', '8', '5', '226', '511', 'Vacant', '2021-02-18 05:18:16');
+INSERT INTO `sanctionedposts` VALUES ('509', '1', '5', 'জেলা কমকর্তা', 'জামস ময়মনসিংহ জেলা কার্যালয়', '8', '10', '267', '508', 'Vacant', '2021-02-18 05:18:42');
+INSERT INTO `sanctionedposts` VALUES ('510', '1', '5', 'জেলা কমকর্তা', 'জামস নেত্রকোনা জেলা কার্যালয়', '8', '13', '292', '509', 'Vacant', '2021-02-18 05:19:05');
+INSERT INTO `sanctionedposts` VALUES ('511', '1', '5', 'জেলা কমকর্তা', 'জামস শেরপুর জেলা কার্যালয়', '8', '16', '308', '510', 'Vacant', '2021-02-18 05:19:36');
+INSERT INTO `sanctionedposts` VALUES ('512', '1', '5', 'জেলা কমকর্তা', 'জামস বান্দরবান জেলা কার্যালয়', '2', '18', '44', '516', 'Vacant', '2021-02-20 01:48:41');
+INSERT INTO `sanctionedposts` VALUES ('513', '1', '5', 'জেলা কমকর্তা', 'জামস বি-বাড়িয়া জেলা কার্যালয়', '2', '19', '53', '519', 'Vacant', '2021-02-20 01:49:16');
+INSERT INTO `sanctionedposts` VALUES ('514', '1', '5', 'জেলা কমকর্তা', 'জামস চাঁদপুর জেলা কার্যালয়', '2', '20', '59', '522', 'Vacant', '2021-02-20 01:49:40');
+INSERT INTO `sanctionedposts` VALUES ('515', '1', '5', 'জেলা কমকর্তা', 'জামস চট্রগ্রাম জেলা কার্যালয়', '2', '21', '79', '512', 'Vacant', '2021-02-20 01:50:28');
+INSERT INTO `sanctionedposts` VALUES ('516', '1', '5', 'জেলা কমকর্তা', 'জামস কুমিল্লা জেলা কার্যালয়', '2', '22', '97', '523', 'Vacant', '2021-02-20 01:58:49');
+INSERT INTO `sanctionedposts` VALUES ('517', '1', '5', 'জেলা কমকর্তা', 'জামস কক্সবাজার জেলা কার্যালয়', '2', '23', '109', '518', 'Vacant', '2021-02-20 01:59:19');
+INSERT INTO `sanctionedposts` VALUES ('518', '1', '5', 'জেলা কমকর্তা', 'জামস ফেণী জেলা কার্যালয়', '2', '24', '118', '515', 'Vacant', '2021-02-20 01:59:44');
+INSERT INTO `sanctionedposts` VALUES ('519', '1', '5', 'জেলা কমকর্তা', 'জামস খাগড়াছড়ি জেলা কার্যালয়', '2', '25', '123', '517', 'Vacant', '2021-02-20 02:00:06');
+INSERT INTO `sanctionedposts` VALUES ('520', '1', '5', 'জেলা কমকর্তা', 'জামস লহ্মীপুর জেলা কার্যালয়', '2', '26', '131', '520', 'Vacant', '2021-02-20 02:00:32');
+INSERT INTO `sanctionedposts` VALUES ('521', '1', '5', 'জেলা কমকর্তা', 'জামস নোয়াখালী জেলা কার্যালয়', '2', '27', '143', '521', 'Vacant', '2021-02-20 02:01:07');
+INSERT INTO `sanctionedposts` VALUES ('522', '1', '5', 'জেলা কমকর্তা', 'জামস রাঙ্গামাটি জেলা কার্যালয়', '2', '28', '153', '514', 'Vacant', '2021-02-20 02:02:11');
+INSERT INTO `sanctionedposts` VALUES ('523', '1', '5', 'জেলা কমকর্তা', 'জামস হবিগঞ্জ জেলা কার্যালয়', '7', '61', '519', '527', 'Vacant', '2021-02-20 02:10:32');
+INSERT INTO `sanctionedposts` VALUES ('524', '1', '5', 'জেলা কমকর্তা', 'জামস মৌলভীবাজার জেলা কার্যালয়', '7', '62', '527', '526', 'Vacant', '2021-02-20 02:10:56');
+INSERT INTO `sanctionedposts` VALUES ('525', '1', '5', 'জেলা কমকর্তা', 'জামস সুনামগঞ্জ জেলা কার্যালয়', '7', '63', '539', '525', 'Vacant', '2021-02-20 02:11:22');
+INSERT INTO `sanctionedposts` VALUES ('526', '1', '5', 'জেলা কমকর্তা', 'জামস সিলেট জেলা কার্যালয়', '7', '64', '551', '524', 'Vacant', '2021-02-20 02:11:49');
+INSERT INTO `sanctionedposts` VALUES ('527', '1', '5', 'জেলা কমকর্তা', 'জামস বাগেরহাট জেলা কার্যালয়', '5', '45', '322', '530', 'Vacant', '2021-02-20 02:50:33');
+INSERT INTO `sanctionedposts` VALUES ('529', '1', '5', 'জেলা কমকর্তা', 'জামস যশোর জেলা কার্যালয়', '5', '47', '340', '531', 'Vacant', '2021-02-20 02:51:44');
+INSERT INTO `sanctionedposts` VALUES ('530', '1', '5', 'জেলা কমকর্তা', 'জামস ঝিনাইদহ জেলা কার্যালয়', '5', '48', '344', '532', 'Vacant', '2021-02-20 02:52:04');
+INSERT INTO `sanctionedposts` VALUES ('532', '1', '5', 'জেলা কমকর্তা', 'জামস খুলনা জেলা কার্যালয়', '5', '49', '356', '528', 'Vacant', '2021-02-20 02:52:54');
+INSERT INTO `sanctionedposts` VALUES ('533', '1', '5', 'জেলা কমকর্তা', 'জামস কুষ্টিয়া জেলা কার্যালয়', '5', '50', '367', '535', 'Vacant', '2021-02-20 02:53:40');
+INSERT INTO `sanctionedposts` VALUES ('534', '1', '5', 'জেলা কমকর্তা', 'জামস মাগুরা জেলা কার্যালয়', '5', '51', '369', '534', 'Vacant', '2021-02-20 02:54:13');
+INSERT INTO `sanctionedposts` VALUES ('535', '1', '5', 'জেলা কমকর্তা', 'জামস মেহেরপুর জেলা কার্যালয়', '5', '52', '375', '536', 'Vacant', '2021-02-20 02:54:44');
+INSERT INTO `sanctionedposts` VALUES ('536', '1', '5', 'জেলা কমকর্তা', 'জামস নড়াইল জেলা কার্যালয়', '5', '53', '378', '533', 'Vacant', '2021-02-20 02:55:16');
+INSERT INTO `sanctionedposts` VALUES ('537', '1', '5', 'জেলা কমকর্তা', 'জামস সাতক্ষীরা জেলা কার্যালয়', '5', '54', '383', '529', 'Vacant', '2021-02-20 02:55:50');
+INSERT INTO `sanctionedposts` VALUES ('538', '1', '5', 'জেলা কমকর্তা', 'জামস চুয়াডাঙ্গা জেলা কার্যালয়', '5', '46', '332', '538', 'Vacant', '2021-02-20 03:00:06');
+INSERT INTO `sanctionedposts` VALUES ('539', '1', '5', 'জেলা কমকর্তা', 'জামস বগুড়া জেলা কার্যালয়', '3', '29', '387', '540', 'Vacant', '2021-02-20 03:43:40');
+INSERT INTO `sanctionedposts` VALUES ('540', '1', '5', 'জেলা কমকর্তা', 'জামস চাঁপাইনবাবগঞ্জ জেলা কার্যালয়', '3', '30', '424', '539', 'Vacant', '2021-02-20 03:44:04');
+INSERT INTO `sanctionedposts` VALUES ('541', '1', '5', 'জেলা কমকর্তা', 'জামস জয়পুরহাট জেলা কার্যালয়', '3', '33', '399', '541', 'Vacant', '2021-02-20 03:44:28');
+INSERT INTO `sanctionedposts` VALUES ('542', '1', '5', 'জেলা কমকর্তা', 'জামস নওগাঁ জেলা কার্যালয়', '3', '36', '408', '542', 'Vacant', '2021-02-20 03:44:49');
+INSERT INTO `sanctionedposts` VALUES ('543', '1', '5', 'জেলা কমকর্তা', 'জামস নাটোর জেলা কার্যালয়', '3', '37', '419', '543', 'Vacant', '2021-02-20 03:45:13');
+INSERT INTO `sanctionedposts` VALUES ('544', '1', '5', 'জেলা কমকর্তা', 'জামস পাবনা জেলা কার্যালয়', '3', '39', '432', '545', 'Vacant', '2021-02-20 03:45:37');
+INSERT INTO `sanctionedposts` VALUES ('545', '1', '5', 'জেলা কমকর্তা', 'জামস সিরাজগঞ্জ জেলা কার্যালয়', '3', '43', '454', '544', 'Vacant', '2021-02-20 03:46:25');
+INSERT INTO `sanctionedposts` VALUES ('546', '1', '5', 'জেলা কমকর্তা', 'জামস দিনাজপুর জেলা কার্যালয়', '4', '31', '467', '548', 'Vacant', '2021-02-20 03:47:05');
+INSERT INTO `sanctionedposts` VALUES ('547', '1', '5', 'জেলা কমকর্তা', 'জামস গাইবান্ধা জেলা কার্যালয়', '4', '32', '471', '550', 'Vacant', '2021-02-20 03:47:26');
+INSERT INTO `sanctionedposts` VALUES ('548', '1', '5', 'জেলা কমকর্তা', 'জামস কুড়িগ্রাম জেলা কার্যালয়', '4', '34', '481', '553', 'Vacant', '2021-02-20 03:47:50');
+INSERT INTO `sanctionedposts` VALUES ('549', '1', '5', 'জেলা কমকর্তা', 'জামস লালমনিরহাট জেলা কার্যালয়', '4', '35', '489', '546', 'Vacant', '2021-02-20 03:48:10');
+INSERT INTO `sanctionedposts` VALUES ('550', '1', '5', 'জেলা কমকর্তা', 'জামস পঞ্চগড় জেলা কার্যালয়', '4', '40', '500', '552', 'Vacant', '2021-02-20 03:48:34');
+INSERT INTO `sanctionedposts` VALUES ('551', '1', '5', 'জেলা কমকর্তা', 'জামস রংপুর জেলা কার্যালয়', '4', '42', '505', '547', 'Vacant', '2021-02-20 03:48:57');
+INSERT INTO `sanctionedposts` VALUES ('552', '1', '5', 'জেলা কমকর্তা', 'জামস ঠাকুরগাঁও জেলা কার্যালয়', '4', '44', '514', '551', 'Vacant', '2021-02-20 03:49:30');
+INSERT INTO `sanctionedposts` VALUES ('553', '1', '5', 'জেলা কমকর্তা', 'জামস নীলফামারী জেলা কার্যালয়', '4', '38', '495', '549', 'Vacant', '2021-02-20 03:53:33');
+INSERT INTO `sanctionedposts` VALUES ('554', '1', '5', 'জেলা কমকর্তা', 'জামস বরগুনা জেলা কার্যালয়', '6', '55', '3', '559', 'Vacant', '2021-02-20 03:54:43');
+INSERT INTO `sanctionedposts` VALUES ('555', '1', '5', 'জেলা কমকর্তা', 'জামস বরিশাল জেলা কার্যালয়', '6', '56', '13', '554', 'Vacant', '2021-02-20 03:55:09');
+INSERT INTO `sanctionedposts` VALUES ('556', '1', '5', 'জেলা কমকর্তা', 'জামস ভোলা জেলা কার্যালয়', '6', '57', '17', '557', 'Vacant', '2021-02-20 03:55:33');
+INSERT INTO `sanctionedposts` VALUES ('557', '1', '5', 'জেলা কমকর্তা', 'জামস ঝালকাঠি জেলা কার্যালয়', '6', '58', '24', '555', 'Vacant', '2021-02-20 03:56:21');
+INSERT INTO `sanctionedposts` VALUES ('558', '1', '5', 'জেলা কমকর্তা', 'জামস পটুয়াখালী জেলা কার্যালয়', '6', '59', '34', '556', 'Vacant', '2021-02-20 03:56:53');
+INSERT INTO `sanctionedposts` VALUES ('559', '1', '5', 'জেলা কমকর্তা', 'জামস পিরোজপুর জেলা কার্যালয়', '6', '60', '40', '558', 'Vacant', '2021-02-20 03:57:15');
 
 -- ----------------------------
 -- Table structure for sex
 -- ----------------------------
 DROP TABLE IF EXISTS `sex`;
 CREATE TABLE `sex` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC;
 
@@ -2156,8 +2208,8 @@ INSERT INTO `sex` VALUES ('2', 'নারী');
 -- ----------------------------
 DROP TABLE IF EXISTS `type_of_posting`;
 CREATE TABLE `type_of_posting` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
-  `name_BN` varchar(50) CHARACTER SET utf8 NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name_BN` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC;
 
@@ -2173,26 +2225,26 @@ INSERT INTO `type_of_posting` VALUES ('3', 'অতিরিক্ত দায়�
 -- ----------------------------
 DROP TABLE IF EXISTS `upazilas`;
 CREATE TABLE `upazilas` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
-  `uuid` varchar(36) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `name` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `name_BN` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `combinedcode` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `uuid` varchar(36) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `name` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `name_BN` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `combinedcode` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `latitude` double DEFAULT NULL,
   `longitude` double DEFAULT NULL,
-  `code` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `division_id` int(10) unsigned DEFAULT NULL,
-  `division_code` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `division_name` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `district_id` int(10) unsigned DEFAULT NULL,
-  `district_code` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `district_name` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `district_name_BN` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `updated_by` int(10) unsigned DEFAULT NULL,
+  `code` varchar(10) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `division_id` int unsigned DEFAULT NULL,
+  `division_code` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `division_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `district_id` int unsigned DEFAULT NULL,
+  `district_code` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `district_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `district_name_BN` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `updated_by` int unsigned DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `is_active` tinyint(1) DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
-  `created_by` bigint(20) DEFAULT NULL,
+  `created_by` bigint DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   KEY `upazilas_district_id_foreign` (`district_id`) USING BTREE,
@@ -2756,42 +2808,14 @@ INSERT INTO `upazilas` VALUES ('551', 'd0208ec9-e1af-449e-9280-859132a6c8ba', 'S
 INSERT INTO `upazilas` VALUES ('552', '3daf4a8e-e589-4c35-9c5f-3111191392ee', 'Zakiganj', 'জকিগঞ্জ', '609194', null, null, '94', '7', '60', 'Sylhet', '64', '91', 'Sylhet', 'সিলেট', '1', '2016-03-31 19:45:39', '1', null, '1', '2016-03-31 19:45:39');
 
 -- ----------------------------
--- Table structure for users
--- ----------------------------
-DROP TABLE IF EXISTS `users`;
-CREATE TABLE `users` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(60) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `username` varchar(50) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `user_level` int(11) NOT NULL,
-  `image` varchar(255) DEFAULT 'no_image.jpg',
-  `agency_id` tinyint(4) DEFAULT NULL,
-  `status` int(1) NOT NULL,
-  `last_login` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE,
-  KEY `user_level` (`user_level`) USING BTREE,
-  CONSTRAINT `FK_user` FOREIGN KEY (`user_level`) REFERENCES `user_groups` (`group_level`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
-
--- ----------------------------
--- Records of users
--- ----------------------------
-INSERT INTO `users` VALUES ('1', 'Ministry Admin', 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', '1', 'w19i5my51.png', null, '1', '2021-02-16 22:51:26');
-INSERT INTO `users` VALUES ('2', 'বাংলাদেশ শিশু একডেমী', 'bsa', '942078ca2d04f25545a316c123a392c4d5d339fd', '2', 'no_image.jpg', '1', '1', '2018-02-02 11:53:54');
-INSERT INTO `users` VALUES ('3', 'মহিলা ও শিশু বিষয়ক মন্ত্রণালয়', 'mowca', '12dea96fec20593566ab75692c9949596833adc9', '2', 'no_image.jpg', '4', '1', '2018-01-25 16:42:21');
-INSERT INTO `users` VALUES ('4', 'জাতীয় মহিলা সংস্থা', 'Jms', '8cb2237d0679ca88db6464eac60da96345513964', '2', '7s0tmep74.png', '1', '1', '2021-02-12 20:37:37');
-INSERT INTO `users` VALUES ('5', 'মহিলা বিষয়ক অধিদপ্তর', 'Dwa', '8cb2237d0679ca88db6464eac60da96345513964', '2', 'no_image.jpg', '2', '1', '2021-02-15 22:45:55');
-
--- ----------------------------
 -- Table structure for user_groups
 -- ----------------------------
 DROP TABLE IF EXISTS `user_groups`;
 CREATE TABLE `user_groups` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `group_name` varchar(150) NOT NULL,
-  `group_level` int(11) NOT NULL,
-  `group_status` int(1) NOT NULL,
+  `group_level` int NOT NULL,
+  `group_status` int NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `group_level` (`group_level`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
@@ -2804,57 +2828,53 @@ INSERT INTO `user_groups` VALUES ('2', 'special', '2', '1');
 INSERT INTO `user_groups` VALUES ('3', 'User', '3', '1');
 
 -- ----------------------------
+-- Table structure for users
+-- ----------------------------
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE `users` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(60) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `username` varchar(50) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `user_level` int NOT NULL,
+  `image` varchar(255) DEFAULT 'no_image.jpg',
+  `agency_id` tinyint DEFAULT NULL,
+  `status` int NOT NULL,
+  `last_login` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `user_level` (`user_level`) USING BTREE,
+  CONSTRAINT `FK_user` FOREIGN KEY (`user_level`) REFERENCES `user_groups` (`group_level`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
+
+-- ----------------------------
+-- Records of users
+-- ----------------------------
+INSERT INTO `users` VALUES ('1', 'Ministry Admin', 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', '1', 'w19i5my51.png', null, '1', '2021-02-28 16:55:39');
+INSERT INTO `users` VALUES ('2', 'বাংলাদেশ শিশু একডেমী', 'bsa', '8cb2237d0679ca88db6464eac60da96345513964', '2', 'no_image.jpg', '3', '1', '2021-02-28 11:05:10');
+INSERT INTO `users` VALUES ('3', 'মহিলা ও শিশু বিষয়ক মন্ত্রণালয়', 'mowca', '12dea96fec20593566ab75692c9949596833adc9', '2', 'no_image.jpg', '4', '1', '2018-01-25 16:42:21');
+INSERT INTO `users` VALUES ('4', 'জাতীয় মহিলা সংস্থা', 'Jms', '8cb2237d0679ca88db6464eac60da96345513964', '2', 'fn44z3oj4.jpg', '1', '1', '2021-03-01 20:17:10');
+INSERT INTO `users` VALUES ('5', 'মহিলা বিষয়ক অধিদপ্তর', 'Dwa', '8cb2237d0679ca88db6464eac60da96345513964', '2', 'no_image.jpg', '2', '1', '2021-02-09 16:37:31');
+
+-- ----------------------------
+-- View structure for v_dd
+-- ----------------------------
+DROP VIEW IF EXISTS `v_dd`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`mowcahrm_user`@`%` SQL SECURITY DEFINER VIEW `v_dd` AS select `ag`.`name_BN` AS `agency`,`ot`.`name_BN` AS `organization_type`,`s`.`organization_name` AS `organization`,`s`.`designation_id` AS `designation_id`,`s`.`designation_name` AS `designation`,`districts`.`id` AS `district_id`,`districts`.`name_BN` AS `district`,`e`.`name_BN` AS `employee`,`e`.`mobile_no` AS `mobile`,`e`.`email` AS `email`,`s`.`status` AS `STATUS` from (((((`sanctionedposts` `s` left join `organizations` `o` on((`s`.`organization_id` = `o`.`id`))) left join `organization_types` `ot` on((`ot`.`id` = `o`.`organization_type_id`))) left join `agencies` `ag` on((`o`.`agency_id` = `ag`.`id`))) left join `employees` `e` on((`s`.`id` = `e`.`posting_sanctionedpost_id`))) left join `districts` on((`s`.`district_id` = `districts`.`id`))) where ((`o`.`organization_level_id` = 3) and (`o`.`agency_id` = 2)) order by `districts`.`id` ;
+
+-- ----------------------------
+-- View structure for v_district_officer_jms
+-- ----------------------------
+DROP VIEW IF EXISTS `v_district_officer_jms`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`mowcahrm_user`@`%` SQL SECURITY DEFINER VIEW `v_district_officer_jms` AS select `ag`.`name_BN` AS `agency`,`ot`.`name_BN` AS `organization_type`,`s`.`organization_name` AS `organization`,`s`.`designation_id` AS `designation_id`,`s`.`designation_name` AS `designation`,`districts`.`id` AS `district_id`,`districts`.`name_BN` AS `district`,`e`.`name_BN` AS `employee`,`e`.`mobile_no` AS `mobile`,`e`.`email` AS `email`,`s`.`status` AS `STATUS` from (((((`sanctionedposts` `s` left join `organizations` `o` on((`s`.`organization_id` = `o`.`id`))) left join `organization_types` `ot` on((`ot`.`id` = `o`.`organization_type_id`))) left join `agencies` `ag` on((`o`.`agency_id` = `ag`.`id`))) left join `employees` `e` on((`s`.`id` = `e`.`posting_sanctionedpost_id`))) left join `districts` on((`s`.`district_id` = `districts`.`id`))) where ((`o`.`organization_level_id` = 3) and (`o`.`agency_id` = 1)) order by `districts`.`id` ;
+
+-- ----------------------------
 -- View structure for v_organization
 -- ----------------------------
 DROP VIEW IF EXISTS `v_organization`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER  VIEW `v_organization` AS SELECT
-  ag.name_BN as agency,
-ot.name_BN as organization_type,
-	s.organization_name AS organization,
-	divisions.name_BN AS division,
-	districts.name_BN AS district,
-	upazilas.name_BN AS upazila,
-o.address as address
-FROM
-	`sanctionedposts` AS s
-	LEFT JOIN organizations AS o ON s.organization_id = o.id
-LEFT JOIN organization_types AS ot ON ot.id = o.organization_type_id
-	LEFT JOIN agencies AS ag ON o.agency_id = ag.id
-	LEFT JOIN divisions ON s.division_id = divisions.id
-	LEFT JOIN districts ON s.district_id = districts.id
-	LEFT JOIN upazilas ON s.upazila_id = upazilas.id
-ORDER BY divisions.id, districts.id, upazilas.id ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`mowcahrm_user`@`%` SQL SECURITY DEFINER VIEW `v_organization` AS select `ag`.`name_BN` AS `agency`,`ot`.`name_BN` AS `organization_type`,`s`.`organization_name` AS `organization`,`divisions`.`name_BN` AS `division`,`districts`.`name_BN` AS `district`,`upazilas`.`name_BN` AS `upazila`,`o`.`address` AS `address` from ((((((`sanctionedposts` `s` left join `organizations` `o` on((`s`.`organization_id` = `o`.`id`))) left join `organization_types` `ot` on((`ot`.`id` = `o`.`organization_type_id`))) left join `agencies` `ag` on((`o`.`agency_id` = `ag`.`id`))) left join `divisions` on((`s`.`division_id` = `divisions`.`id`))) left join `districts` on((`s`.`district_id` = `districts`.`id`))) left join `upazilas` on((`s`.`upazila_id` = `upazilas`.`id`))) order by `divisions`.`id`,`districts`.`id`,`upazilas`.`id` ;
 
 -- ----------------------------
 -- View structure for v_poststatus
 -- ----------------------------
 DROP VIEW IF EXISTS `v_poststatus`;
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER  VIEW `v_poststatus` AS SELECT
-	ag.name_BN AS agency,
-	ot.name_BN AS organization_type,
-	s.organization_name AS organization,
-s.designation_id AS designation_id,
-	s.designation_name AS designation,
-	divisions.id AS division_id,
-	districts.id AS district_id,
-	upazilas.id AS upazila_id,
-	divisions.name_BN AS division,
-	districts.name_BN AS district,
-	upazilas.name_BN AS upazila,
-	e.name_BN AS employee,
-	e.mobile_no AS mobile,
-e.email as email,
-	s.`status` AS STATUS
-FROM
-	`sanctionedposts` AS s
-LEFT JOIN organizations AS o ON s.organization_id = o.id
-LEFT JOIN organization_types AS ot ON ot.id = o.organization_type_id
-LEFT JOIN agencies AS ag ON o.agency_id = ag.id
-LEFT JOIN employees AS e ON s.id = e.posting_sanctionedpost_id
-LEFT JOIN divisions ON s.division_id = divisions.id
-LEFT JOIN districts ON s.district_id = districts.id
-LEFT JOIN upazilas ON s.upazila_id = upazilas.id
-ORDER BY
-	divisions.id,
-	districts.id,
-	upazilas.id ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`mowcahrm_user`@`%` SQL SECURITY DEFINER VIEW `v_poststatus` AS select `ag`.`name_BN` AS `agency`,`ot`.`name_BN` AS `organization_type`,`s`.`organization_name` AS `organization`,`s`.`designation_id` AS `designation_id`,`s`.`designation_name` AS `designation`,`divisions`.`id` AS `division_id`,`districts`.`id` AS `district_id`,`upazilas`.`id` AS `upazila_id`,`divisions`.`name_BN` AS `division`,`districts`.`name_BN` AS `district`,`upazilas`.`name_BN` AS `upazila`,`e`.`name_BN` AS `employee`,`e`.`mobile_no` AS `mobile`,`e`.`email` AS `email`,`s`.`status` AS `STATUS` from (((((((`sanctionedposts` `s` left join `organizations` `o` on((`s`.`organization_id` = `o`.`id`))) left join `organization_types` `ot` on((`ot`.`id` = `o`.`organization_type_id`))) left join `agencies` `ag` on((`o`.`agency_id` = `ag`.`id`))) left join `employees` `e` on((`s`.`id` = `e`.`posting_sanctionedpost_id`))) left join `divisions` on((`s`.`division_id` = `divisions`.`id`))) left join `districts` on((`s`.`district_id` = `districts`.`id`))) left join `upazilas` on((`s`.`upazila_id` = `upazilas`.`id`))) order by `divisions`.`id`,`districts`.`id`,`upazilas`.`id` ;
