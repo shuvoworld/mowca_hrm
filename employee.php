@@ -168,8 +168,8 @@ $pdocrud->fieldRenameLable("national_id", "জাতীয় পরিচয়পত
 $pdocrud->fieldRenameLable("mobile_no", "মোবাইল");
 $pdocrud->fieldRenameLable("alternate_mobile_no", "বিকল্প মোবাইল");
 $pdocrud->fieldRenameLable("email", "ইমেইল");
-$pdocrud->fieldRenameLable("mother_name", "মার নাম (বাংলায়)");
-$pdocrud->fieldRenameLable("father_name", "বাবার নাম (বাংলায়)");
+$pdocrud->fieldRenameLable("mother_name", "মাতার নাম (বাংলায়)");
+$pdocrud->fieldRenameLable("father_name", "পিতার নাম (বাংলায়)");
 $pdocrud->fieldRenameLable("quota_id", "কোটা");
 $pdocrud->fieldRenameLable("sex_id", "লিঙ্গ");
 $pdocrud->fieldRenameLable("religion_id", "ধর্ম");
