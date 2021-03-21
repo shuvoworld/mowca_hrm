@@ -52,7 +52,7 @@ while (($data = mysqli_fetch_assoc($query))) {
                         <div class="icon">
                             <i class="ion ion-stats-bars"></i>
                         </div>
-                        <a href="#" class="small-box-footer">তালিকা দেখুন <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="uwao.php" class="small-box-footer">তালিকা দেখুন <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <!-- ./col -->
@@ -75,14 +75,14 @@ while (($data = mysqli_fetch_assoc($query))) {
                     <!-- small box -->
                     <div class="small-box bg-danger">
                         <div class="inner">
-                            <h4>জেলা শিশু কর্মকর্তা</h4>
+                            <h4>জেলা শিশু বিষয়ক কর্মকর্তা</h4>
 
                             <p>বাংলাদেশ শিশু একাডেমি</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-pie-graph"></i>
                         </div>
-                        <a href="#" class="small-box-footer">তালিকা দেখুন <i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="district_officer_bsa.php" class="small-box-footer">তালিকা দেখুন <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <!-- ./col -->

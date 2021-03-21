@@ -1,10 +1,10 @@
 <?php
 include('database_connection.php');
-$upazila = '';
-$sql = "SELECT id, name_BN FROM upazilas";
+$district = '';
+$sql = "SELECT id, name_BN FROM districts";
 $query = mysqli_query($DBconnect, $sql);
 while (($data = mysqli_fetch_assoc($query))) {
-    $upazila .= '<option value="' . $data['id'] . '">' . $data['name_BN'] . '</option>';
+    $district .= '<option value="' . $data['id'] . '">' . $data['name_BN'] . '</option>';
 }
 ?>
 
@@ -29,22 +29,22 @@ while (($data = mysqli_fetch_assoc($query))) {
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">মহিলা বিষয়ক অধিদপ্তরের উপজেলা মহিলা বিষয়ক কর্মকর্তাগণের তথ্য</h3>
+                        <h3 class="card-title">বাংলাদেশ শিশু একাডেমি'র জেলা শিশু বিষয়ক কর্মকর্তা'র তথ্য</h3>
                     </div>
                     <!-- /.card-header -->
                     <!-- /.col -->
 
                     <div class="card-body">
                         <div class="form-group col-md-3">
-                            <select name="filter_upazila" id="filter_upazila" class="form-control">
-                                <option value="">উপজেলা নির্বাচন করুন</option>
-                                <?php echo $upazila; ?>
+                            <select name="filter_district" id="filter_district" class="form-control">
+                                <option value="">জেলা নির্বাচন করুন</option>
+                                <?php echo $district; ?>
                             </select>
                         </div>
-                        <table id="uwao_data" class="table table-bordered table-hover">
+                        <table id="district_officer_bsa_data" class="table table-bordered table-hover">
                             <thead>
                             <tr>
-                                <th>উপজেলা</th>
+                                <th>জেলা</th>
                                 <th>কর্মকর্তা/কর্মচারী'র নাম</th>
                                 <th>মোবাইল</th>
                                 <th>ইমেইল</th>
@@ -69,23 +69,23 @@ while (($data = mysqli_fetch_assoc($query))) {
 <!-- page script -->
 <script>
     $(document).ready(function () {
-        $('#uwao_data').DataTable({
+        $('#district_officer_bsa_data').DataTable({
             'processing': true,
             'serverSide': true,
             "orderMulti": true,
             "order": [[0, "asc"]],
             'serverMethod': 'post',
             'ajax': {
-                'url': 'uwao_api.php',
+                'url': 'district_officer_bsa_api.php',
                 'data': function (data) {
-                    var filter_upazila = $('#filter_upazila').val(); // Read values
-                    data.filter_upazila = filter_upazila;            // Append to data
+                    var filter_district = $('#filter_district').val(); // Read values
+                    data.filter_district = filter_district;            // Append to data
                 }
             }
         });
 
-        $('#filter_upazila').change(function () {
-            $('#uwao_data').DataTable().draw();
+        $('#filter_district').change(function () {
+            $('#district_officer_bsa_data').DataTable().draw();
         });
         //$('#filter_district').select2();
     });
