@@ -29,7 +29,7 @@ while (($data = mysqli_fetch_assoc($query))) {
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">মহিলা বিষয়ক অধিদপ্তরের উপ পরিচালকগণের তথ্য</h3>
+                        <h3 class="card-title">মহিলা বিষয়ক অধিদপ্তরের তথ্য</h3>
                     </div>
                     <!-- /.card-header -->
                     <!-- /.col -->
@@ -45,6 +45,7 @@ while (($data = mysqli_fetch_assoc($query))) {
                             <thead>
                             <tr>
                                 <th>জেলা</th>
+                                <th>উপজেলা</th>
                                 <th>কর্মকর্তা/কর্মচারী'র নাম</th>
                                 <th>মোবাইল</th>
                                 <th>ইমেইল</th>
@@ -76,7 +77,7 @@ while (($data = mysqli_fetch_assoc($query))) {
             "order": [[0, "asc"]],
             'serverMethod': 'post',
             'ajax': {
-                'url': 'dd_api.php',
+                'url': 'dwa_api.php',
                 'data': function (data) {
                     var filter_district = $('#filter_district').val(); // Read values
                     data.filter_district = filter_district;            // Append to data
