@@ -56,7 +56,7 @@
                         </li>
                         <div class="dropdown-divider"></div>
                         <li class="nav-item">
-                            <a href="dwa.php" class="nav-link">
+                            <a href="jms.php" class="nav-link">
                                 <i class="nav-icon fas fa-user"></i>
                                 <p>
                                     জাতীয় মহিলা সংস্থা
@@ -65,7 +65,7 @@
                         </li>
                         <div class="dropdown-divider"></div>
                         <li class="nav-item">
-                            <a href="dwa.php" class="nav-link">
+                            <a href="bsa.php" class="nav-link">
                                 <i class="nav-icon fas fa-address-book"></i>
                                 <p>
                                     বাংলাদেশ শিশু একাডেমি
