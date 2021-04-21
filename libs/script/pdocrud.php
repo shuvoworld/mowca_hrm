@@ -49,7 +49,7 @@ function getAmount($data, $obj){
 
 function beforeUpdateCallBack($data, $obj) {
     $data['organizations']['updated_by'] = $_SESSION['user_id'];
-    $data['organizations']['updated_at'] = date('Y/m/d h:i:s a', time());
+    $data['organizations']['updated_at'] = date('Y-m-d h:i:s a', time());
     return $data;
 }
 
@@ -154,7 +154,7 @@ function beforeUpdatePosting($data, $obj) {
         $data['contact_directory']['division_name'] = $divisions[0]['name_BN'];
         $data['contact_directory']['district_name'] = $districts[0]['name_BN'];
         $data['contact_directory']['upazila_name'] = $upazilas[0]['name_BN'];
-        $data['contact_directory']['updated_at'] = date('Y/m/d h:i:s a', time());
+        $data['contact_directory']['updated_at'] = date('Y-m-d h:i:s a', time());
         return $data;
         
     }

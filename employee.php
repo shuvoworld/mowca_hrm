@@ -22,8 +22,8 @@ $pEmployeePosting->crudTableCol(array(
   "start_date",
   "end_date"
 ));
-$pEmployeePosting->fieldNotMandatory("end_date");
-$pEmployeePosting->formDisplayInPopup();
+//$pEmployeePosting->fieldNotMandatory("end_date");
+//$pEmployeePosting->formDisplayInPopup();
 $pEmployeePosting->crudTableCol(array("sanctionedpost_id","type_of_posting","start_date","end_date"));
 $pEmployeePosting->fieldRenameLable("sanctionedpost_id", "পদবী");
 $pEmployeePosting->fieldRenameLable("type_of_posting", "টাইপ");
@@ -36,7 +36,8 @@ $pEmployeePosting->colRename("start_date", "শুরু");
 $pEmployeePosting->colRename("end_date", "শেষ");
 
 $pEmployeePosting->fieldGroups("Permanent_Address",array("division_id","district_id", "upazila_id", "organization_id"));
-$pEmployeePosting->fieldGroups("Date",array("start_date","end_date"));
+//$pEmployeePosting->fieldGroups("Date",array("start_date","end_date"));
+$pEmployeePosting->fieldFormula("end_Date", "Date",array("type" =>"null"));
 
 $pEmployeePosting->fieldTypes("division_id", "select"); //change type to select
 $pEmployeePosting->fieldDataBinding("division_id", "divisions", "id", "name_BN", "db");
@@ -57,6 +58,9 @@ $pEmployeePosting->fieldDependent("district_id", "division_id", "division_id");
 $pEmployeePosting->fieldDependent("upazila_id", "district_id", "district_id");
 $pEmployeePosting->fieldDependent("organization_id", "upazila_id", "upazila_id");
 $pEmployeePosting->fieldDependent("sanctionedpost_id", "organization_id", "organization_id");
+$pEmployeePosting->fieldDataAttr("updated_at", array("disabled"=>"disabled"));
+
+
 
 $pEmployeePosting->fieldTypes("type_of_posting", "select"); //change type to select
 $pEmployeePosting->fieldDataBinding("type_of_posting", "type_of_posting", "id", "name_BN", "db"); //load select data
@@ -154,6 +158,26 @@ $pdocrud->fieldDependent("posting_upazila_id", "posting_district_id", "district_
 $pdocrud->fieldDependent("posting_organization_id", "posting_upazila_id", "upazila_id");
 $pdocrud->fieldDependent("posting_sanctionedpost_id", "posting_organization_id", "organization_id");
 
+$pdocrud->fieldTypes("additional_posting_division_id", "select"); //change type to select
+$pdocrud->fieldDataBinding("additional_posting_division_id", "divisions", "id", "name_BN", "db");
+
+$pdocrud->fieldTypes("additional_posting_district_id", "select"); //change type to select
+$pdocrud->fieldDataBinding("additional_posting_district_id", "districts", "id", "name_BN", "db");
+
+$pdocrud->fieldTypes("additional_posting_upazila_id", "select"); //change type to select
+$pdocrud->fieldDataBinding("additional_posting_upazila_id", "upazilas", "id", "name_BN", "db");
+
+$pdocrud->fieldTypes("additional_posting_organization_id", "select"); //change type to select
+$pdocrud->fieldDataBinding("additional_posting_organization_id", "organizations", "id", "name", "db");
+
+$pdocrud->fieldTypes("additional_posting_sanctionedpost_id", "select"); //change type to select
+$pdocrud->fieldDataBinding("additional_posting_sanctionedpost_id", "sanctionedposts", "id", "designation_name", "db");
+
+$pdocrud->fieldDependent("additional_posting_district_id", "additional_posting_division_id", "division_id");
+$pdocrud->fieldDependent("additional_posting_upazila_id", "additional_posting_district_id", "district_id");
+$pdocrud->fieldDependent("additional_posting_organization_id", "additional_posting_upazila_id", "upazila_id");
+$pdocrud->fieldDependent("additional_posting_sanctionedpost_id", "additional_posting_organization_id", "organization_id");
+
 $pdocrud->crudTableCol(array("name_BN","national_id", "mobile_no", "email", "updated_at"));
 
 $pdocrud->colRename("name_BN", "নাম");
@@ -188,11 +212,17 @@ $pdocrud->fieldRenameLable("present_place_joing_date", "বর্তমান �
 $pdocrud->fieldRenameLable("present_post_joining_date", "বর্তমান পদে যোগদানের তারিখ");
 $pdocrud->fieldRenameLable("last_promoted_post_id", "সর্বশেষ পদোন্নতি প্রাপ্ত পদ");
 $pdocrud->fieldRenameLable("last_promotion_date", "সর্বশেষ পদোন্নতির তারিখ");
-$pdocrud->fieldRenameLable("posting_division_id", "পদায়িত বিভাগ");
-$pdocrud->fieldRenameLable("posting_district_id", "পদায়িত জেলা");
-$pdocrud->fieldRenameLable("posting_upazila_id", "পদায়িত উপজেলা");
-$pdocrud->fieldRenameLable("posting_organization_id", "পদায়িত প্রতিষ্ঠান");
-$pdocrud->fieldRenameLable("posting_sanctionedpost_id", "পদ (নিয়মিত)");
+$pdocrud->fieldRenameLable("posting_division_id", "বিভাগ (নিয়মিত পদায়ন)");
+$pdocrud->fieldRenameLable("posting_district_id", "জেলা (নিয়মিত পদায়ন)");
+$pdocrud->fieldRenameLable("posting_upazila_id", "উপজেলা (নিয়মিত পদায়ন)");
+$pdocrud->fieldRenameLable("posting_organization_id", "প্রতিষ্ঠান (নিয়মিত পদায়ন)");
+$pdocrud->fieldRenameLable("posting_sanctionedpost_id", "পদ (নিয়মিত পদায়ন)");
+
+$pdocrud->fieldRenameLable("additional_posting_division_id", "বিভাগ (সংযুক্তি/অতিরিক্ত দায়িত্ব)");
+$pdocrud->fieldRenameLable("additional_posting_district_id", "জেলা (সংযুক্তি/অতিরিক্ত দায়িত্ব)");
+$pdocrud->fieldRenameLable("additional_posting_upazila_id", "উপজেলা (সংযুক্তি/অতিরিক্ত দায়িত্ব)");
+$pdocrud->fieldRenameLable("additional_posting_organization_id", "প্রতিষ্ঠান (সংযুক্তি/অতিরিক্ত দায়িত্ব)");
+$pdocrud->fieldRenameLable("additional_posting_sanctionedpost_id", "পদ (সংযুক্তি/অতিরিক্ত দায়িত্ব))");
 $pdocrud->fieldDataAttr("created_at", array("disabled"=>"disabled"));
 
 $pdocrud->addCallback("before_insert", "beforeInsertCallBack");
@@ -258,6 +288,11 @@ $pdocrud->fieldDisplayOrder(array("agency_id","name_BN","name_EN","mother_name",
 "posting_upazila_id",
 "posting_organization_id",
 "posting_sanctionedpost_id",
+"additional_posting_division_id",
+"additional_posting_district_id",
+"additional_posting_upazila_id",
+"additional_posting_organization_id",
+"additional_posting_sanctionedpost_id",
 "created_at", "created_by", "updated_at", "updated_by"
 ));
 $pdocrud->fieldNotMandatory("alternate_mobile_no");
@@ -290,6 +325,8 @@ $pdocrud->fieldGroups("Permanent_Address",array("permanent_division_id","permane
 $pdocrud->fieldGroups("service_dates",array("joining_govt_service_date","present_place_joing_date", "present_post_joining_date"));
 $pdocrud->fieldGroups("present_posting",array("posting_division_id","posting_district_id", "posting_upazila_id"));
 $pdocrud->fieldGroups("present_posting_second",array("posting_organization_id", "posting_sanctionedpost_id"));
+$pdocrud->fieldGroups("additional_posting",array("additional_posting_division_id","additional_posting_district_id", "additional_posting_upazila_id"));
+$pdocrud->fieldGroups("additional_posting_second",array("additional_posting_organization_id", "additional_posting_sanctionedpost_id"));
 $pdocrud->fieldGroups("last_promotion",array("last_promoted_post_id", "last_promotion_date"));
 $pdocrud->fieldGroups("create_info",array("created_at", "created_by","updated_at", "updated_by"));
 $pdocrud->checkDuplicateRecord(array("mobile_no", "national_id", "posting_sanctionedpost_id"));
