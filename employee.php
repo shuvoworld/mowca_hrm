@@ -22,6 +22,7 @@ $pEmployeePosting->crudTableCol(array(
   "start_date",
   "end_date"
 ));
+$pEmployeePosting->tableHeading("পোস্টিং সংক্রান্ত তথ্য (অদ্যাবধি সকল পদায়নের)");
 //$pEmployeePosting->fieldNotMandatory("end_date");
 //$pEmployeePosting->formDisplayInPopup();
 $pEmployeePosting->crudTableCol(array("sanctionedpost_id","type_of_posting","start_date","end_date"));
@@ -83,6 +84,8 @@ $pEmployeePromotion = new PDOCrud(true);
 $pEmployeePromotion->dbTable("promotion");
 $pEmployeePromotion->formDisplayInPopup();
 $pEmployeePromotion->addPlugin("select2");//to add plugin
+
+$pEmployeePromotion->tableHeading("পদোন্নতি সংক্রান্ত তথ্য)");
 
 $pdocrud->multiTableRelation("id", "employee_id", $pEmployeePromotion);
 
