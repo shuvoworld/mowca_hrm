@@ -23,6 +23,19 @@ $page_title = 'Short PDS';
 require_once 'includes/load.php';
 $id =  $_GET['id'];
 $employeeinfo = employeeSingleInfo($id);
+$employeePostinginfo = employeePostingInfo($id);
+
+$mpdf->SetHTMLHeader('
+<div style="text-align: left">
+   <img src="assets/logo.png" width="60">
+</div>');
+$mpdf->SetHTMLFooter('
+<table width="100%">
+    <tr>
+        <td width="33%">Print Date and Time: {DATE j-m-Y}</td>
+        <td width="33%" align="center">{PAGENO}/{nbpg}</td>
+    </tr>
+</table>');
 
 $html='<!DOCTYPE html>
 <html>
@@ -101,13 +114,13 @@ $html='<!DOCTYPE html>
       জন্ম তারিখঃ
       </td>
       <td>';
-      $html = $html. convertEnglishDigitToBengali($employeeinfo[0]['dob']);
+      $html = $html. convertEnglishDigitToBengali(date("d-m-Y", strtotime($employeeinfo[0]['dob'])));
       $html = $html. '</td>
       <td>
       PRL এ গমনের তারিখঃ
       </td>
       <td>';
-      $html = $html. convertEnglishDigitToBengali($employeeinfo[0]['prl_date']);
+      $html = $html. convertEnglishDigitToBengali(date("d-m-Y", strtotime($employeeinfo[0]['prl_date'])));
       $html = $html. '</td>
     </tr>
     <tr>
@@ -179,13 +192,13 @@ $html='<!DOCTYPE html>
     সরকারী চাকুরীতে প্রথম যোগদানের তারিখঃ
     </td>
     <td>';
-    $html = $html. convertEnglishDigitToBengali($employeeinfo[0]['joining_govt_service_date']);
+    $html = $html. convertEnglishDigitToBengali(date("d-m-Y", strtotime($employeeinfo[0]['joining_govt_service_date'])));
     $html = $html. '</td>
     <td>
     বর্তমান পদে যোগদানের তারিখঃ
     </td>
     <td>';
-    $html = $html. convertEnglishDigitToBengali($employeeinfo[0]['present_post_joining_date']);
+    $html = $html. convertEnglishDigitToBengali(date("d-m-Y", strtotime($employeeinfo[0]['present_post_joining_date'])));
     $html = $html. '</td>
   </tr>
   <tr>
@@ -199,7 +212,7 @@ $html='<!DOCTYPE html>
     সর্বশেষ পদোন্নতি\'র তারিখঃ
     </td>
     <td>';
-    $html = $html. convertEnglishDigitToBengali($employeeinfo[0]['last_promotion_date']);
+    $html = $html. convertEnglishDigitToBengali(date("d-m-Y", strtotime($employeeinfo[0]['last_promotion_date'])));
     $html = $html. '</td>
   </tr>
   <tr>
@@ -230,9 +243,38 @@ $html='<!DOCTYPE html>
       $html = $html. '</td>
     </tr>
   </tr>
-    </table>
-</body>
-</html>';
+    </table>';
+$html = $html. '<b>পদায়নের তথ্য<b>';
+      $html = $html.'<table border="1" width="100%" style="font-size: 16px; border-collapse: collapse;">';
+      $html = $html. '<tr>
+<td>ক্রম</td>
+    <td>পদবী</td>
+    <td>প্রতিষ্ঠান</td>
+    <td>জেলা</td>
+    <td>উপজেলা</td>
+    <td>নিয়মিত/সংযুক্ত/অতিঃ দায়িত্ব </td>
+    <td>শুরু</td>
+    <td>শেষ</td>
+    </tr>';
+
+      $i = 1;
+      foreach ($employeePostinginfo as $posting)
+        {
+        $html = $html.'<tr>';
+        $html = $html.'<td>'.$i.'</td>';
+        $html = $html. '<td>' . name_from_id('sanctionedposts', 'designation_name', $posting['sanctionedpost_id']) . '</td>';
+        $html = $html. '<td>' . name_from_id('organizations', 'name_BN', $posting['organization_id']) . '</td>';
+        $html = $html. '<td>' . name_from_id('districts',  'name_BN', $posting['district_id']) . '</td>';
+        $html = $html. '<td>' . name_from_id('upazilas',  'name_BN', $posting['upazila_id']) . '</td>';
+        $html = $html. '<td>' . name_from_id('type_of_posting',  'name_BN', $posting['type_of_posting']). '</td>';
+        $html = $html. '<td>' . convertEnglishDigitToBengali(date("d-m-Y", strtotime($posting['start_date']))) . '</td>';
+        $html = $html. '<td>' . convertEnglishDigitToBengali(date("d-m-Y", strtotime($posting['end_date']))). '</td>';
+        $html = $html. '</tr>';
+        $i++;
+        }
+
+$html = $html.'</table>';
+$html = $html.'</body></html>';
 $mpdf->WriteHTML($html);
-$mpdf->Output();
+$mpdf->Output($employeeinfo[0]['id'].'.pdf', 'I');
 ?>

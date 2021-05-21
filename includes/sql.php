@@ -287,4 +287,12 @@ function employeeSingleInfo($employee_id)
   return find_by_sql($sql);
 }
 
+function employeePostingInfo($employee_id)
+{
+  global $db;
+  $results = array();
+  $sql = "SELECT * from posting WHERE employee_id = ". $employee_id;
+  $result = find_by_sql($sql);
+  return $result;
+}
 ?>
